@@ -1,0 +1,165 @@
+.Main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  min-height: 100vh;
+  background-color: #262C35;
+  transition: background-color 2s ease-in-out 1s;
+
+  h1 {
+    font-size: 2rem;
+    position: relative;
+    font-weight: 400;
+    pointer-events: none;
+
+    & > span {
+      visibility: hidden;
+      opacity: 0;
+      color: #222831;
+    }
+  }
+}
+
+.MainSecondBackground {
+  background-color: #0A0D13;
+}
+
+.MainPrimaryBackground {
+  background-color: #222831;
+}
+
+.Logo {
+  position: absolute;
+  max-width: 120px;
+  top: 100px;
+  opacity: 0;
+  transition: opacity 3s ease-in-out 2.5s;
+}
+
+.LogoVisible {
+  opacity: 1;
+}
+
+.LogoHidden {
+  opacity: 0 !important;
+}
+
+
+.PlayButton {
+  position: absolute;
+  max-width: 50px;
+  margin-top: 200px;
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+  background: none;
+  outline: none;
+  border: none;
+  pointer-events: none;
+}
+
+.PlayButtonVisible {
+  opacity: 0.75;
+  transition: opacity 2s ease-in-out, transform 300ms ease-in-out;
+  pointer-events: initial;
+  cursor: pointer;
+  
+  &:hover {
+    transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.PlayButtonHidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  cursor: initial !important;
+}
+
+.MainText {
+  color: #EEEEEE;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 12;
+  width: 100%;
+}
+
+.MainTextShadow {
+  color: #00ADB5;
+  position: absolute;
+  top: 2px;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+}
+
+.SecondaryTextContainer {
+  font-size: 1rem;
+  position: relative;
+  font-weight: 400;
+
+  & > span {
+    visibility: hidden;
+    opacity: 0;
+    color: #222831;
+  }
+}
+
+.SecondaryText {
+  color: #EEEEEE;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 12;
+  width: 100%;
+}
+
+.SecondaryTextShadow {
+  color: #00ADB5;
+  position: absolute;
+  top: 2px;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+}
+
+
+@media (min-width: 425px) {
+  .Main {
+    h1 {
+      font-size: 3rem;
+    }
+  }
+
+  .SecondaryTextContainer {
+    font-size: 2rem;
+  }
+
+  .PlayButton {
+    max-width: 60px;
+    margin-top: 250px;
+  }
+}
+
+@media (min-width: 768px) {
+  .Main {
+    h1 {
+      font-size: 4rem;
+    }
+  }
+
+  .Logo {
+    max-width: 150px;
+  }
+  
+  .SecondaryTextContainer {
+    font-size: 3rem;
+  }
+
+  .PlayButton {
+    max-width: 75px;
+  }
+}
