@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
+  padding: .5rem;
   min-height: 100vh;
   background-color: #262C35;
   transition: background-color 2s ease-in-out 1s;
@@ -24,6 +24,11 @@
 
 .MainSecondBackground {
   background-color: #0A0D13;
+
+  h1 {
+    width: 100%;
+    text-align: center;
+  }
 }
 
 .MainPrimaryBackground {
@@ -146,6 +151,8 @@
 
 @media (min-width: 768px) {
   .Main {
+    padding: 1em;
+    
     h1 {
       font-size: 4rem;
     }
