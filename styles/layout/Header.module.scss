@@ -1,0 +1,160 @@
+@use "../variables" as var;
+
+.HeaderContainer {
+  background-color: black;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 5000;
+  background: none;
+  @extend %xPadding;
+}
+
+.HeaderBackdrop {
+  background-color: rgba(var.$primaryDarkColor, 0.9);
+  backdrop-filter: blur(20px);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.Header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: var.$headerHeight;
+}
+
+.Logo {
+  max-width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Navbar {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  top: 100%;
+  background-color: rgba(var.$primaryDarkColor, 0.9);
+  backdrop-filter: blur(20px);
+  width: 100%;
+  border-bottom: 1px solid var.$darkBlueColor;
+  padding: 2em 0;
+
+  transition: 200ms ease-in-out;
+  transition-property: max-height,opacity;
+  
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  z-index: -1;
+  pointer-events: none;
+  
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    margin-bottom: .5em;
+    font-family: var.$novaFont;
+    padding: .75em 0;
+    width: 100%;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    
+    &:hover, &:active, &:focus {
+      background-color: rgba(#262c35, 0.9);
+    }
+  }
+}
+
+.NavbarOpened {
+  max-height: 800px;
+  opacity: 1;
+  z-index: 4500;
+  pointer-events: initial;
+}
+
+.MenuButton {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 100%;
+  @extend %xMargin;
+  margin-left: 0;
+
+  span {
+    height: 3px;
+    width: 100%;
+    background-color: var.$primaryColor;
+    margin-bottom: 6px;
+    position: relative;
+    border-radius: 5px;
+    transition: all 200ms ease-in-out;
+
+    &:nth-child(1) {
+      width: 70%;
+      transform: translateX(-22%);
+    }
+
+    &:nth-child(3) {
+      width: 70%;
+      transform: translateX(20%);
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &::after {
+      content: "";
+      height: 3px;
+      width: 100%;
+      background-color: var.$whiteColor;
+      margin-bottom: 6px;
+      position: absolute;
+      top: -1px;
+      left: 0;
+      border-radius: 5px;
+      transition: all 200ms ease-in-out;
+
+      &:nth-child(1) {
+        width: 70%;
+      }
+
+      &:nth-child(3) {
+        width: 70%;
+      }
+    }
+  }
+}
+
+.MenuButtonOpened {
+  span, span::after {
+    margin-bottom: 4px;
+  }
+
+  span:nth-child(1) {
+    transform: translateX(22%);
+  }
+
+  span:nth-child(3) {
+    transform: translateX(-20%);
+  }
+
+}

@@ -1,47 +1,31 @@
 import Head from "next/head";
-import { Nova_Square } from "next/font/google";
-import classes from "@/styles/Home.module.scss";
-import Typewriter from "typewriter-effect";
-import Image from "next/legacy/image";
-import { useEffect, useState } from "react";
+import classes from "@/styles/Index.module.scss";
+import Home from "@/components/sections/Home";
+import AboutMe from "@/components/sections/AboutMe";
+import WorkExperience from "@/components/sections/WorkExperience";
+import Contact from "@/components/sections/Contact";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import Layout from "@/components/layout/Layout";
 
-const novaSquare = Nova_Square({subsets: ["latin"], weight: ["400"]});
-
-export default function Home() {
-
-  const [isLogoVisible, setIsLogoVisible] = useState(false);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLogoVisible(true)
-    }, 2500);
-  }, [])
+export default function Index() {
 
   return (
     <>
       <Head>
-        <title>Nas</title>
-        <meta name="description" content="Nas" />
+        <title>Nas - Software Developer</title>
+        <meta name="description" content="I'm Nas, a seasoned Software Developer with the expertise to guide your journey to excellence through elegant and effective lines of code." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={`${classes.Main} ${novaSquare.className}`}>
 
-        <div className={`${classes.Logo} ${isLogoVisible ? classes.LogoVisible : ""}`}>
-          <Image src="/logo.svg" height={195} width={185} />
-        </div>
+      <Layout>
 
-        <h1>
-          <span>Coming soon...</span>
-          <div className={classes.MainText}>
-            <Typewriter options={{ autoStart: true, delay: 200, strings: "Coming soon...", cursor: null}} />
-          </div>
-          <div className={classes.MainTextShadow}>
-            <Typewriter options={{autoStart: true, delay: 200, strings: "Coming soon...", cursor: null}} />
-          </div>
-        </h1>
+        <Home />
+        <AboutMe />
+        <WorkExperience />
+        <Contact />
 
-      </main>
+      </Layout>
     </>
   );
 }

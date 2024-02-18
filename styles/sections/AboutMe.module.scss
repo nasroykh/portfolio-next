@@ -1,0 +1,65 @@
+@use "../variables" as var;
+
+.AboutMeSection {
+  @extend %xPadding;
+}
+
+.Main {
+
+}
+
+.MainText {
+  margin-bottom: 4em;
+
+  h2 {
+    font-family: var.$novaFont;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 1.5em;
+    color: #EEEEEE;
+  }
+
+  p {
+    font-weight: 300;
+    font-size: 1.125rem;
+    color: #CBCBCB;
+    letter-spacing: 0.03rem;
+    text-align: justify;
+    margin-bottom: .75em;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    strong {
+      font-weight: 400;
+      color: #ECECEC;
+    }
+  }
+}
+
+.MainImage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  overflow: auto;
+  position: relative;
+  margin-bottom: 8em;
+}
+
+.Skills {
+
+}
+
+.SkillsFront {
+
+}
+
+.SkillsBack {
+
+}
+
+.SkillsTools {
+
+}
