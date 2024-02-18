@@ -1,0 +1,77 @@
+.Main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: .5rem;
+  min-height: 100vh;
+  background-color: #222831;
+  transition: background-color 2s ease-in-out 1s;
+
+  h1 {
+    font-size: 2rem;
+    position: relative;
+    font-weight: 400;
+    pointer-events: none;
+    width: 100%;
+    text-align: center;
+
+    & > span {
+      visibility: hidden;
+      opacity: 0;
+      color: #222831;
+    }
+  }
+}
+
+.Logo {
+  position: absolute;
+  max-width: 130px;
+  top: 100px;
+  opacity: 0;
+  transition: opacity 3s ease-in-out 2.5s;
+}
+
+.LogoVisible {
+  opacity: 1;
+}
+
+.MainText {
+  color: #EEEEEE;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 12;
+  width: 100%;
+}
+
+.MainTextShadow {
+  color: #00ADB5;
+  position: absolute;
+  top: 2px;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+}
+
+@media (min-width: 425px) {
+  .Main {
+    h1 {
+      font-size: 3rem;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .Main {
+    padding: 1em;
+    
+    h1 {
+      font-size: 4rem;
+    }
+  }
+
+  .Logo {
+    max-width: 150px;
+  }
+}
