@@ -46,15 +46,30 @@ a {
 
 p {
   line-height: 1.4;
+  letter-spacing: 0.003rem;
 }
 
 h1,h2,h3,h4,h5,h6 {
   font-weight: 400;
   line-height: 1.1;
+  letter-spacing: 0.003rem;
 }
 
 input[type=checkbox], input[type=checkbox] + label, input[type=radio] + label {
   cursor: pointer;
+}
+
+.swiper-pagination {
+  bottom: -5px;
+}
+
+.swiper-pagination-bullet {
+  background-color: #0F1217 !important;
+  opacity: 1 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #EEEEEE !important;
 }
 
 @media (prefers-color-scheme: dark) {

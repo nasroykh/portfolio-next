@@ -2,6 +2,18 @@ import Icon from "@/components/assets/Icon";
 import classes from "@/styles/sections/Home.module.scss";
 import Image from "next/legacy/image";
 
+const swipeClickHandler = (e) => {
+  e.preventDefault();
+
+  let bodyRect = document.body.getBoundingClientRect();
+
+  let elementRect = document.querySelector(`#about-me`).getBoundingClientRect();
+
+  let scrollPosition = elementRect.top - bodyRect.top - 100;
+
+  scroll({top: scrollPosition}) 
+}
+
 const Home = () => {
   return (
     <section className={classes.HomeSection}>
@@ -23,7 +35,7 @@ const Home = () => {
       </div>
 
       <div className={classes.SwipeButton}>
-        <button>
+        <button onClick={swipeClickHandler}>
           <Icon id="arrow-long" />
         </button>
       </div>

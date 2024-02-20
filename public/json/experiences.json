@@ -1,0 +1,201 @@
+[
+	{
+		"id": "techivation",
+		"companyName": "Techivation Ltd",
+		"dateRange": "September 2021 - December 2023",
+		"role": "IT Specialist & Lead Developer",
+		"description": "As a Lead Developer, I navigated a challenging and thrilling journey, guiding the creation and perfection of both the website and API for a UK-based company eCommerce platform specializing in the sale of audio software products.",
+		"images": [
+			"techivation-1.png",
+			"techivation-2.png",
+			"techivation-3.png",
+			"techivation-4.png",
+			"techivation-5.png",
+			"techivation-6.png",
+			"techivation-7.png",
+			"techivation-8.png",
+			"techivation-9.png"
+		],
+		"buttons": [
+			{
+				"link": "https://techivation.com",
+				"label": "Visit website"
+			}
+		],
+		"achievements": [
+			{
+				"title": "Designed and Implemented Robust API & Database",
+				"description": ""
+			},
+			{
+				"title": "Innovative A/B Audio Player Development",
+				"description": ""
+			},
+			{
+				"title": "Developed Intuitive Admin & User Dashboards",
+				"description": ""
+			},
+			{
+				"title": "Active Involvement in Decision-Making",
+				"description": ""
+			},
+			{
+				"title": "Optimized website SEO and Performance",
+				"description": ""
+			},
+			{
+				"title": "Effective Team Management and Leadership",
+				"description": ""
+			},
+			{
+				"title": "Integrated Payment Gateways for Seamless Transactions",
+				"description": ""
+			},
+			{
+				"title": "Contributed to Page Design and Aesthetics",
+				"description": ""
+			},
+			{
+				"title": "Managed VPS and Nginx for Efficient Hosting",
+				"description": ""
+			},
+			{
+				"title": "Integrated Multiple Tracking Solutions",
+				"description": ""
+			}
+		]
+	},
+	{
+		"id": "solidersound",
+		"companyName": "SoliderSound Ltd",
+		"dateRange": "April 2023 - December 2023",
+		"role": "Lead Developer",
+		"description": "Played a key role in the development and administration of an eCommerce website for a company focused on audio plugins development.",
+		"images": [
+			"solidersound-1.png",
+			"solidersound-2.png",
+			"solidersound-3.png",
+			"solidersound-4.png",
+			"solidersound-5.png",
+			"solidersound-6.png",
+			"solidersound-7.png"
+		],
+		"buttons": [
+			{
+				"link": "https://solidersound.com",
+				"label": "Visit website"
+			}
+		],
+		"achievements": [
+			{
+				"title": "Led the Development of an eCommerce Website and System",
+				"description": ""
+			},
+			{
+				"title": "Effectively Managed and Led Development Teams",
+				"description": ""
+			},
+			{
+				"title": "Provided Input in Decision-Making Processes",
+				"description": ""
+			},
+			{
+				"title": "Architected and Implemented API & Database",
+				"description": ""
+			},
+			{
+				"title": "Implemented strategic SEO enhancements and performance optimizations",
+				"description": ""
+			},
+			{
+				"title": "Successfully integrated and configured Stripe and PayPal payment processing",
+				"description": ""
+			}
+		]
+	},
+	{
+		"id": "brenco",
+		"companyName": "BRENCO Engineering & Consulting",
+		"dateRange": "August 2021 - February 2022",
+		"role": "Full Stack Developer",
+		"description": "In my initial role as a Full-time Full Stack Developer within a prominent tech company, I took on the challenge of overseeing multiple projects concurrently, collaborating closely with a skilled team of managers, designers and developers.",
+		"images": [
+	
+		],
+		"buttons": [],
+		"achievements": [
+			{
+				"title": "Collaborated with Cross-Functional Teams on Diverse Projects",
+				"description": ""
+			},
+			{
+				"title": "Managed IoT API Infrastructure for Seamless Integration",
+				"description": ""
+			},
+			{
+				"title": "Transformed Websites into React-Based Interactive Platforms",
+				"description": ""
+			},
+			{
+				"title": "Developed and Deployed Server Monitoring Systems",
+				"description": ""
+			},
+			{
+				"title": "Partnered with Incubated Startups to Create Bespoke Websites",
+				"description": ""
+			},
+			{
+				"title": "Contributed to Developers Recruitment and Onboarding",
+				"description": ""
+			}
+		]
+	},
+	{
+		"id": "freelancing",
+		"companyName": "Freelancing / Personal Projects",
+		"dateRange": "Before August 2021",
+		"role": "Freelance Web Developer",
+		"description": "During an intensive 8-month period, I actively applied the range of technologies I had learned to a variety of projects. These included both personal endeavors and freelance work, offering me practical experience in real-world settings",
+		"images": [
+			"freelancing-1.png",
+			"freelancing-2.png",
+			"freelancing-3.png",
+			"freelancing-4.png",
+			"freelancing-5.png",
+			"freelancing-6.png",
+			"freelancing-7.png"
+		],
+		"buttons": [
+			{
+				"link": "https://old.nas.codes",
+				"label": "Visit old portfolio"
+			}
+		],
+		"achievements": [
+			{
+				"title": "Contributed to Freelance Projects, Delivering Tailored Solutions",
+				"description": ""
+			},
+			{
+				"title": "Studied and practiced making Shopify themes.",
+				"description": ""
+			},
+			{
+				"title": "Refined Front-End Development skills through personal projects.",
+				"description": ""
+			},
+			{
+				"title": "Architected a React Chat Application",
+				"description": ""
+			},
+			{
+				"title": "Crafted an Employees Management Software as part of Computer Science School Thesis",
+				"description": ""
+			},
+			{
+				"title": "Engineered a Patient Management Software for a Local Medical Center",
+				"description": ""
+			}
+		]
+	}
+]

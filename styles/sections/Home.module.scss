@@ -49,10 +49,20 @@
     align-items: center;
     justify-content: center;
     border-radius: 5px;
+    transition: background 150ms ease-in-out;
+
+    &:hover {
+      background-color: #00676d;
+
+      svg {
+        transform: translateY(4px);
+      }
+    }
   }
 
   svg {
     width: 1.25em;
+    transition: transform 150ms ease-in-out;
     
     &, * {
       fill: #EEEEEE;

@@ -8,7 +8,17 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Layout from "@/components/layout/Layout";
 
-export default function Index() {
+export const getStaticProps = async (ctx) => {
+	const experiences = require("@/public/json/experiences.json");
+
+	return {
+		props: {
+			experiences
+		}
+	}
+}
+
+export default function Index({experiences}) {
 
   return (
     <>
@@ -18,11 +28,11 @@ export default function Index() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <Layout>
+      <Layout >
 
         <Home />
         <AboutMe />
-        <WorkExperience />
+        <WorkExperience experiences={experiences} />
         <Contact />
 
       </Layout>

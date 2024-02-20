@@ -2,6 +2,7 @@
 
 .AboutMeSection {
   @extend %xPadding;
+  margin-bottom: 8em;
 }
 
 .Main {
@@ -23,8 +24,6 @@
     font-weight: 300;
     font-size: 1.125rem;
     color: #CBCBCB;
-    letter-spacing: 0.03rem;
-    text-align: justify;
     margin-bottom: .75em;
 
     &:last-child {
@@ -49,17 +48,57 @@
 }
 
 .Skills {
+  & > div {
+    background-color: #262C35;
+    border-radius: 5px;
+    margin-bottom: 1em;
+    padding: 2em 1em;
+  }
 
+  h3 {
+    font-size: 1.5rem;
+    font-family: var.$novaFont;
+    text-align: center;
+    margin-bottom: 1.5em;
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    gap: 2em;
+  }
+
+  li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    div {   
+      background-color: #1E242C;
+      border-radius: 7px;
+      border-bottom: 2px solid var.$primaryColor;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: .5em;
+      padding: .75em .625em;
+    }
+
+    h4 {
+      font-family: var.$novaFont;
+      font-size: .875rem;
+      text-align: center;
+    }
+  }
 }
 
 .SkillsFront {
-
 }
 
 .SkillsBack {
-
 }
 
 .SkillsTools {
-
 }

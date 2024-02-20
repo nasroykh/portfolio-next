@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Nova_Square, League_Spartan } from "next/font/google";
 
 import Header from "@/components/layout/Header";
@@ -14,6 +14,8 @@ const Layout = (props) => {
 
   return (
     <div className={`${classes.Layout} ${novaSquare.variable} ${leagueSpartan.variable}`}>
+      <div onClick={() => setIsNavbarOpened(false)} className={`${classes.Backdrop} ${isNavbarOpened ? classes.BackdropVisible : ""}`}></div>
+
       <Header isNavbarOpened={isNavbarOpened} setIsNavbarOpened={setIsNavbarOpened} />
 
       <main className={classes.Main}>

@@ -2,6 +2,9 @@ import Image from "next/legacy/image";
 import Icon from "@/components/assets/Icon";
 import classes from "@/styles/sections/AboutMe.module.scss"
 
+import {EffectFade, Autoplay} from "swiper/modules";
+import {Swiper, SwiperSlide} from "swiper/react";
+
 const FRONT_END_SKILLS = [
 	{
 		id: "html",
@@ -125,7 +128,7 @@ const TOOLS_SKILLS = [
 
 const AboutMe = () => {
 	return (
-		<section className={classes.AboutMeSection}>
+		<section id="about-me" className={classes.AboutMeSection}>
 			<div className={classes.Main}>
 				<div className={classes.MainText}>
 					<h2>About me</h2>
@@ -145,7 +148,28 @@ const AboutMe = () => {
 					</p>
 				</div>
 				<div className={classes.MainImage}>
-					<Image src="/pictures/pic-1.jpg" width={500} height={500} alt="Nas - First Picture" />
+					<Swiper
+						loop
+						effect={"fade"}
+						modules={[EffectFade, Autoplay]}
+						autoplay={{
+							delay: 5000,
+							pauseOnMouseEnter: true,
+							disableOnInteraction: false
+						}}>
+						<SwiperSlide>
+							<Image src="/pictures/picture-1.jpg" width={500} height={500} alt="Nas - First Picture" />
+						</SwiperSlide>
+						<SwiperSlide>
+							<Image src="/pictures/picture-2.jpg" width={500} height={500} alt="Nas - Second Picture" />
+						</SwiperSlide>
+						<SwiperSlide>
+							<Image src="/pictures/picture-3.jpg" width={500} height={500} alt="Nas - Third Picture" />
+						</SwiperSlide>
+						<SwiperSlide>
+							<Image src="/pictures/picture-4.jpg" width={500} height={500} alt="Nas - Fourth Picture" />
+						</SwiperSlide>
+					</Swiper>
 				</div>
 			</div>
 
@@ -156,7 +180,9 @@ const AboutMe = () => {
 						{
 							FRONT_END_SKILLS.map(el => (
 								<li key={el.id}>
-									<Icon id={el.id} />
+									<div>
+										<Icon id={el.id} width={50} height={50} />
+									</div>
 									<h4>{el.title}</h4>
 								</li>
 							))
@@ -169,7 +195,9 @@ const AboutMe = () => {
 						{
 							BACK_END_SKILLS.map(el => (
 								<li key={el.id}>
-									<Icon id={el.id} />
+									<div>
+										<Icon id={el.id} width={50} height={50} />
+									</div>
 									<h4>{el.title}</h4>
 								</li>
 							))
@@ -182,7 +210,9 @@ const AboutMe = () => {
 						{
 							TOOLS_SKILLS.map(el => (
 								<li key={el.id}>
-									<Icon id={el.id} />
+									<div>
+										<Icon id={el.id} width={50} height={50} />
+									</div>
 									<h4>{el.title}</h4>
 								</li>
 							))

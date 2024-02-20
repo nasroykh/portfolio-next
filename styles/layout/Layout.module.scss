@@ -2,8 +2,24 @@
 
 .Main {
   min-height: 100vh;
+}
 
+.Backdrop {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(var.$primaryDarkColor, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: all 200ms ease-in-out;
+}
 
-
-
+.BackdropVisible {
+  cursor: pointer;
+  z-index: 4000;
+  pointer-events: initial;
+  opacity: 1;
 }
