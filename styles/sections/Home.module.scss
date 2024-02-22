@@ -2,18 +2,18 @@
 
 .HomeSection {
   min-height: 100vh;
-  padding: var.$headerHeight 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
   margin-bottom: 8em;
+  @extend %xPadding;
 }
 
 .MainText {
   margin: auto 0;
-  @extend %xPadding;
+  max-width: 420px;
 
   span {
     font-family: var.$novaFont;
@@ -38,9 +38,49 @@
       margin-bottom: .5em;
     }
   }
+
+  @media (min-width: 576px) {
+    max-width: 470px;
+
+    span {
+      font-size: 2.25rem;
+    }
+
+    h1 {
+      font-size: 1.375rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    max-width: 500px;
+    align-self: flex-start;
+
+    span {
+      font-size: 2.5rem;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    max-width: 590px;
+
+    span {
+      font-size: 2.75rem;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+    }
+  }
 }
 
 .SwipeButton {
+  position: absolute;
+  bottom: 5em;
+
   button {
     background-color: #008A91;
     width: 60px;
@@ -72,9 +112,43 @@
 
 .BackgroundImage {
   position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 1;
   opacity: 0.02;
-  width: 650px;
   pointer-events: none;
-  top: var.$headerHeight;
+
+  & > div {
+    transform: scale(1.5);
+  }
+
+  @media (min-width: 576px) {
+    & > div {
+      transform: scale(1.25);
+    }
+  }
+
+  @media (min-width: 768px) {
+    & > div {
+      transform: scale(1);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    z-index: 5010;
+    & > div {
+      transform: scale(1.25) translateX(5%) translateY(-5%);
+    }
+  }
+
+  // @media (min-width: 1280px) {
+  //   z-index: 5010;
+  //   & > div {
+  //     transform: scale(1.25) translateX(5%);
+  //   }
+  // }
+
 }

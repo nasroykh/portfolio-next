@@ -1,0 +1,120 @@
+{
+  "frontEnd": [
+    {
+      "id": "html",
+      "title": "HTML"
+    },
+    {
+      "id": "css",
+      "title": "CSS"
+    },
+    {
+      "id": "javascript",
+      "title": "JavaScript"
+    },
+    {
+      "id": "react",
+      "title": "React"
+    },
+    {
+      "id": "redux",
+      "title": "Redux"
+    },
+    {
+      "id": "nextjs",
+      "title": "Next.js"
+    },
+    {
+      "id": "sass",
+      "title": "SASS / SCSS"
+    },
+    {
+      "id": "tailwindcss",
+      "title": "Tailwind CSS"
+    }
+  ],
+  "backEnd": [
+    {
+      "id": "django",
+      "title": "Django"
+    },
+    {
+      "id": "express",
+      "title": "Express"
+    },
+    {
+      "id": "nodejs",
+      "title": "Node.js"
+    },
+    {
+      "id": "prisma",
+      "title": "Prisma"
+    },
+    {
+      "id": "mongodb",
+      "title": "MongoDB"
+    },
+    {
+      "id": "postgresql",
+      "title": "PostgreSQL"
+    }
+  ],
+  "toolsAndTechnologies": [
+    {
+      "id": "typescript",
+      "title": "TypeScript"
+    },
+    {
+      "id": "docker",
+      "title": "Docker"
+    },
+    {
+      "id": "github",
+      "title": "Github"
+    },
+    {
+      "id": "linux",
+      "title": "Linux"
+    },
+    {
+      "id": "stripe",
+      "title": "Stripe"
+    },
+    {
+      "id": "electron",
+      "title": "Electron"
+    },
+    {
+      "id": "figma",
+      "title": "Figma"
+    },
+    {
+      "id": "python",
+      "title": "Python"
+    },
+    {
+      "id": "cpp",
+      "title": "C++"
+    },
+    {
+      "id": "jest",
+      "title": "Jest"
+    },
+    {
+      "id": "nginx",
+      "title": "NGINX"
+    },
+    {
+      "id": "paypal",
+      "title": "PayPal"
+    },
+    {
+      "id": "graphql",
+      "title": "GraphQL"
+    },
+    {
+      "id": "aws",
+      "title": "AWS"
+    }
+  ]
+}

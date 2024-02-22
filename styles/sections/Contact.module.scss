@@ -1,10 +1,9 @@
 @use "../variables" as var;
 
 .ContactSection {
-  padding-top: var.$headerHeight;
+  // padding-top: var.$headerHeight;
   @extend %xPadding;
-
-  min-height: 100vh;
+  margin-bottom: 4em;
 
   h2 {
     font-family: var.$novaFont;
@@ -40,8 +39,8 @@
     align-items: center;
     justify-content: center;
     background-color: #191E26;
-    border-bottom: 2px solid #195A62;
-    padding: 1.25em 1.5em;
+    border-bottom: 1px solid #195A62;
+    padding: .75em;
     border-radius: 5px;
     margin: auto;
     text-align: center;
@@ -49,15 +48,23 @@
     transition: 150ms ease-in-out;
     transition-property: background,border;
 
+    & > div {
+      max-width: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     &:hover {
       background-color: var.$hoverColor;
       border-color: var.$primaryColor;
     }
 
-    span {
-      font-size: 1.375rem;
+    & > span {
+      font-size: 1rem;
       font-family: var.$novaFont;
       margin-left: 1em;
+      color: #EEEEEE;
     }
   }
 
@@ -68,25 +75,74 @@
   }
 
   li {
+    margin-right: .5em;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
     a {
+      background-color: #191E26;
+      border-radius: 5px;
+      border-bottom: 1px solid #195A62;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: .625em .5em;
+      transition: 150ms ease-in-out;
+      transition-property: background,border;
+  
+      &:hover {
+        background-color: var.$hoverColor;
+        border-color: var.$primaryColor;
+      }
+
       & > div {
-        background-color: #1E242C;
-        border-radius: 7px;
-        border-bottom: 2px solid #195A62;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: .5em;
+        max-width: 32px;
+      }
+    }
+  }
+
+  @media (min-width: 300px) {
+    & > a {
+      span {
+        font-size: 1.25rem;
+      }
+    }
+  }
+
+  @media (min-width: 425px) {
+    max-width: 350px;
+    margin: 2em auto 0;
+
+    li {
+      margin-right: 1.5em;
+
+      a {
         padding: .75em .625em;
 
-        transition: 150ms ease-in-out;
-        transition-property: background,border;
-    
-        &:hover {
-          background-color: var.$hoverColor;
-          border-color: var.$primaryColor;
+        & > div {
+          max-width: 35px;
         }
       }
+    }
+  }
+
+  @media (min-width: 768px) {
+    display: flex;
+    max-width: 100%;
+    margin: 2em 0;
+
+    & > a {
+      margin: 0 1.25em 0 0;
+      padding: 1em 2.5em;
+    }
+
+    li {
+      margin: 0 1.25em 0 0;
     }
   }
 }

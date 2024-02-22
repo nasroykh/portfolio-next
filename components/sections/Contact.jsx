@@ -21,7 +21,9 @@ const Contact = () => {
 
 				<div className={classes.Buttons}>
 					<Link href="mailto:nascodes@protonmail.com">
-						<Icon id="email" width={30} height={30} />
+						<div>
+							<Icon id="email" width={100} height={100} />
+						</div>
 						<span>Send an email</span>
 					</Link>
 
@@ -29,35 +31,35 @@ const Contact = () => {
 					<li>
 						<Link target="_blank" href="https://www.linkedin.com/in/nasreddine-yakhou-4b619a157/">
 							<div>
-								<Icon id="linkedin" width={40} height={40} />
+								<Icon id="linkedin" width={100} height={100} />
 							</div>
 						</Link>
 					</li>
 					<li>
 						<Link target="_blank" href="https://github.com/nasroykh">
 							<div>
-								<Icon id="github" width={40} height={40} />
+								<Icon id="github" width={100} height={100} />
 							</div>
 						</Link>
 					</li>
 					<li>
 						<Link target="_blank" href="#">
 							<div>
-								<Icon id="resume" width={40} height={40} />
+								<Icon id="resume" width={100} height={100} />
 							</div>
 						</Link>
 					</li>
 					<li>
 						<Link target="_blank" href="https://www.instagram.com/nascodes/">
 							<div>
-								<Icon id="instagram" width={40} height={40} />
+								<Icon id="instagram" width={100} height={100} />
 							</div>
 						</Link>
 					</li>
 					<li>
 						<Link target="_blank" href="https://www.facebook.com/nascodes/">
 							<div>
-								<Icon id="facebook" width={40} height={40} />
+								<Icon id="facebook" width={100} height={100} />
 							</div>
 						</Link>
 					</li>

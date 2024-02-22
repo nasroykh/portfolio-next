@@ -37,22 +37,29 @@
   }
 }
 
+.MainImageContainer {
+  border-radius: 10px;
+  overflow: auto;
+  max-width: 400px;
+  margin: 0 auto 8em;
+}
+
 .MainImage {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
-  overflow: auto;
-  position: relative;
-  margin-bottom: 8em;
 }
 
 .Skills {
   & > div {
     background-color: #262C35;
     border-radius: 5px;
-    margin-bottom: 1em;
-    padding: 2em 1em;
+    margin-bottom: 1.5em;
+    padding: 2em .5em;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   h3 {
@@ -65,8 +72,8 @@
   ul {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    justify-items: center;
-    gap: 2em;
+    justify-content: space-between;
+    gap: 2em .5em;
   }
 
   li {
@@ -77,7 +84,7 @@
 
     div {   
       background-color: #1E242C;
-      border-radius: 7px;
+      border-radius: 5px;
       border-bottom: 2px solid var.$primaryColor;
       display: flex;
       align-items: center;
@@ -90,6 +97,30 @@
       font-family: var.$novaFont;
       font-size: .875rem;
       text-align: center;
+    }
+  }
+
+  @media (min-width: 300px) {
+    ul {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 425px) {
+    ul {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  @media (min-width: 576px) {
+    ul {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+
+  @media (min-width: 768px) {
+    ul {
+      grid-template-columns: repeat(6, 1fr);
     }
   }
 }

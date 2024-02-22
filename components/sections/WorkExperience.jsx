@@ -4,13 +4,18 @@ import {Autoplay, Pagination, Navigation} from "swiper/modules";
 import {Swiper, SwiperSlide} from "swiper/react";
 
 import classes from "@/styles/sections/WorkExperience.module.scss";
+import { useState } from "react";
 
 const WorkExperience = ({experiences}) => {
+
+	const [selectedImage, setSelectedImage] = useState("");
+	const [expandedElement, setExpandedElement] = useState("");
+
 	return (
 		<section id="work-experience" className={classes.WorkExperienceSection}>
 			<h2>Work Experience</h2>
 
-			{experiences && experiences.length ? experiences.map(el => (
+			{experiences && experiences.length ? experiences.map((el, index) => (
 				<div key={el.companyName} className={`${classes.MainSections}`}>
 					<div className={classes.CompanyDetails}>
 						<h4>{el.companyName}</h4>
@@ -19,10 +24,14 @@ const WorkExperience = ({experiences}) => {
 					<h3>{el.role}</h3>
 					<p>{el.description}</p>
 					{el.achievements && el.achievements.length ? <ul className={classes.RolesList}>
-						{el.achievements.map(achievement => (
-							<li key={achievement.title.split(" ").join("")}>
-								<button>{achievement.title}</button>
-								<p>{achievement.description}</p>
+						{el.achievements.map((achievement, achIndex) => (
+							<li 
+								key={achievement.title.split(" ").join("")} 
+								className={expandedElement===`collapsible-${index}-${achIndex}` ? classes.Expanded : ""}>
+								<button onClick={() => {setExpandedElement(prevState => !prevState||prevState!==`collapsible-${index}-${achIndex}` ? `collapsible-${index}-${achIndex}` : "")}}>{achievement.title}</button>
+								<div>
+									<p>{achievement.description}</p>
+								</div>
 							</li>
 						))}
 					</ul> : <></>}
@@ -42,8 +51,8 @@ const WorkExperience = ({experiences}) => {
 									el.images.map(image => (
 										<SwiperSlide key={image}>
 											<div>
-												<button>
-													<Image src={`/screenshots/${image}`} width={486} height={315} alt={image} />
+												<button onClick={() => {setSelectedImage(image)}}>
+													<Image src={`/screenshots/${image}`} width={1458} height={945} alt={image} />
 												</button>
 											</div>
 										</SwiperSlide>
@@ -66,6 +75,15 @@ const WorkExperience = ({experiences}) => {
 				</div>
 			))  : <></>}
 
+			
+			<div className={`${classes.ImagePreview} ${selectedImage ? classes.ImagePreviewVisible : ""}`}>
+				<div onClick={() => {setSelectedImage("")}}></div>
+				{selectedImage ? 
+					<button>
+						<Image src={`/screenshots/${selectedImage}`} width={1458} height={945} alt={selectedImage} />
+					</button>
+				: <></>}
+			</div>
 
 		</section>
 	);

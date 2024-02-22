@@ -41,7 +41,9 @@ const Home = () => {
       </div>
 
       <div className={classes.BackgroundImage}>
-        <Image src="/logo.svg" width={1850} height={1950} alt="Personal Logo" />
+        <div>
+          <Image src="/logo.svg" width={1850} height={1950} alt="Personal Logo" />
+        </div>
       </div>
     </section>
   )

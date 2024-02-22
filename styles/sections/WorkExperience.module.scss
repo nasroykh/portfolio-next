@@ -11,29 +11,27 @@
     margin-bottom: 1.5em;
     color: #EEEEEE;
   }
-
-  & > div {
-    background-color: #262C35;
-    border-radius: 5px;
-    margin-bottom: 1em;
-    padding: 2em 1em;
-  }
 }
 
 .MainSections {
+  background-color: #262C35;
+  border-radius: 5px;
+  margin-bottom: 1em;
+  padding: 2em 1em;
+
   h3 {
-    font-weight: 400;
+    font-weight: 500;
     font-size: 1.375rem;
     color: #EEEEEE;
     text-align: center;
-    margin-bottom: .5rem;
+    margin-bottom: 1rem;
   }
 
   & > p {
     color: #CBCBCB;
     font-size: 1.125rem;
     font-weight: 300;
-    margin-bottom: 2em;
+    margin-bottom: 2rem;
   }
 }
 
@@ -54,20 +52,46 @@
     color: #CBCBCB;
     font-weight: 200;
     text-align: center;
-    font-size: 1.25rem;
-    margin-bottom: .5rem;
+    font-size: 1.125rem;
+    margin-bottom: .25rem;
   }
 
 }
 
 .RolesList {
-  margin-bottom: 4em;
+  display: grid;
+  gap: .75em;
 
   li {
+    background-color: #191E26;
+    border-radius: 5px;
+    border-bottom: 1px solid #195A62;
+    width: 100%;
+    transition: 150ms ease-in-out;
+    transition-property: background,border;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  
+    &:hover {
+      background-color: var.$hoverColor;
+      border-color: var.$primaryColor;
+    }
+
+    & > div {
+      max-height: 0;
+      overflow: hidden;
+      transition: all 100ms ease-in-out;
+      opacity: 0;
+      text-align: center;
+      font-weight: 200;
+      color: #CBCBCB;
+      font-size: .875rem;
+    }
   }
 
   button {
-    background-color: #191E26;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -76,29 +100,39 @@
     padding: .75em;
     font-size: 1rem;
     font-weight: 300;
-    border-radius: 5px;
-    border-bottom: 1px solid #195A62;
-    margin-bottom: .75em;
     color: #CBCBCB;
-    transition: 150ms ease-in-out;
-    transition-property: background,border;
+  }
 
-    &:hover {
-      background-color: var.$hoverColor;
-      border-color: var.$primaryColor;
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+
+    li {
+      margin-bottom: 0;
     }
   }
 }
 
+.Expanded {
+  background-color: var.$hoverColor !important;
+  border-color: var.$primaryColor !important;
+  
+  & > div {
+    max-height: 100vh !important;
+    padding: 1em 0;
+    opacity: 1 !important;
+    padding: .75em;
+  }
+}
+
 .RoleImages {
-  margin-bottom: 2em;
+  margin: 4em auto 2em;
   border-radius: 10px;
+  max-width: 500px;
 
   div > button {
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: auto;
   }
 }
 
@@ -108,6 +142,46 @@
   & > div {
     position: absolute;
   }
+}
+
+.ImagePreview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: none;
+  z-index: 6000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1em;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 150ms ease-in-out;
+
+  & > div {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(#191E26, 0.8);
+    backdrop-filter: blur(2px);
+    position: absolute;
+    cursor: pointer;
+  }
+
+  & > button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    overflow: auto;
+    max-width: 1200px;
+  }
+}
+
+.ImagePreviewVisible {
+  pointer-events: initial;
+  opacity: 1;
 }
 
 .RoleButtons {

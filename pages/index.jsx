@@ -10,15 +10,17 @@ import Layout from "@/components/layout/Layout";
 
 export const getStaticProps = async (ctx) => {
 	const experiences = require("@/public/json/experiences.json");
+	const skills = require("@/public/json/skills.json");
 
 	return {
 		props: {
-			experiences
+			experiences,
+      skills
 		}
 	}
 }
 
-export default function Index({experiences}) {
+export default function Index({experiences, skills}) {
 
   return (
     <>
@@ -31,7 +33,7 @@ export default function Index({experiences}) {
       <Layout >
 
         <Home />
-        <AboutMe />
+        <AboutMe skills={skills} />
         <WorkExperience experiences={experiences} />
         <Contact />
 

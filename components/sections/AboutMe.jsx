@@ -5,128 +5,7 @@ import classes from "@/styles/sections/AboutMe.module.scss"
 import {EffectFade, Autoplay} from "swiper/modules";
 import {Swiper, SwiperSlide} from "swiper/react";
 
-const FRONT_END_SKILLS = [
-	{
-		id: "html",
-		title: "HTML"
-	},
-	{
-		id: "css",
-		title: "CSS"
-	},
-	{
-		id: "javascript",
-		title: "JavaScript"
-	},
-	{
-		id: "sass",
-		title: "SASS / SCSS"
-	},
-	{
-		id: "react",
-		title: "React"
-	},
-	{
-		id: "redux",
-		title: "Redux"
-	},
-	{
-		id: "nextjs",
-		title: "Next.js"
-	},
-	{
-		id: "tailwindcss",
-		title: "Tailwind CSS"
-	}
-]
-
-const BACK_END_SKILLS = [
-	{
-		id: "django",
-		title: "Django"
-	},
-	{
-		id: "express",
-		title: "Express"
-	},
-	{
-		id: "nodejs",
-		title: "Node.js"
-	},
-	{
-		id: "prisma",
-		title: "Prisma"
-	},
-	{
-		id: "mongodb",
-		title: "MongoDB"
-	},
-	{
-		id: "postgresql",
-		title: "PostgreSQL"
-	}
-]
-
-const TOOLS_SKILLS = [
-	{
-		id: "typescript",
-		title: "TypeScript"
-	},
-	{
-		id: "docker",
-		title: "Docker"
-	},
-	{
-		id: "github",
-		title: "Github"
-	},
-	{
-		id: "linux",
-		title: "Linux"
-	},
-	{
-		id: "stripe",
-		title: "Stripe"
-	},
-	{
-		id: "electron",
-		title: "Electron"
-	},
-	{
-		id: "figma",
-		title: "Figma"
-	},
-	{
-		id: "python",
-		title: "Python"
-	},
-	{
-		id: "cpp",
-		title: "C++"
-	},
-	{
-		id: "jest",
-		title: "Jest"
-	},
-	{
-		id: "nginx",
-		title: "NGINX"
-	},
-	{
-		id: "paypal",
-		title: "PayPal"
-	},
-	{
-		id: "graphql",
-		title: "GraphQL"
-	},
-	{
-		id: "aws",
-		title: "AWS"
-	}
-]
-
-const AboutMe = () => {
+const AboutMe = ({skills}) => {
 	return (
 		<section id="about-me" className={classes.AboutMeSection}>
 			<div className={classes.Main}>
@@ -147,7 +26,7 @@ const AboutMe = () => {
 						eager to further hone my <strong>skills</strong> in this dynamic and ever-evolving field.
 					</p>
 				</div>
-				<div className={classes.MainImage}>
+				<div className={classes.MainImageContainer}>
 					<Swiper
 						loop
 						effect={"fade"}
@@ -158,16 +37,24 @@ const AboutMe = () => {
 							disableOnInteraction: false
 						}}>
 						<SwiperSlide>
-							<Image src="/pictures/picture-1.jpg" width={500} height={500} alt="Nas - First Picture" />
+							<div className={classes.MainImage}>
+								<Image src="/pictures/picture-1.jpg" width={500} height={500} alt="Nas - First Picture" />
+							</div>
 						</SwiperSlide>
 						<SwiperSlide>
-							<Image src="/pictures/picture-2.jpg" width={500} height={500} alt="Nas - Second Picture" />
+							<div className={classes.MainImage}>
+								<Image src="/pictures/picture-2.jpg" width={500} height={500} alt="Nas - Second Picture" />
+							</div>
 						</SwiperSlide>
 						<SwiperSlide>
-							<Image src="/pictures/picture-3.jpg" width={500} height={500} alt="Nas - Third Picture" />
+							<div className={classes.MainImage}>
+								<Image src="/pictures/picture-3.jpg" width={500} height={500} alt="Nas - Third Picture" />
+							</div>
 						</SwiperSlide>
 						<SwiperSlide>
-							<Image src="/pictures/picture-4.jpg" width={500} height={500} alt="Nas - Fourth Picture" />
+							<div className={classes.MainImage}>
+								<Image src="/pictures/picture-4.jpg" width={500} height={500} alt="Nas - Fourth Picture" />
+							</div>
 						</SwiperSlide>
 					</Swiper>
 				</div>
@@ -178,10 +65,10 @@ const AboutMe = () => {
 					<h3>Front End</h3>
 					<ul>
 						{
-							FRONT_END_SKILLS.map(el => (
+							skills.frontEnd.map(el => (
 								<li key={el.id}>
 									<div>
-										<Icon id={el.id} width={50} height={50} />
+										<Icon id={el.id} width={35} height={35} />
 									</div>
 									<h4>{el.title}</h4>
 								</li>
@@ -193,10 +80,10 @@ const AboutMe = () => {
 					<h3>Back End</h3>
 					<ul>
 						{
-							BACK_END_SKILLS.map(el => (
+							skills.backEnd.map(el => (
 								<li key={el.id}>
 									<div>
-										<Icon id={el.id} width={50} height={50} />
+										<Icon id={el.id} width={35} height={35} />
 									</div>
 									<h4>{el.title}</h4>
 								</li>
@@ -208,10 +95,10 @@ const AboutMe = () => {
 					<h3>Tools & Technologies</h3>
 					<ul>
 						{
-							TOOLS_SKILLS.map(el => (
+							skills.toolsAndTechnologies.map(el => (
 								<li key={el.id}>
 									<div>
-										<Icon id={el.id} width={50} height={50} />
+										<Icon id={el.id} width={35} height={35} />
 									</div>
 									<h4>{el.title}</h4>
 								</li>

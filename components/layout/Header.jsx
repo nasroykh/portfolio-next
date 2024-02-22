@@ -3,6 +3,16 @@ import Link from "next/link";
 
 import classes from "@/styles/layout/Header.module.scss";
 
+const scrollToSpecificPosition = (id) => {
+  let bodyRect = document.body.getBoundingClientRect();
+
+  let elementRect = document.querySelector(`#${id}`).getBoundingClientRect();
+
+  let scrollPosition = elementRect.top - bodyRect.top - 120;
+
+  scroll({top: scrollPosition})
+}
+
 const Header = (props) => {
 
   const navbarToggleHandler = (e) => {
@@ -21,13 +31,7 @@ const Header = (props) => {
 
     e.preventDefault();
 
-    let bodyRect = document.body.getBoundingClientRect();
-
-    let elementRect = document.querySelector(`#${name}`).getBoundingClientRect();
-
-    let scrollPosition = elementRect.top - bodyRect.top - 120;
-
-    scroll({top: scrollPosition})
+    scrollToSpecificPosition(name)
     
     props.setIsNavbarOpened(false);
   }
@@ -40,9 +44,9 @@ const Header = (props) => {
           <Image src="/logo.svg" width={185} height={195} alt="Personal Logo" />
         </Link>
         <nav className={`${classes.Navbar} ${props.isNavbarOpened ? classes.NavbarOpened : ""}`}>
-          <Link onClick={headerLinkClickHandler} name="about-me" href="#">About</Link>
-          <Link onClick={headerLinkClickHandler} name="work-experience" href="#">Work</Link>
-          <Link onClick={headerLinkClickHandler} name="contact" href="#">Contact</Link>
+          <Link onClick={headerLinkClickHandler} name="about-me" href="#about-me">About</Link>
+          <Link onClick={headerLinkClickHandler} name="work-experience" href="#work-experience">Work</Link>
+          <Link onClick={headerLinkClickHandler} name="contact" href="#contact">Contact</Link>
           <Link onClick={headerLinkClickHandler} href="#">Resume</Link>
         </nav>
         <button onClick={navbarToggleHandler} className={`${classes.MenuButton} ${props.isNavbarOpened ? classes.MenuButtonOpened : ""}`}>
