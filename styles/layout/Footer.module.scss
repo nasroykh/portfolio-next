@@ -1,0 +1,46 @@
+@use "../variables" as var;
+
+.FooterContainer {
+  @extend %xPadding;
+  background-color: #191E26;
+  border-top: 1px solid var.$darkBlueColor;
+  padding-top: .75em;
+  padding-bottom: .75em;
+
+  @media (min-width: 576px) {
+    padding-top: 1.25em;
+    padding-bottom: 1.25em;
+  }
+}
+
+.Footer {
+  max-width: var.$screenMaxWidth;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  p {
+    font-size: 1rem;
+    font-weight: 300;
+    color: #BCBCBC;
+    margin-bottom: 1em;
+    text-align: center;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  @media (min-width: 576px) {
+    flex-direction: row;
+    justify-content: space-between;
+
+    p {
+      margin: 0;
+      text-align: initial;
+      font-size: 1.125rem;
+    }
+  }
+}

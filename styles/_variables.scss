@@ -9,7 +9,9 @@ $darkBlueColor: #195A62;
 $novaFont: var(--font-nova), sans-serif;
 $leagueFont: var(--font-league), sans-serif;
 
-$headerHeight: 90px;
+$headerHeight: 100px;
+$headerHeightShrunk : 75px;
+$screenMaxWidth: 1400px;
 
 %xPadding {
 	padding-left: 20px;

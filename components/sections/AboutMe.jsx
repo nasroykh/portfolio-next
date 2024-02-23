@@ -38,22 +38,32 @@ const AboutMe = ({skills}) => {
 						}}>
 						<SwiperSlide>
 							<div className={classes.MainImage}>
-								<Image src="/pictures/picture-1.jpg" width={500} height={500} alt="Nas - First Picture" />
+								<Image src="/pictures/picture-1.jpg" width={800} height={800} alt="Nas - First Picture" />
 							</div>
 						</SwiperSlide>
 						<SwiperSlide>
 							<div className={classes.MainImage}>
-								<Image src="/pictures/picture-2.jpg" width={500} height={500} alt="Nas - Second Picture" />
+								<Image src="/pictures/picture-2.jpg" width={800} height={800} alt="Nas - Second Picture" />
 							</div>
 						</SwiperSlide>
 						<SwiperSlide>
 							<div className={classes.MainImage}>
-								<Image src="/pictures/picture-3.jpg" width={500} height={500} alt="Nas - Third Picture" />
+								<Image src="/pictures/picture-3.jpg" width={800} height={800} alt="Nas - Third Picture" />
 							</div>
 						</SwiperSlide>
 						<SwiperSlide>
 							<div className={classes.MainImage}>
-								<Image src="/pictures/picture-4.jpg" width={500} height={500} alt="Nas - Fourth Picture" />
+								<Image src="/pictures/picture-4.jpg" width={800} height={800} alt="Nas - Fourth Picture" />
+							</div>
+						</SwiperSlide>
+						<SwiperSlide>
+							<div className={classes.MainImage}>
+								<Image src="/pictures/picture-5.jpg" width={800} height={800} alt="Nas - Fifth Picture" />
+							</div>
+						</SwiperSlide>
+						<SwiperSlide>
+							<div className={classes.MainImage}>
+								<Image src="/pictures/picture-6.jpg" width={800} height={800} alt="Nas - Sixth Picture" />
 							</div>
 						</SwiperSlide>
 					</Swiper>

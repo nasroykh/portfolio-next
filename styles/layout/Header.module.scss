@@ -1,7 +1,6 @@
 @use "../variables" as var;
 
 .HeaderContainer {
-  background-color: black;
   width: 100%;
   position: fixed;
   top: 0;
@@ -11,13 +10,12 @@
 }
 
 .HeaderBackdrop {
-  background-color: rgba(var.$primaryDarkColor, 0.9);
-  backdrop-filter: blur(20px);
   width: 100%;
   height: 100%;
   position: absolute;
   top: 0;
   left: 0;
+  transition: all 200ms ease-in-out;
 }
 
 .Header {
@@ -25,13 +23,47 @@
   justify-content: center;
   align-items: center;
   height: var.$headerHeight;
+  max-width: var.$screenMaxWidth;
+  margin: 0 auto;
+  transition: height 200ms ease-in-out;
+
+  @media (min-width: 768px) {
+    justify-content: space-between;
+  }
+}
+
+.HeaderContainerShrunk {
+
+  .HeaderBackdrop {
+    background-color: rgba(var.$primaryDarkColor, 0.9);
+    backdrop-filter: blur(20px);
+  }
+
+  .Header {
+    height: var.$headerHeightShrunk;
+  }
+
+  .Logo {
+    max-width: 45px;
+  }
+
+  @media (min-width: 768px) {
+    .Logo {
+      max-width: 50px;
+    }
+  }
 }
 
 .Logo {
-  max-width: 50px;
+  max-width: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 200ms ease-in-out;
+
+  @media (min-width: 768px) {
+    max-width: 65px;
+  }
 }
 
 .Navbar {
@@ -66,6 +98,7 @@
     font-family: var.$novaFont;
     padding: .75em 0;
     width: 100%;
+    color: #EEEEEE;
 
     &:last-child {
       margin-bottom: 0;
@@ -74,6 +107,34 @@
     
     &:hover, &:active, &:focus {
       background-color: rgba(#262c35, 0.9);
+    }
+  }
+
+  @media (min-width: 768px) {
+    position: relative;
+    flex-direction: row;
+    top: 0;
+    background-color: transparent;
+    max-height: none !important;
+    opacity: 1 !important;
+    z-index: 4500 !important;
+    pointer-events: initial !important;
+    backdrop-filter: initial;
+    border: none;
+    width: auto;
+
+    a {
+      margin: 0 0 0 3em;
+      font-size: 1rem;
+      padding: 0;
+      width: auto;
+
+      &:last-child {
+        background-color: #191E26;
+        padding: .625em 2em;
+        border-radius: 5px;
+        margin-left: 2.5em;
+      }
     }
   }
 }
@@ -141,6 +202,10 @@
         width: 70%;
       }
     }
+  }
+
+  @media (min-width: 768px) {
+    display: none;
   }
 }
 

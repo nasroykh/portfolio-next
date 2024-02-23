@@ -2,6 +2,7 @@ import Image from "next/legacy/image";
 import Link from "next/link";
 
 import classes from "@/styles/layout/Header.module.scss";
+import { useEffect, useState } from "react";
 
 const scrollToSpecificPosition = (id) => {
   let bodyRect = document.body.getBoundingClientRect();
@@ -14,6 +15,16 @@ const scrollToSpecificPosition = (id) => {
 }
 
 const Header = (props) => {
+
+  const [isHeaderShrunk, setIsHeaderShrunk] = useState(false)
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window) {
+      window.addEventListener("scroll", () => {
+        setIsHeaderShrunk(window.scrollY > 150)
+      })
+    }
+  }, [])
 
   const navbarToggleHandler = (e) => {
     e.preventDefault();
@@ -37,7 +48,7 @@ const Header = (props) => {
   }
 
   return (
-    <header className={classes.HeaderContainer}>
+    <header className={`${classes.HeaderContainer} ${isHeaderShrunk ? classes.HeaderContainerShrunk : ""}`}>
       <div className={classes.HeaderBackdrop}></div>
       <div className={classes.Header}>
         <Link href="/" className={classes.Logo}>

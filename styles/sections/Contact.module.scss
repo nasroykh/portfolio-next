@@ -1,9 +1,7 @@
 @use "../variables" as var;
 
 .ContactSection {
-  // padding-top: var.$headerHeight;
-  @extend %xPadding;
-  margin-bottom: 4em;
+  margin-bottom: 10em;
 
   h2 {
     font-family: var.$novaFont;

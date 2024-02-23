@@ -2,6 +2,13 @@
 
 .Main {
   min-height: 100vh;
+  @extend %xPadding;
+
+  & > section {
+    max-width: var.$screenMaxWidth;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .Backdrop {
