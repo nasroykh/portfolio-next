@@ -11,7 +11,7 @@ $leagueFont: var(--font-league), sans-serif;
 
 $headerHeight: 100px;
 $headerHeightShrunk : 75px;
-$screenMaxWidth: 1400px;
+$screenMaxWidth: 1280px;
 
 %xPadding {
 	padding-left: 20px;
@@ -55,5 +55,19 @@ $screenMaxWidth: 1400px;
   @media (min-width: 1440px) {
     margin-left: -8vw;
     margin-right: -8vw;
+  }
+}
+
+@mixin imageZoomAnimation($delay, $zoom) {
+  img {
+    transition: transform $delay/3 ease-in-out, filter 200ms ease-in-out;
+  }
+
+  &:hover {
+    img {
+      transition: transform $delay ease-in-out;
+      filter: brightness(1.05);
+      transform: scale($zoom);
+    }
   }
 }

@@ -1,6 +1,7 @@
 import Image from "next/legacy/image"
 
 import ArrowLong from "/public/icons/arrow-down-long.svg"
+import Chevron from "/public/icons/chevron-down.svg"
 
 const Aws = "/icons/aws.svg"
 const Cpp = "/icons/cpp.svg"
@@ -40,6 +41,7 @@ const Linkedin = "/icons/linkedin.svg"
 const Icon = ({id, width, height}) => {
   switch (id) {
     case "arrow-long": return <ArrowLong />;
+    case "chevron": return <Chevron />;
     case "html": return <Image src={Html} width={width} height={height} alt="Html" />;
     case "aws": return <Image src={Aws} width={width} height={height} alt="Aws" />;
     case "cpp": return <Image src={Cpp} width={width} height={height} alt="Cpp" />;

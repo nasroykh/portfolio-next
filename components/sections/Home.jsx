@@ -14,7 +14,7 @@ const swipeClickHandler = (e) => {
   scroll({top: scrollPosition}) 
 }
 
-const Home = () => {
+const Home = ({isPageReady}) => {
   return (
     <section className={classes.HomeSection}>
       <div className={classes.MainText}>
@@ -40,9 +40,9 @@ const Home = () => {
         </button>
       </div>
 
-      <div className={classes.BackgroundImage}>
+      <div className={`${isPageReady ? classes.BackgroundImage : classes.LoadingBackgroundImage}`}>
         <div>
-          <Image src="/logo.svg" width={1850} height={1950} alt="Personal Logo" />
+          <Image src="/logo.png" width={2000} height={2105} alt="Personal Logo" />
         </div>
       </div>
     </section>

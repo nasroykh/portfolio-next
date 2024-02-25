@@ -1,11 +1,9 @@
 @use "../variables" as var;
 
 .AboutMeSection {
-  margin-bottom: 8em;
 }
 
 .Main {
-
   @media (min-width: 1024px) {
     display: grid;
     grid-template-columns: 1.5fr 1fr;
@@ -16,7 +14,7 @@
 }
 
 .MainText {
-  max-width: 400px;
+  max-width: 500px;
   margin: 0 auto 4em;
 
   h2 {
@@ -40,6 +38,17 @@
     strong {
       font-weight: 400;
       color: #ECECEC;
+    }
+  }
+
+  @media (min-width: 768px) {
+    h2 {
+      font-size: 2.5rem;
+    }
+
+    p {
+      font-size: 1.25rem;
+      margin-bottom: 1.125em;
     }
   }
 
@@ -69,13 +78,15 @@
   justify-content: center;
   overflow: auto;
   border-radius: 10px;
+
+  @include var.imageZoomAnimation(4s, 1.25);
 }
 
 .Skills {
   & > div {
     background-color: #262C35;
     border-radius: 5px;
-    margin-bottom: 1.5em;
+    margin-bottom: 3em;
     padding: 2em .5em;
 
     &:last-child {
@@ -88,6 +99,7 @@
     font-family: var.$novaFont;
     text-align: center;
     margin-bottom: 1.5em;
+    color: #EEEEEE;
   }
 
   ul {
@@ -103,21 +115,11 @@
     align-items: center;
     justify-content: flex-start;
 
-    div {   
-      background-color: #1E242C;
-      border-radius: 5px;
-      border-bottom: 2px solid var.$primaryColor;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: .5em;
-      padding: .75em .625em;
-    }
-
     h4 {
       font-family: var.$novaFont;
       font-size: .875rem;
       text-align: center;
+      color: #EEEEEE;
     }
   }
 
@@ -134,52 +136,162 @@
   }
 
   @media (min-width: 576px) {
+    & > div {
+      padding: 2em 1em;
+    }
+
     ul {
       grid-template-columns: repeat(5, 1fr);
     }
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     display: grid;
-    grid-template-columns: 3fr 2fr;
+    grid-template-columns: 1fr 1fr;
     gap: 1em;
 
     & > div {
       margin: 0;
     }
-    
-    ul {
-      grid-template-columns: repeat(6, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: 3fr 2fr;
+
+    & > div {
+      padding: 2em;
+    }
+  }
+}
+
+.SkillCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1E242C;
+  border-radius: 5px;
+  border-bottom: 2px solid var.$primaryColor;
+  margin-bottom: .5em;
+  padding: .75em .625em;
+  transition: background-color 500ms ease-in-out;
+
+  &:hover {
+    background-color: var.$hoverColor;
+
+    & > div {
+      transform: scale(1.075);
+    }
+  }
+  
+  & > div {   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 35px;
+    transition: transform 500ms ease-in-out;
+  }
+
+  @media (min-width: 300px) {
+    & > div {
+      max-width: 40px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    & > div {
+      max-width: 45px;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    padding: .875em .75em;
+
+    & > div {
+      max-width: 50px;
     }
   }
 }
 
 .SkillsFront {
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     grid-column: 1/2;
 
     ul {
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    ul {
+      grid-template-columns: repeat(4, 100px);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    ul {
+      grid-template-columns: repeat(4, 120px);
+    }
+  }
+
+  @media (min-width: 1440px) {
+    ul {
+      grid-template-columns: repeat(4, 140px);
     }
   }
 }
 
 .SkillsBack {
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     grid-column: 2/3;
 
     ul {
       grid-template-columns: repeat(3, 1fr);
     }
   }
+
+  @media (min-width: 1024px) {
+    ul {
+      grid-template-columns: repeat(3, 100px);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    ul {
+      grid-template-columns: repeat(3, 120px);
+    }
+  }
+
+  @media (min-width: 1440px) {
+    ul {
+      grid-template-columns: repeat(3, 140px);
+    }
+  }
 }
 
 .SkillsTools {
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     grid-column: 1/3;
 
     ul {
       grid-template-columns: repeat(7, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    ul {
+      grid-template-columns: repeat(7, 100px);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    ul {
+      grid-template-columns: repeat(7, 120px);
+    }
+  }
+
+  @media (min-width: 1440px) {
+    ul {
+      grid-template-columns: repeat(7, 140px);
     }
   }
 }

@@ -1,8 +1,6 @@
 @use "../variables" as var;
 
 .WorkExperienceSection {
-  margin-bottom: 8em;
-
   h2 {
     font-family: var.$novaFont;
     font-size: 2rem;
@@ -10,12 +8,18 @@
     margin-bottom: 1.5em;
     color: #EEEEEE;
   }
+
+  @media (min-width: 768px) {
+    h2 {
+      font-size: 2.5rem;
+    }
+  }
 }
 
 .MainSections {
   background-color: #262C35;
   border-radius: 5px;
-  margin-bottom: 1em;
+  margin-bottom: 6em;
   padding: 2em 1em;
 
   h3 {
@@ -33,13 +37,22 @@
     margin-bottom: 2rem;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 576px) {
+    padding: 2em;
+  }
+
+  @media (min-width: 768px) {
+    margin-bottom: 8em;
+
     & > h3 {
+      font-size: 1.75rem;
       text-align: left;
+      margin-bottom: 1rem;
     }
 
     & > p {
-      
+      font-size: 1.25rem;
+      margin-bottom: 3rem;
     }
   }
 }
@@ -54,7 +67,7 @@
     font-weight: 300;
     text-align: center;
     font-size: .875rem;
-    margin-bottom: 1.75rem;
+    margin-bottom: 1.25rem;
   }
 
   h4 {
@@ -65,18 +78,22 @@
     margin-bottom: .25rem;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: .25rem;
 
     span {
       text-align: right;
       margin: 0;
+      font-size: 1rem;
     }
 
     h4 {
       text-align: left;
+      font-size: 1.375rem;
+      margin-bottom: 0;
     }
   }
 
@@ -101,6 +118,10 @@
     &:hover {
       background-color: var.$hoverColor;
       border-color: var.$primaryColor;
+
+      span {
+        opacity: 0.5;
+      }
     }
 
     & > div {
@@ -125,6 +146,18 @@
     font-size: 1rem;
     font-weight: 300;
     color: #CBCBCB;
+    position: relative;
+
+    span {
+      position: absolute;
+      right: 0;
+      opacity: 0;
+      transition: all 150ms ease-in-out;
+    }
+
+    svg {
+      scale: 0.375;
+    }
   }
 
   @media (min-width: 768px) {
@@ -136,11 +169,17 @@
   }
 
   @media (min-width: 1024px) {
-    grid-template-columns: 1fr 1fr;
+    li {
+      & > div {
+        font-size: 1rem;
+        text-align: left;
+      }
+    }
 
     button {
       justify-content: flex-start;
       text-align: left;
+      font-size: 1.125rem;
     }
   }
 }
@@ -151,9 +190,19 @@
   
   & > div {
     max-height: 100vh !important;
-    padding: 1em 0;
     opacity: 1 !important;
-    padding: .75em;
+    padding: 1.25em .75em;
+  }
+
+  span {
+    opacity: 1 !important;
+    transform: rotate(180deg);
+  }
+}
+
+.ExpandedSibling {
+  button {
+    height: 100%;
   }
 }
 
@@ -166,6 +215,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @include var.imageZoomAnimation(1s, 1.05);
+  }
+
+  @media (min-width: 576px) {
+    max-width: none;
+    border-radius: 0;
+    margin: 4em auto 2.5em;
+    
+    div > button {
+      max-width: 500px;
+      border-radius: 10px;
+      overflow: auto;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    margin: 4em auto 3em;
   }
 }
 
@@ -193,6 +260,7 @@
   opacity: 0;
   transition: opacity 150ms ease-in-out;
 
+  
   & > div {
     width: 100%;
     height: 100%;
@@ -202,13 +270,20 @@
     cursor: pointer;
   }
 
-  & > button {
+  & > span {
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 10px;
     overflow: auto;
-    max-width: 1200px;
+    max-width: 800px;
+  }
+
+  @media (min-width: 1024px) {
+    & > span {
+      max-width: 1200px;
+      width: 85vw;
+    }
   }
 }
 
@@ -238,6 +313,12 @@
     &:hover {
       background-color: var.$hoverColor;
       border-color: var.$primaryColor;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    a {
+      margin: 0;
     }
   }
 }

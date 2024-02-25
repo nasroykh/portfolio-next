@@ -7,6 +7,8 @@ import Contact from "@/components/sections/Contact";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Layout from "@/components/layout/Layout";
+import { useEffect, useState } from "react";
+import { Router } from "next/router";
 
 export const getStaticProps = async (ctx) => {
 	const experiences = require("@/public/json/experiences.json");
@@ -22,6 +24,22 @@ export const getStaticProps = async (ctx) => {
 
 export default function Index({experiences, skills}) {
 
+  const [isPageReady, setIsPageReady] = useState(false)
+
+  useEffect(() => {
+    if (!isPageReady) {
+      document.querySelector("html").style.overflowY = "hidden"
+      document.querySelector("body").style.overflowY = "hidden"
+      
+      setTimeout(() => {
+        document.querySelector("html").style.overflowY = "auto"
+        document.querySelector("body").style.overflowY = "auto"
+  
+        setIsPageReady(true);
+      }, 4000);
+    }
+  }, [isPageReady])
+  
   return (
     <>
       <Head>
@@ -32,7 +50,7 @@ export default function Index({experiences, skills}) {
 
       <Layout >
 
-        <Home />
+        <Home isPageReady={isPageReady} />
         <AboutMe skills={skills} />
         <WorkExperience experiences={experiences} />
         <Contact />

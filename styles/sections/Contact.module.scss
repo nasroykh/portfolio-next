@@ -1,8 +1,6 @@
 @use "../variables" as var;
 
 .ContactSection {
-  margin-bottom: 10em;
-
   h2 {
     font-family: var.$novaFont;
     font-size: 2rem;
@@ -16,6 +14,8 @@
   background-color: #262C35;
   border-radius: 5px;
   padding: 2em 1em;
+  max-width: 500px;
+  margin: 0 auto;
 
   & > p {
     color: #CBCBCB;
@@ -25,6 +25,20 @@
 
     &:last-of-type {
       margin-bottom: 0;
+    }
+  }
+
+  @media (min-width: 576px) {
+    padding: 2em;
+  }
+
+  @media (min-width: 768px) {
+    max-width: none;
+
+    & > p {
+      margin-bottom: 1em;
+      font-size: 1.25rem;
+      max-width: 690px;
     }
   }
 }
@@ -113,8 +127,8 @@
   }
 
   @media (min-width: 425px) {
-    max-width: 350px;
-    margin: 2em auto 0;
+    max-width: 400px;
+    margin-top: 2.25em;
 
     li {
       margin-right: 1.5em;
@@ -132,7 +146,6 @@
   @media (min-width: 768px) {
     display: flex;
     max-width: 100%;
-    margin: 2em 0;
 
     & > a {
       margin: 0 1.25em 0 0;

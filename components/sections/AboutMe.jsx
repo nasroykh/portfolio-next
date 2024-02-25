@@ -77,8 +77,10 @@ const AboutMe = ({skills}) => {
 						{
 							skills.frontEnd.map(el => (
 								<li key={el.id}>
-									<div>
-										<Icon id={el.id} width={35} height={35} />
+									<div className={classes.SkillCard}>
+										<div>
+											<Icon id={el.id} width={100} height={100} />
+										</div>
 									</div>
 									<h4>{el.title}</h4>
 								</li>
@@ -92,8 +94,10 @@ const AboutMe = ({skills}) => {
 						{
 							skills.backEnd.map(el => (
 								<li key={el.id}>
-									<div>
-										<Icon id={el.id} width={35} height={35} />
+									<div className={classes.SkillCard}>
+										<div>
+											<Icon id={el.id} width={100} height={100} />
+										</div>
 									</div>
 									<h4>{el.title}</h4>
 								</li>
@@ -107,8 +111,10 @@ const AboutMe = ({skills}) => {
 						{
 							skills.toolsAndTechnologies.map(el => (
 								<li key={el.id}>
-									<div>
-										<Icon id={el.id} width={35} height={35} />
+									<div className={classes.SkillCard}>
+										<div>
+											<Icon id={el.id} width={100} height={100} />
+										</div>
 									</div>
 									<h4>{el.title}</h4>
 								</li>

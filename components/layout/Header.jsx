@@ -52,7 +52,7 @@ const Header = (props) => {
       <div className={classes.HeaderBackdrop}></div>
       <div className={classes.Header}>
         <Link href="/" className={classes.Logo}>
-          <Image src="/logo.svg" width={185} height={195} alt="Personal Logo" />
+          <Image src="/logo.png" width={185} height={195} alt="Personal Logo" />
         </Link>
         <nav className={`${classes.Navbar} ${props.isNavbarOpened ? classes.NavbarOpened : ""}`}>
           <Link onClick={headerLinkClickHandler} name="about-me" href="#about-me">About</Link>
