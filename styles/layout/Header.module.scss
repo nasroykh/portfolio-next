@@ -15,7 +15,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  transition: all 150ms ease-in-out;
+  transition: all 500ms ease-in-out;
 }
 
 .Header {
@@ -25,7 +25,7 @@
   height: var.$headerHeight;
   max-width: var.$screenMaxWidth;
   margin: 0 auto;
-  transition: height 150ms ease-in-out;
+  transition: height 500ms ease-in-out;
 
   @media (min-width: 768px) {
     justify-content: space-between;
@@ -55,11 +55,17 @@
 }
 
 .Logo {
-  max-width: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 150ms ease-in-out;
+  max-width: 60px;
+  transition: all 500ms ease-in-out;
+  
+  & > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   @media (min-width: 768px) {
     max-width: 65px;
@@ -79,7 +85,7 @@
   border-bottom: 1px solid var.$darkBlueColor;
   padding: 2em 0;
 
-  transition: 150ms ease-in-out;
+  transition: 500ms ease-in-out;
   transition-property: max-height,opacity;
   
   max-height: 0;
@@ -128,7 +134,7 @@
       font-size: 1rem;
       padding: 0;
       width: auto;
-      transition: 150ms ease-in-out;
+      transition: 500ms ease-in-out;
       transition-property: background-color, color;
       
       &:last-child {
@@ -177,7 +183,7 @@
     margin-bottom: 6px;
     position: relative;
     border-radius: 5px;
-    transition: all 150ms ease-in-out;
+    transition: all 500ms ease-in-out;
 
     &:nth-child(1) {
       width: 70%;
@@ -203,7 +209,7 @@
       top: -1px;
       left: 0;
       border-radius: 5px;
-      transition: all 150ms ease-in-out;
+      transition: all 500ms ease-in-out;
 
       &:nth-child(1) {
         width: 70%;

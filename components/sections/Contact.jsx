@@ -5,9 +5,9 @@ import Icon from "../assets/Icon";
 const Contact = () => {
 	return (
 		<section id="contact" className={classes.ContactSection}>
-			<h2>Contact</h2>
+			<h2 data-aos="fade">Contact</h2>
 
-			<div className={classes.Main}>
+			<div className={classes.Main} data-aos="fade-up">
 				<p>
 					Thank you for exploring my portfolio! If you&apos;re interested in collaborating on a project, 
 					discussing the latest tech trends, or exploring opportunities, I&apos;d love to hear from you.

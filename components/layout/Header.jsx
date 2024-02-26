@@ -52,15 +52,17 @@ const Header = (props) => {
       <div className={classes.HeaderBackdrop}></div>
       <div className={classes.Header}>
         <Link href="/" className={classes.Logo}>
-          <Image src="/logo.png" width={185} height={195} alt="Personal Logo" />
+          <div data-aos="fade-down">
+            <Image src="/logo.png" width={185} height={195} alt="Personal Logo"/>
+          </div>
         </Link>
         <nav className={`${classes.Navbar} ${props.isNavbarOpened ? classes.NavbarOpened : ""}`}>
-          <Link onClick={headerLinkClickHandler} name="about-me" href="#about-me">About</Link>
-          <Link onClick={headerLinkClickHandler} name="work-experience" href="#work-experience">Work</Link>
-          <Link onClick={headerLinkClickHandler} name="contact" href="#contact">Contact</Link>
-          <Link onClick={headerLinkClickHandler} href="#">Resume</Link>
+          <Link onClick={headerLinkClickHandler} name="about-me" href="#about-me" data-aos="fade-down">About</Link>
+          <Link onClick={headerLinkClickHandler} name="work-experience" href="#work-experience" data-aos="fade-down">Work</Link>
+          <Link onClick={headerLinkClickHandler} name="contact" href="#contact" data-aos="fade-down">Contact</Link>
+          <Link onClick={headerLinkClickHandler} href="#" data-aos="fade-down">Resume</Link>
         </nav>
-        <button onClick={navbarToggleHandler} className={`${classes.MenuButton} ${props.isNavbarOpened ? classes.MenuButtonOpened : ""}`}>
+        <button onClick={navbarToggleHandler} className={`${classes.MenuButton} ${props.isNavbarOpened ? classes.MenuButtonOpened : ""}`} data-aos="fade-down">
           <span></span>
           <span></span>
           <span></span>

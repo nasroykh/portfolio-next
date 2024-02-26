@@ -1,14 +1,11 @@
 import Head from "next/head";
-import classes from "@/styles/Index.module.scss";
 import Home from "@/components/sections/Home";
 import AboutMe from "@/components/sections/AboutMe";
 import WorkExperience from "@/components/sections/WorkExperience";
 import Contact from "@/components/sections/Contact";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import Layout from "@/components/layout/Layout";
 import { useEffect, useState } from "react";
-import { Router } from "next/router";
+import AOS from "aos";
 
 export const getStaticProps = async (ctx) => {
 	const experiences = require("@/public/json/experiences.json");
@@ -25,7 +22,7 @@ export const getStaticProps = async (ctx) => {
 export default function Index({experiences, skills}) {
 
   const [isPageReady, setIsPageReady] = useState(false)
-
+  
   useEffect(() => {
     if (!isPageReady) {
       document.querySelector("html").style.overflowY = "hidden"
@@ -34,9 +31,14 @@ export default function Index({experiences, skills}) {
       setTimeout(() => {
         document.querySelector("html").style.overflowY = "auto"
         document.querySelector("body").style.overflowY = "auto"
+
+        AOS.init({
+          duration: 1000,
+          once: true
+        });
   
         setIsPageReady(true);
-      }, 4000);
+      }, 3000);
     }
   }, [isPageReady])
   

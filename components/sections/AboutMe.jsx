@@ -9,7 +9,7 @@ const AboutMe = ({skills}) => {
 	return (
 		<section id="about-me" className={classes.AboutMeSection}>
 			<div className={classes.Main}>
-				<div className={classes.MainText}>
+				<div className={classes.MainText} data-aos="fade-right" data-aos-delay="5000">
 					<h2>About me</h2>
 					<p>My name is <strong>Nasreddine</strong>, though I prefer to go by <strong>Nas</strong>. </p>
 					<p>
@@ -26,7 +26,7 @@ const AboutMe = ({skills}) => {
 						eager to further hone my <strong>skills</strong> in this dynamic and ever-evolving field.
 					</p>
 				</div>
-				<div className={classes.MainImageContainer}>
+				<div className={classes.MainImageContainer} data-aos="fade-left">
 					<Swiper
 						loop
 						effect={"fade"}
@@ -71,7 +71,7 @@ const AboutMe = ({skills}) => {
 			</div>
 
 			<div className={classes.Skills}>
-				<div className={classes.SkillsFront}>
+				<div className={classes.SkillsFront} data-aos="fade-right">
 					<h3>Front End</h3>
 					<ul>
 						{
@@ -88,7 +88,7 @@ const AboutMe = ({skills}) => {
 						}
 					</ul>
 				</div>
-				<div className={classes.SkillsBack}>
+				<div className={classes.SkillsBack} data-aos="fade-left">
 					<h3>Back End</h3>
 					<ul>
 						{
@@ -105,7 +105,7 @@ const AboutMe = ({skills}) => {
 						}
 					</ul>
 				</div>
-				<div className={classes.SkillsTools}>
+				<div className={classes.SkillsTools} data-aos="fade-up">
 					<h3>Tools & Technologies</h3>
 					<ul>
 						{

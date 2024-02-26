@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer className={classes.FooterContainer}>
       <div className={classes.Footer}>
-        <p>Designed & crafted with passion by me {"😁"}</p>
+        <p>Designed & Crafted with Passion by Nas {"😁"}</p>
         <p>© 2024 Nas</p>
       </div>
     </footer>

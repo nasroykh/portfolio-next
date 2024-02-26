@@ -29,10 +29,10 @@ const WorkExperience = ({experiences}) => {
 	
 	return (
 		<section id="work-experience" className={classes.WorkExperienceSection}>
-			<h2>Work Experience</h2>
+			<h2 data-aos="fade">Work Experience</h2>
 
 			{experiences && experiences.length ? experiences.map((el, index) => (
-				<div key={el.companyName} className={`${classes.MainSections}`}>
+				<div key={el.companyName} className={`${classes.MainSections}`} data-aos={`fade-${index%2===0 ? "left" : "right"}`}>
 					<div className={classes.CompanyDetails}>
 						<h4>{el.companyName}</h4>
 						<span>{el.dateRange}</span>

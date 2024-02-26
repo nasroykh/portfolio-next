@@ -17,7 +17,7 @@ const swipeClickHandler = (e) => {
 const Home = ({isPageReady}) => {
   return (
     <section className={classes.HomeSection}>
-      <div className={classes.MainText}>
+      <div className={classes.MainText} data-aos="fade" data-aos-delay={5000}>
         <span>
           Hey, 👋🏻
         </span>
