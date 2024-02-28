@@ -29,7 +29,7 @@ const Contact = () => {
 
 				<ul>
 					<li>
-						<Link target="_blank" href="https://www.linkedin.com/in/nasreddine-yakhou-4b619a157/">
+						<Link target="_blank" href="https://www.linkedin.com/in/nasreddine-yakhou/">
 							<div>
 								<Icon id="linkedin" width={100} height={100} />
 							</div>
@@ -43,7 +43,7 @@ const Contact = () => {
 						</Link>
 					</li>
 					<li>
-						<Link target="_blank" href="#">
+						<Link target="_blank" href="https://drive.google.com/file/d/1POCOdDZNcvyBkBKWWUaOyuBff8nD6FbV/view">
 							<div>
 								<Icon id="resume" width={100} height={100} />
 							</div>

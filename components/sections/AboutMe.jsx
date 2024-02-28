@@ -21,10 +21,6 @@ const AboutMe = ({skills}) => {
 						constantly expanding my knowledge base. 
 						I am deeply committed to staying at the forefront of <strong>technology trends and advancements</strong>.
 					</p>
-					<p>
-						I am excited about the prospect of contributing my <strong>expertise</strong> to innovative projects, 
-						eager to further hone my <strong>skills</strong> in this dynamic and ever-evolving field.
-					</p>
 				</div>
 				<div className={classes.MainImageContainer} data-aos="fade-left">
 					<Swiper
@@ -32,7 +28,7 @@ const AboutMe = ({skills}) => {
 						effect={"fade"}
 						modules={[EffectFade, Autoplay]}
 						autoplay={{
-							delay: 5000,
+							delay: 4000,
 							pauseOnMouseEnter: true,
 							disableOnInteraction: false
 						}}>

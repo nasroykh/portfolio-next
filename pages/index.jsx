@@ -6,6 +6,7 @@ import Contact from "@/components/sections/Contact";
 import Layout from "@/components/layout/Layout";
 import { useEffect, useState } from "react";
 import AOS from "aos";
+import Script from "next/script";
 
 export const getStaticProps = async (ctx) => {
 	const experiences = require("@/public/json/experiences.json");
@@ -47,8 +48,21 @@ export default function Index({experiences, skills}) {
       <Head>
         <title>Nas - Software Developer</title>
         <meta name="description" content="I'm Nas, a seasoned Software Developer with the expertise to guide your journey to excellence through elegant and effective lines of code." />
+        <link rel="canonical" href="https://nas.codes" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta property="og:title" content="Nas - Software Developer" />
+        <meta property="og:description" content="I'm Nas, a seasoned Software Developer with the expertise to guide your journey to excellence through elegant and effective lines of code." />
+        <meta name="twitter:title" content="Nas - Software Developer" />
+        <meta name="twitter:description" content="I'm Nas, a seasoned Software Developer with the expertise to guide your journey to excellence through elegant and effective lines of code." />
       </Head>
+
+      <Script id="item-jsonld-general" type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: `{"@context" : "http://schema.org",
+                  "@type" : "Organization",  
+                  "name" : "Nas",
+                  "url" : "https://nas.codes", 
+                  "logo": "https://nas.codes/logo-square.png"}`}}>
+      </Script>
 
       <Layout >
 

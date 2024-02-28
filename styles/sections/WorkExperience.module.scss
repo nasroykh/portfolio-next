@@ -285,6 +285,12 @@
       width: 85vw;
     }
   }
+
+  @media (max-height: 500px) {
+    & > span {
+      max-width: 150vh;
+    }
+  }
 }
 
 .ImagePreviewVisible {

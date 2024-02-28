@@ -26,7 +26,7 @@ const Home = ({isPageReady}) => {
         </span>
         <h1>
           <div>
-            I&apos;m<strong> Nas </strong>,
+            I&apos;m<strong> Nas</strong>,
           </div>
           <div>
             a seasoned <strong>Software Developer</strong> with the expertise to guide your journey to excellence through elegant and effective lines of code.
@@ -35,7 +35,7 @@ const Home = ({isPageReady}) => {
       </div>
 
       <div className={classes.SwipeButton}>
-        <button onClick={swipeClickHandler}>
+        <button onClick={swipeClickHandler} aria-label="Swipe down">
           <Icon id="arrow-long" />
         </button>
       </div>

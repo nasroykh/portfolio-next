@@ -44,8 +44,9 @@
 }
 
 .Buttons {
-  margin-top: 2em;
-  
+  margin: 2em auto 0;
+  max-width: 400px;
+
   & > a {
     display: flex;
     align-items: center;
@@ -132,7 +133,6 @@
   }
 
   @media (min-width: 425px) {
-    max-width: 400px;
     margin-top: 2.25em;
 
     li {
@@ -151,14 +151,15 @@
   @media (min-width: 768px) {
     display: flex;
     max-width: 100%;
+    margin: 2.25em 0;
 
     & > a {
-      margin: 0 1.25em 0 0;
+      margin: 0 1.125em 0 0;
       padding: 1em 2.5em;
     }
 
     li {
-      margin: 0 1.25em 0 0;
+      margin: 0 1.125em 0 0;
     }
   }
 }

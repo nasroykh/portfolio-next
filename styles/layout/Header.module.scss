@@ -92,7 +92,7 @@
   overflow: hidden;
   opacity: 0;
   z-index: -1;
-  pointer-events: none;
+  pointer-events: none !important;
   
 
   a {
@@ -105,6 +105,7 @@
     padding: .75em 0;
     width: 100%;
     color: #EEEEEE;
+    pointer-events: none !important;
 
     &:last-child {
       margin-bottom: 0;
@@ -136,6 +137,7 @@
       width: auto;
       transition: 500ms ease-in-out;
       transition-property: background-color, color;
+      pointer-events: initial !important;
       
       &:last-child {
         background-color: #191E26;
@@ -160,21 +162,36 @@
   max-height: 800px;
   opacity: 1;
   z-index: 4500;
-  pointer-events: initial;
+  pointer-events: initial !important;
+
+  a {
+    pointer-events: initial !important;
+  }
 }
 
-.MenuButton {
+.MenuButtonContainer {
   position: absolute;
   right: 0;
   top: 0;
+  height: 100%;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @extend %xMargin;
+  margin-left: 0;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+
+.MenuButton {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 30px;
-  height: 100%;
-  @extend %xMargin;
-  margin-left: 0;
+  width: 100%;
 
   span {
     height: 3px;
@@ -220,10 +237,6 @@
       }
     }
   }
-
-  @media (min-width: 768px) {
-    display: none;
-  }
 }
 
 .MenuButtonOpened {
@@ -232,11 +245,11 @@
   }
 
   span:nth-child(1) {
-    transform: translateX(22%);
+    transform: translateX(22%) !important;
   }
 
   span:nth-child(3) {
-    transform: translateX(-20%);
+    transform: translateX(-20%) !important;
   }
 
 }
