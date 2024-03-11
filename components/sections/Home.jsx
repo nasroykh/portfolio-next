@@ -29,7 +29,7 @@ const Home = ({isPageReady}) => {
             I&apos;m<strong> Nas</strong>,
           </div>
           <div>
-            a seasoned <strong>Software Developer</strong> with the expertise to guide your journey to excellence through elegant and effective lines of code.
+            a seasoned <strong>Software Engineer</strong> with the expertise to guide your journey to excellence through elegant and effective lines of code.
           </div>
         </h1>
       </div>

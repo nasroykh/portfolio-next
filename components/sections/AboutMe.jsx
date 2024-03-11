@@ -13,7 +13,7 @@ const AboutMe = ({skills}) => {
 					<h2>About me</h2>
 					<p>My name is <strong>Nasreddine</strong>, though I prefer to go by <strong>Nas</strong>. </p>
 					<p>
-						With <strong>four years</strong> of dedicated experience as a <strong>Software Developer</strong>, 
+						With <strong>four years</strong> of dedicated experience as a <strong>Software Engineer</strong>, 
 						I&apos;ve cultivated a <strong>passion</strong> for coding and thrive on solving intricate problems.
 					</p>
 					<p>

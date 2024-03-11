@@ -46,14 +46,14 @@ export default function Index({experiences, skills}) {
   return (
     <>
       <Head>
-        <title>Nas - Software Developer</title>
-        <meta name="description" content="I'm Nas, a seasoned Software Developer with the expertise to guide your journey to excellence through elegant and effective lines of code." />
+        <title>Nas - Software Engineer</title>
+        <meta name="description" content="I'm Nas, a seasoned Software Engineer with the expertise to guide your journey to excellence through elegant and effective lines of code." />
         <link rel="canonical" href="https://nas.codes" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta property="og:title" content="Nas - Software Developer" />
-        <meta property="og:description" content="I'm Nas, a seasoned Software Developer with the expertise to guide your journey to excellence through elegant and effective lines of code." />
-        <meta name="twitter:title" content="Nas - Software Developer" />
-        <meta name="twitter:description" content="I'm Nas, a seasoned Software Developer with the expertise to guide your journey to excellence through elegant and effective lines of code." />
+        <meta property="og:title" content="Nas - Software Engineer" />
+        <meta property="og:description" content="I'm Nas, a seasoned Software Engineer with the expertise to guide your journey to excellence through elegant and effective lines of code." />
+        <meta name="twitter:title" content="Nas - Software Engineer" />
+        <meta name="twitter:description" content="I'm Nas, a seasoned Software Engineer with the expertise to guide your journey to excellence through elegant and effective lines of code." />
       </Head>
 
       <Script id="item-jsonld-general" type="application/ld+json" dangerouslySetInnerHTML={{
