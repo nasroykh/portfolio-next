@@ -2,7 +2,8 @@ import { Layout } from "@/components/layout/layout";
 
 export const metadata = {
 	title: "About",
-	description: "AI/LLM Specialist and Software Engineer specializing in RAG systems, eCommerce platforms, and SEO optimization.",
+	description:
+		"AI/LLM Specialist and Software Engineer specializing in RAG systems, eCommerce platforms, and SEO optimization.",
 };
 
 export default function AboutPage() {
@@ -14,84 +15,65 @@ export default function AboutPage() {
 				</h1>
 				<div className="prose prose-neutral dark:prose-invert">
 					<p>
-						Hey there! I&apos;m Nas, an AI/LLM Specialist and Software Engineer
-						focused on building intelligent systems that solve real-world business
-						challenges. Currently at VexLogic Ltd, I specialize in custom RAG
-						(Retrieval-Augmented Generation) systems, AI assistants, and automated
-						data solutions using OpenAI and other LLM APIs.
+						I&apos;m Nas, a software engineer focused on one thing: helping
+						businesses increase revenue. I know when to move fast and when to
+						build for scale.
 					</p>
+					<p>My expertise spans three core areas:</p>
+					<ul>
+						<li>
+							AI/LLM Integration (Building RAG systems, custom AI assistants,
+							and AI-powered tools)
+						</li>
+						<li>
+							eCommerce Development (Architecting scalable platforms with full
+							payment integration, admin dashboards, and custom features)
+						</li>
+						<li>
+							SEO Optimization (Driving measurable organic traffic growth
+							through technical and content strategies)
+						</li>
+					</ul>
 					<p>
-						My expertise spans three core areas: AI/LLM integration (building RAG
-						systems and AI-powered tools), eCommerce development (architected
-						platforms for Techivation and SoliderSound with full payment
-						integration), and SEO optimization (driving measurable organic traffic
-						growth through technical and content strategies). I combine deep
-						technical skills with practical business understanding—whether
-						it&apos;s implementing GPT-powered document analysis, building scalable
-						eCommerce APIs, or optimizing sites for search engines. I&apos;ve led
-						development teams, managed full-stack projects, and consistently
-						delivered solutions that directly impact revenue and user engagement.
+						I&apos;ve led development teams, managed full-stack projects, and
+						consistently delivered solutions that directly impact revenue and
+						user engagement.
 					</p>
 					<hr className="my-6 border-neutral-100 dark:border-neutral-800" />
-					<h2 className="font-medium text-xl mb-1 tracking-tighter">
-						AI & LLM Expertise
-					</h2>
-					<p>
-						Currently at VexLogic Ltd, I build custom RAG (Retrieval-Augmented
-						Generation) systems that enable clients to query their own documents
-						and data using natural language. I develop AI assistants using OpenAI
-						and OpenRouter APIs, create automated web scraping tools with
-						Puppeteer and Playwright, and build AI-powered solutions like
-						personalized cold email systems that iteratively improve based on
-						performance metrics. My work focuses on making LLMs practical and
-						production-ready for real business applications.
-					</p>
-					<h2 className="font-medium text-xl mb-1 tracking-tighter mt-8">
-						eCommerce & Full-Stack Development
-					</h2>
-					<p>
-						I&apos;ve led the development of multiple eCommerce platforms from the
-						ground up, including for Techivation Ltd and SoliderSound Ltd. This
-						includes architecting scalable REST APIs, designing PostgreSQL
-						databases, integrating Stripe and PayPal payment processing, building
-						admin dashboards, and creating custom features like A/B audio players
-						for product comparisons. My full-stack expertise spans Next.js and
-						React on the frontend to Node.js, Go, Python, and various ORMs on the
-						backend.
-					</p>
-					<h2 className="font-medium text-xl mb-1 tracking-tighter mt-8">
-						SEO & Performance Optimization
-					</h2>
-					<p>
-						I take a technical approach to SEO, combining code-level optimizations
-						with strategic content improvements. My work has driven measurable
-						increases in organic traffic through improved page load times,
-						semantic HTML structure, schema markup, and content optimization. I
-						understand that great SEO is about both technical excellence and user
-						experience—from server-side rendering strategies to Core Web Vitals
-						optimization.
-					</p>
 					<h2 className="font-medium text-xl mb-1 tracking-tighter mt-8">
 						Philosophy & Approach
 					</h2>
 					<p>
-						I believe in building systems that are maintainable, scalable, and
-						actually solve business problems. Throughout my career, I&apos;ve led
-						development teams, mentored junior developers, and consistently
-						delivered solutions that directly impact revenue and user engagement.
-						Whether it&apos;s implementing a custom RAG system, building an
-						eCommerce platform that handles thousands of transactions, or
-						optimizing a site to rank on page one—I focus on outcomes that matter.
+						Most developers either over-engineer everything or hack things
+						together.
+					</p>
+					<p>I do neither.</p>
+					<p className="mb-2!">
+						I ask one question first:{" "}
+						<strong>&quot;what does the business need right now?&quot;</strong>
+					</p>
+					<ul className="">
+						<li>Sometimes that&apos;s a quick MVP to test the market.</li>
+						<li>
+							Sometimes it&apos;s a robust foundation that won&apos;t break at
+							scale.{" "}
+						</li>
+					</ul>
+					<p>
+						&#8594; The right choice depends on your timeline, budget, and
+						growth trajectory—not on what&apos;s trendy.
 					</p>
 					<h2 className="font-medium text-xl mb-1 tracking-tighter mt-8">
 						Beyond Code
 					</h2>
 					<p>
-						When I&apos;m not coding, I&apos;m staying current with the rapidly
-						evolving AI landscape, experimenting with new LLM techniques, and
-						exploring how emerging technologies can be applied to real business
-						challenges. I&apos;m particularly excited about the intersection of
-						AI, automation, and data-driven decision making.
+						I spend a lot of time experimenting with AI tools before they hit
+						mainstream—not because I chase trends, but because I want to know
+						what&apos;s actually useful versus what&apos;s just hype.
+					</p>
+					<p>
+						I&apos;m particularly interested in how AI can automate the boring
+						parts of business so humans can focus on what matters.
 					</p>
 				</div>
 			</section>

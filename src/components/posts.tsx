@@ -5,7 +5,7 @@ export function BlogPosts() {
 	const allBlogs = getBlogPosts();
 
 	return (
-		<div className="space-y-4">
+		<div className="space-y-3">
 			{allBlogs
 				.sort((a, b) => {
 					if (

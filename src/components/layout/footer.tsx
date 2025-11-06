@@ -1,72 +1,80 @@
-function ArrowIcon() {
-	return (
-		<svg
-			width="12"
-			height="12"
-			viewBox="0 0 12 12"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-		>
-			<path
-				d="M2.07102 11.3494L0.963068 10.2415L9.2017 1.98864H2.83807L2.85227 0.454545H11.8438V9.46023H10.2955L10.3097 3.09659L2.07102 11.3494Z"
-				fill="currentColor"
-			/>
-		</svg>
-	);
-}
+import {
+	IconBrandGithub,
+	IconBrandInstagram,
+	IconBrandLinkedin,
+	IconBrandMedium,
+	IconBrandX,
+} from "@tabler/icons-react";
+import { TooltipWrapper } from "../ui/tooltip-wrapper";
 
-export default function Footer() {
+export const Footer = () => {
 	return (
-		<footer className="mb-16">
-			<ul className="font-sm mt-8 flex flex-col space-x-0 space-y-2 text-neutral-600 md:flex-row md:space-x-4 md:space-y-0 dark:text-neutral-300">
+		<footer className="pt-2 pb-10 flex flex-col space-y-6 md:flex-row md:space-y-0 items-center justify-between">
+			<ul className="flex items-center justify-center md:justify-start space-x-4 text-neutral-600 dark:text-neutral-300">
 				<li>
-					<a
-						className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
-						rel="noopener noreferrer"
-						target="_blank"
-						href="https://github.com/nasroykh"
-					>
-						<ArrowIcon />
-						<p className="ml-2 h-7">github</p>
-					</a>
+					<TooltipWrapper content="Github">
+						<a
+							className="flex items-center gap-1 transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
+							rel="noopener noreferrer"
+							target="_blank"
+							href="https://github.com/nasroykh"
+						>
+							<IconBrandGithub size={24} />
+						</a>
+					</TooltipWrapper>
 				</li>
 				<li>
-					<a
-						className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
-						rel="noopener noreferrer"
-						target="_blank"
-						href="https://www.linkedin.com/in/nas-y/"
-					>
-						<ArrowIcon />
-						<p className="ml-2 h-7">linkedin</p>
-					</a>
+					<TooltipWrapper content="LinkedIn">
+						<a
+							className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
+							rel="noopener noreferrer"
+							target="_blank"
+							href="https://www.linkedin.com/in/nas-y/"
+						>
+							<IconBrandLinkedin size={24} />
+						</a>
+					</TooltipWrapper>
 				</li>
 				<li>
-					<a
-						className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
-						rel="noopener noreferrer"
-						target="_blank"
-						href="https://instagram.com/nascodes"
-					>
-						<ArrowIcon />
-						<p className="ml-2 h-7">instagram</p>
-					</a>
+					<TooltipWrapper content="Medium">
+						<a
+							className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
+							rel="noopener noreferrer"
+							target="_blank"
+							href="https://medium.com/@nascodes"
+						>
+							<IconBrandMedium size={24} />
+						</a>
+					</TooltipWrapper>
 				</li>
 				<li>
-					<a
-						className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
-						rel="noopener noreferrer"
-						target="_blank"
-						href="https://x.com/nas_codes"
-					>
-						<ArrowIcon />
-						<p className="ml-2 h-7">x (twitter)</p>
-					</a>
+					<TooltipWrapper content="Instagram">
+						<a
+							className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
+							rel="noopener noreferrer"
+							target="_blank"
+							href="https://instagram.com/nascodes"
+						>
+							<IconBrandInstagram size={24} />
+						</a>
+					</TooltipWrapper>
+				</li>
+				<li>
+					<TooltipWrapper content="X (Twitter)">
+						<a
+							className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
+							rel="noopener noreferrer"
+							target="_blank"
+							href="https://x.com/nas_codes"
+						>
+							<IconBrandX size={24} />
+						</a>
+					</TooltipWrapper>
 				</li>
 			</ul>
-			<p className="mt-8 text-neutral-600 dark:text-neutral-300">
+			<p className="text-center md:text-left text-neutral-600 dark:text-neutral-300">
 				© {new Date().getFullYear()} Nas. All rights reserved.
 			</p>
 		</footer>
 	);
-}
+};

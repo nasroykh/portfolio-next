@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { League_Spartan, Nova_Square } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "sonner";
 
 const novaSquare = Nova_Square({
 	subsets: ["latin"],
@@ -75,7 +76,7 @@ export default async function RootLayout({
 				<meta name="apple-mobile-web-app-title" content="Nas" />
 			</head>
 			<body
-				className={`${novaSquare.variable} ${leagueSpartan.variable} antialiased max-w-xl md:max-w-2xl mx-auto mt-4 md:mt-8 px-4 sm:px-6`}
+				className={`${novaSquare.variable} ${leagueSpartan.variable} antialiased`}
 			>
 				<ThemeProvider
 					attribute="class"
@@ -83,6 +84,7 @@ export default async function RootLayout({
 					disableTransitionOnChange
 				>
 					{children}
+					<Toaster />
 				</ThemeProvider>
 			</body>
 		</html>

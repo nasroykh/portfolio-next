@@ -6,29 +6,32 @@ import Link from "next/link";
 export default function Home() {
 	return (
 		<Layout activePath="home">
-			<section>
-				<h1 className="mb-4 text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
-					Hi, I&apos;m Nas
-				</h1>
-				<p className="text-lg text-muted-foreground mb-2">
-					Transforming businesses with AI-powered solutions
-				</p>
-				<p className="mb-8">
-					{`I'm an AI/LLM Specialist and Software Engineer specializing in RAG systems, eCommerce platforms, and SEO optimization. I build production-ready AI solutions and high-performance web applications that solve real business problems and drive measurable results.`}
+			<section className="space-y-4 mb-16">
+				<div className="space-y-1">
+					<h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
+						Software Engineer
+					</h1>
+					<p className="text-xl text-muted-foreground">
+						Nasr Eddine Yakhou (Nas)
+					</p>
+				</div>
+				<p>
+					{`I build web applications that actually work—from AI-powered tools to eCommerce platforms. Let's solve your business problems together.`}
 				</p>
 
 				<div className="flex flex-wrap gap-4">
-					<Button asChild className="px-8 text-base">
+					<Button asChild size="lg" className="px-8 text-base">
 						<Link href="/experience">View My Work</Link>
 					</Button>
-					<Button asChild variant="secondary" className="text-base">
+					<Button asChild size="lg" variant="secondary" className="text-base">
 						<Link href="/contact">Get In Touch</Link>
 					</Button>
 				</div>
-				<div className="my-10">
-					<h2 className="text-lg tracking-tighter mb-4">Recent Blog Posts</h2>
-					<BlogPosts />
-				</div>
+			</section>
+
+			<section className="space-y-4">
+				<h2 className="text-xl tracking-tighter">Recent Blog Posts</h2>
+				<BlogPosts />
 			</section>
 		</Layout>
 	);

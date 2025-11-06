@@ -63,20 +63,18 @@ export function Header({
 	const [open, setOpen] = useState(false);
 
 	return (
-		<header className="-ml-[8px] mb-8 md:mb-12 py-4 tracking-tight sticky top-0 bg-background z-50">
-			<nav
-				className="flex flex-row items-center justify-between relative px-0 pb-0 fade md:overflow-auto scroll-pr-6 md:relative"
-				id="nav"
-			>
+		<header className="py-4 sticky top-0 bg-background z-50">
+			<nav className="flex flex-row items-center justify-between" id="nav">
 				<Link
 					href="/"
 					className="size-10 sm:size-12 flex items-center justify-center shrink-0"
+					aria-label="Home"
 				>
 					<Logo />
 				</Link>
 
 				{/* Desktop Navigation */}
-				<div className="hidden md:flex flex-row space-x-0">
+				<div className="hidden md:flex flex-row tracking-tight">
 					{NAV_ITEMS.map(({ name, path }) => {
 						const isActive = activePath === name;
 						return (
@@ -115,11 +113,11 @@ export function Header({
 									<MenuIcon />
 								</Button>
 							</SheetTrigger>
-							<SheetContent side="right" className="w-[280px] sm:w-[320px]">
-								<SheetHeader>
-									<SheetTitle>Menu</SheetTitle>
-								</SheetHeader>
-								<div className="flex flex-col gap-4 mt-8">
+							<SheetContent
+								side="right"
+								className="w-[280px] sm:w-[320px] px-4 py-16"
+							>
+								<div className="flex flex-col gap-4">
 									{NAV_ITEMS.map(({ name, path }) => {
 										const isActive = activePath === name;
 										return (

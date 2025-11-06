@@ -102,7 +102,7 @@ const experiences = [
 			"Developed an employee management system as my computer science thesis project",
 			"Built a patient management system for a local medical center",
 		],
-		website: "https://old.nas.codes",
+		website: "https://old.nascodes.dev",
 	},
 ];
 

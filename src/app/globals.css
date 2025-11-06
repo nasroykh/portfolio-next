@@ -143,7 +143,7 @@
 
 @layer base {
 	* {
-		@apply border-border outline-ring/50;
+		@apply border-border outline-ring/50 box-border p-0 m-0;
 	}
 
 	body {
@@ -158,6 +158,11 @@
 	h5,
 	h6 {
 		font-family: var(--font-nova), sans-serif;
+	}
+
+	img,
+	svg {
+		@apply max-w-full block;
 	}
 
 	/* Selection colors */
