@@ -9,7 +9,7 @@ import { TooltipWrapper } from "../ui/tooltip-wrapper";
 
 export const Footer = () => {
 	return (
-		<footer className="pt-2 pb-10 flex flex-col space-y-6 md:flex-row md:space-y-0 items-center justify-between">
+		<footer className="mt-auto pt-2 pb-10 flex flex-col space-y-6 md:flex-row md:space-y-0 items-center justify-between">
 			<ul className="flex items-center justify-center md:justify-start space-x-4 text-neutral-600 dark:text-neutral-300">
 				<li>
 					<TooltipWrapper content="Github">

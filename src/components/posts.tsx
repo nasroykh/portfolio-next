@@ -5,7 +5,7 @@ export function BlogPosts() {
 	const allBlogs = getBlogPosts();
 
 	return (
-		<div className="space-y-3">
+		<ul className="">
 			{allBlogs
 				.sort((a, b) => {
 					if (
@@ -16,21 +16,22 @@ export function BlogPosts() {
 					return 1;
 				})
 				.map((post) => (
-					<Link
+					<li
 						key={post.slug}
-						className="flex flex-col space-y-1 group"
-						href={`/blog/${post.slug}`}
+						className="border-b last:border-b-0 border-neutral-200 dark:border-neutral-800"
 					>
-						<div className="w-full flex flex-col sm:flex-row gap-2 sm:gap-0">
-							<p className="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base tabular-nums sm:max-w-28 sm:border-r-2 border-border sm:pr-2 sm:mr-2">
-								{formatDate(post.metadata.publishedAt, false)}
-							</p>
-							<p className="text-neutral-900 dark:text-neutral-100 tracking-tight flex-1 group-hover:underline">
-								{post.metadata.title}
-							</p>
-						</div>
-					</Link>
+						<Link className="group flex py-2" href={`/blog/${post.slug}`}>
+							<div className="w-full flex flex-col sm:flex-row gap-2 sm:gap-4">
+								<p className="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base tabular-nums">
+									{formatDate(post.metadata.publishedAt, false)}
+								</p>
+								<p className="text-neutral-900 dark:text-neutral-100 tracking-tight flex-1 group-hover:underline">
+									{post.metadata.title}
+								</p>
+							</div>
+						</Link>
+					</li>
 				))}
-		</div>
+		</ul>
 	);
 }

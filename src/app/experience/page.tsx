@@ -1,4 +1,5 @@
 import { Layout } from "@/components/layout/layout";
+import { Button } from "@/components/ui/button";
 
 export const metadata = {
 	title: "Experience",
@@ -13,15 +14,20 @@ const experiences = [
 		dateRange: "April 2025 - Present",
 		role: "AI/LLM Specialist & Lead Developer",
 		description:
-			"Specialize in building production-ready AI solutions with a focus on RAG systems, custom AI assistants, and intelligent automation tools. Work directly with OpenAI, Anthropic, and other LLM APIs to create practical business applications that leverage the latest advancements in generative AI.",
+			"Specialize in building production-ready AI solutions with a focus on RAG systems, custom AI assistants, and intelligent automation tools. Work directly with OpenRouter, OpenAI, Qdrant and other tools to create practical business applications that leverage the latest advancements in generative AI.",
 		achievements: [
 			"Architected and deployed custom RAG (Retrieval-Augmented Generation) systems enabling natural language querying of proprietary documents and knowledge bases using vector embeddings and semantic search",
-			"Built intelligent web scraping and data extraction pipelines with Puppeteer and Playwright, integrated with LLMs for automated content analysis and structured data extraction",
-			"Developed AI assistants and chatbots using OpenRouter, OpenAI, and Anthropic APIs for customer support, internal tooling, and workflow automation",
+			"Built intelligent web scraping and data extraction pipelines with Playwright, integrated with LLMs for automated content analysis and structured data extraction",
 			"Created an AI-powered cold email system with automated personalization, A/B testing, and iterative improvement based on engagement metrics—significantly increasing conversion rates",
-			"Implemented prompt engineering strategies, few-shot learning patterns, and chain-of-thought reasoning for improved AI response quality and reliability",
+			"Developed AI assistants using OpenRouter API for customer support, internal tooling, and workflow automation",
+			"Implemented prompt and context engineering strategiesfor improved AI response quality and reliability",
 		],
-		website: "https://vexlogic.com",
+		website: [
+			{
+				title: "Visit Website",
+				url: "https://vexlogic.com",
+			},
+		],
 	},
 	{
 		id: "tech4fab",
@@ -31,9 +37,20 @@ const experiences = [
 		description:
 			"Developed and improved a widget builder platform that lets companies create custom dashboards to visualize their data. Worked on both the drag-and-drop interface and the backend systems.",
 		achievements: [
-			"Built a flexible widget builder with drag-and-drop functionality for creating custom dashboards",
+			"Built and enhanced a flexible widget builder with drag-and-drop functionality for creating custom dashboards",
 			"Created real-time data visualization components that update dynamically as data changes",
+			"Implemented filters, customization and sorting functionality for the widget builder",
 			"Developed the backend infrastructure to handle custom widget configurations and data processing",
+		],
+		website: [
+			{
+				title: "Visit Website",
+				url: "https://tech4fab.com",
+			},
+			{
+				title: "Visit LinkedIn",
+				url: "https://www.linkedin.com/company/tech4fab/",
+			},
 		],
 	},
 	{
@@ -47,12 +64,16 @@ const experiences = [
 			"Architected and built RESTful API and PostgreSQL database from scratch, handling products, licensing, orders, and customer management with optimized query performance",
 			"Implemented comprehensive SEO strategy combining technical optimizations (server-side rendering, semantic HTML, schema markup) and content improvements—driving 40%+ increase in organic traffic",
 			"Integrated Stripe and PayPal payment gateways with subscription management, webhooks for automated license delivery, and fraud prevention measures",
-			"Developed custom interactive A/B audio player allowing customers to compare processed vs unprocessed audio in real-time, significantly improving conversion rates",
 			"Built comprehensive admin dashboards with analytics, inventory management, order processing, and customer support tools using React and TypeScript",
-			"Optimized Core Web Vitals through lazy loading, image optimization, and strategic code splitting—improving page speed scores from 60s to 90+",
+			"Optimized Core Web Vitals through lazy loading, image optimization, and strategic code splitting—improving page speed scores from 60s to 95+",
 			"Led and mentored a team of 3 junior developers, conducted code reviews, and established development best practices and CI/CD workflows",
 		],
-		website: "https://techivation.com",
+		website: [
+			{
+				title: "Visit Website",
+				url: "https://techivation.com",
+			},
+		],
 	},
 	{
 		id: "solidersound",
@@ -69,7 +90,12 @@ const experiences = [
 			"Led development team of 2 developers, established Git workflows, and maintained project timelines while coordinating with stakeholders",
 			"Built responsive product pages with dynamic filtering and search functionality, improving user experience and reducing bounce rates",
 		],
-		website: "https://solidersound.com",
+		website: [
+			{
+				title: "Visit Website",
+				url: "https://solidersound.com",
+			},
+		],
 	},
 	{
 		id: "brenco",
@@ -86,6 +112,16 @@ const experiences = [
 			"Developed custom websites for startups in the company's incubator program",
 			"Helped interview and onboard new developers joining the team",
 		],
+		website: [
+			{
+				title: "Visit Website",
+				url: "https://brenco-algerie.com/",
+			},
+			{
+				title: "Visit LinkedIn",
+				url: "https://www.linkedin.com/company/brenco-engineering-&-consulting-services/",
+			},
+		],
 	},
 	{
 		id: "freelancing",
@@ -95,102 +131,56 @@ const experiences = [
 		description:
 			"Spent about 8 months learning web development and applying what I learned through freelance projects and personal work. This gave me hands-on experience before landing my first full-time role.",
 		achievements: [
-			"Took on various freelance web development projects for local clients",
+			"Took on various freelance web development projects for local and Upwork clients",
 			"Learned Shopify theme development and built a few custom themes",
 			"Built personal projects to practice front-end development skills",
 			"Created a real-time chat application using React and WebSockets",
 			"Developed an employee management system as my computer science thesis project",
 			"Built a patient management system for a local medical center",
 		],
-		website: "https://old.nascodes.dev",
+		website: [
+			{
+				title: "Visit First Portfolio",
+				url: "https://first.nascodes.dev",
+			},
+			{
+				title: "Visit Previous Portfolio",
+				url: "https://previous.nascodes.dev",
+			},
+		],
 	},
 ];
-
-const skills = {
-	frontEnd: [
-		"Next.js",
-		"React",
-		"Svelte",
-		"Tailwind CSS",
-		"Tanstack Query",
-		"Tanstack Router",
-		"SCSS",
-		"Shadcn UI",
-		"Jotai",
-		"Zustand",
-		"Vite",
-	],
-	backEnd: [
-		"Node.js",
-		"Fastify",
-		"TRPC",
-		"Go",
-		"Python",
-		"Drizzle ORM",
-		"Prisma",
-		"PostgreSQL",
-		"Redis",
-		"MongoDB",
-		"BullMQ",
-	],
-	toolsAndTechnologies: [
-		"OpenAI",
-		"Google Gemini",
-		"OpenRouter",
-		"Puppeteer",
-		"Playwright",
-		"Docker",
-		"Linux",
-		"Stripe",
-		"Electron",
-		"Figma",
-		"C++",
-		"Jest",
-		"NGINX",
-		"Caddy",
-		"PayPal",
-		"GraphQL",
-		"AWS",
-	],
-};
 
 export default function ExperiencePage() {
 	return (
 		<Layout activePath="experience">
 			<section>
-				<h1 className="font-semibold text-xl sm:text-2xl md:text-3xl mb-6 md:mb-8 tracking-tighter">
+				<h1 className="font-semibold text-3xl md:text-4xl mb-8 tracking-tighter">
 					Work Experience
 				</h1>
-				<div className="mb-8 p-3 sm:p-4 bg-neutral-50 dark:bg-neutral-900 rounded-lg border border-neutral-200 dark:border-neutral-800">
-					<p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
-						<strong className="text-neutral-900 dark:text-neutral-100">
-							Core Specializations:
-						</strong>{" "}
-						AI/LLM Development (RAG Systems, Prompt Engineering, AI Assistants)
-						• eCommerce Platforms (Payment Integration, API Design, Database
-						Architecture) • SEO Optimization (Technical SEO, Performance,
-						Content Strategy)
-					</p>
-				</div>
-				<div className="space-y-12">
+
+				<div className="">
 					{experiences.map((experience) => (
-						<div key={experience.id} className="flex flex-col">
-							<div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-2 gap-1 sm:gap-2">
-								<h2 className="font-medium text-lg sm:text-xl tracking-tight">
-									{experience.role}
-								</h2>
-								<p className="text-sm text-neutral-600 dark:text-neutral-400">
-									{experience.dateRange}
+						<div
+							key={experience.id}
+							className="flex flex-col border-b last:border-b-0 first:pt-0 last:pb-6 border-neutral-200 dark:border-neutral-800 py-12 sm:py-14"
+						>
+							<div className="space-y-2 sm:space-y-0 mb-4">
+								<div className="flex flex-col-reverse sm:flex-row sm:justify-between sm:items-baseline gap-0 sm:gap-2">
+									<h2 className="text-2xl tracking-tight">{experience.role}</h2>
+									<p className="text-sm text-neutral-600 dark:text-neutral-400">
+										{experience.dateRange}
+									</p>
+								</div>
+								<p className="text-foreground/70 font-medium">
+									{experience.companyName}
 								</p>
 							</div>
-							<p className="text-neutral-700 dark:text-neutral-300 mb-2 font-medium">
-								{experience.companyName}
-							</p>
 							<p className="text-neutral-600 dark:text-neutral-400 mb-3">
 								{experience.description}
 							</p>
 							<div className="mt-2">
-								<p className="text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+								<p className="text-base font-medium text-neutral-700 dark:text-neutral-300 mb-2">
 									Key Achievements:
 								</p>
 								<ul className="list-disc list-outside ml-4 sm:ml-5 space-y-1.5 text-sm text-neutral-600 dark:text-neutral-400">
@@ -201,71 +191,28 @@ export default function ExperiencePage() {
 									))}
 								</ul>
 							</div>
-							{experience.website && (
-								<a
-									href={experience.website}
-									target="_blank"
-									rel="noopener noreferrer"
-									className="mt-3 text-sm text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors underline"
-								>
-									Visit website →
-								</a>
-							)}
+							<div className="mt-4 flex flex-col sm:flex-row gap-4 sm:gap-6">
+								{experience.website &&
+									experience.website.length &&
+									experience.website.map((website) => (
+										<Button
+											key={website.url}
+											asChild
+											size="sm"
+											variant="outline"
+										>
+											<a
+												href={website.url}
+												target="_blank"
+												rel="noopener noreferrer"
+											>
+												{website.title} →
+											</a>
+										</Button>
+									))}
+							</div>
 						</div>
 					))}
-				</div>
-
-				<div className="mt-12 md:mt-16">
-					<h2 className="font-semibold text-lg sm:text-xl mb-4 sm:mb-6 tracking-tighter">
-						Technical Skills
-					</h2>
-					<div className="space-y-6">
-						<div>
-							<h3 className="font-medium text-base mb-3 text-neutral-700 dark:text-neutral-300">
-								Front-End Development
-							</h3>
-							<div className="flex flex-wrap gap-2">
-								{skills.frontEnd.map((skill) => (
-									<span
-										key={skill}
-										className="px-3 py-1 text-sm bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 rounded-md"
-									>
-										{skill}
-									</span>
-								))}
-							</div>
-						</div>
-						<div>
-							<h3 className="font-medium text-base mb-3 text-neutral-700 dark:text-neutral-300">
-								Back-End Development
-							</h3>
-							<div className="flex flex-wrap gap-2">
-								{skills.backEnd.map((skill) => (
-									<span
-										key={skill}
-										className="px-3 py-1 text-sm bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 rounded-md"
-									>
-										{skill}
-									</span>
-								))}
-							</div>
-						</div>
-						<div>
-							<h3 className="font-medium text-base mb-3 text-neutral-700 dark:text-neutral-300">
-								Tools & Technologies
-							</h3>
-							<div className="flex flex-wrap gap-2">
-								{skills.toolsAndTechnologies.map((skill) => (
-									<span
-										key={skill}
-										className="px-3 py-1 text-sm bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 rounded-md"
-									>
-										{skill}
-									</span>
-								))}
-							</div>
-						</div>
-					</div>
 				</div>
 			</section>
 		</Layout>

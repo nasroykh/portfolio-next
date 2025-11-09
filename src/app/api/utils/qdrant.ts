@@ -21,6 +21,17 @@ export const createQdrantCollection = async (
 	await client.createCollection(name, {
 		vectors: { size, distance: "Cosine" },
 	});
+
+	await client.createPayloadIndex(name, {
+		field_name: "text",
+		field_schema: "text",
+	});
+
+	await client.createPayloadIndex(name, {
+		field_name: "timestamp",
+		field_schema: "datetime",
+	});
+
 	console.log("Collection created in Qdrant");
 };
 
@@ -32,6 +43,8 @@ export const deleteQdrantCollection = async (
 	if (!exists) return;
 
 	await client.deleteCollection(name);
+	await client.deletePayloadIndex(name, "text");
+	await client.deletePayloadIndex(name, "timestamp");
 	console.log("Collection deleted from Qdrant");
 };
 
@@ -44,8 +57,6 @@ export const addQdrantVectors = async (
 		payload: {
 			text: string;
 			timestamp: string;
-			type: string;
-			title: string;
 		};
 	}[]
 ) => {
@@ -54,13 +65,9 @@ export const addQdrantVectors = async (
 		await createQdrantCollection(client, collection);
 	}
 
-	await client
-		.upsert(collection, {
-			points: vectors,
-		})
-		.catch((error) => {
-			console.log(error.data);
-		});
+	await client.upsert(collection, {
+		points: vectors,
+	});
 
 	console.log("Vectors added to Qdrant");
 };
@@ -83,7 +90,6 @@ export const semanticSearchQdrantVectors = async (
 		score_threshold,
 		with_payload: true,
 	});
-	console.log("Vectors searched in Qdrant", result);
 	return result;
 };
 
@@ -103,7 +109,7 @@ export const keywordSearchQdrantVectors = async (
 			should: query.map((q) => ({
 				key: q.field,
 				match: {
-					value: q.value,
+					text: q.value,
 				},
 			})),
 		},
@@ -111,6 +117,5 @@ export const keywordSearchQdrantVectors = async (
 		with_payload: true,
 	});
 
-	console.log("Vectors searched in Qdrant", result);
 	return result;
 };

@@ -9,15 +9,16 @@ export default function Home() {
 			<section className="space-y-4 mb-16">
 				<div className="space-y-1">
 					<h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
-						Software Engineer
+						Software Engineer - AI/LLM Specialist
 					</h1>
 					<p className="text-xl text-muted-foreground">
 						Nasr Eddine Yakhou (Nas)
 					</p>
 				</div>
-				<p>
-					{`I build web applications that actually work—from AI-powered tools to eCommerce platforms. Let's solve your business problems together.`}
+				<p className="mb-0">
+					{`I build web applications that actually work—from AI-powered tools to eCommerce platforms.`}
 				</p>
+				<p>{`Let's solve your business problems together.`}</p>
 
 				<div className="flex flex-wrap gap-4">
 					<Button asChild size="lg" className="px-8 text-base">

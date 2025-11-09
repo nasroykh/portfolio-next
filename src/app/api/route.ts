@@ -1,14 +1,29 @@
 import { OpenRouterEmbed, OpenRouterQuery } from "@/app/api/utils/openrouter";
-import { qdrant, semanticSearchQdrantVectors } from "@/app/api/utils/qdrant";
-import { EMBEDDING_MODEL, initDB } from "@/app/api/utils/init_db";
-import { BASE_SYSTEM_PROMPT } from "@/app/api/const/system_prompts";
+import {
+	keywordSearchQdrantVectors,
+	qdrant,
+	semanticSearchQdrantVectors,
+} from "@/app/api/utils/qdrant";
+import {
+	COLLECTION_NAME,
+	EMBEDDING_MODEL,
+	initDB,
+} from "@/app/api/utils/init_db";
+import {
+	BASE_SYSTEM_PROMPT,
+	PROMPT_ENHANCEMENT_SYSTEM_PROMPT,
+} from "@/app/api/const/system_prompts";
+import path from "path";
+import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
+import { promises as fs } from "fs";
+import { getTokenCount } from "./utils";
 
 const prepareSystemPrompt = async (
 	messages: { role: string; content: string }[],
 	prompt: string
 ) => {
 	const scoreThreshold = 0.4;
-	const contextLimit = 4;
+	const contextLimit = 3;
 	let context = "";
 
 	const messagesPrompt =
@@ -18,23 +33,57 @@ const prepareSystemPrompt = async (
 			.join("\n") + `\n- user: ${prompt}`;
 
 	try {
-		const embeddedPrompt = await OpenRouterEmbed(
-			EMBEDDING_MODEL,
+		const enhancedPrompt = await OpenRouterQuery(
+			{
+				model: "gemini25FlashLite",
+				maxTokens: 500,
+				temperature: 0.3,
+				reasoningEffort: "minimal",
+				stream: false,
+			},
+			undefined,
+			PROMPT_ENHANCEMENT_SYSTEM_PROMPT,
 			messagesPrompt
 		);
 
-		const searchResult = await semanticSearchQdrantVectors(
+		console.log("Enhanced prompt: ", enhancedPrompt);
+
+		if (
+			!enhancedPrompt ||
+			typeof enhancedPrompt !== "string" ||
+			enhancedPrompt.trim() === "null"
+		) {
+			return BASE_SYSTEM_PROMPT;
+		}
+
+		// const embeddedPrompt = await OpenRouterEmbed(
+		// 	EMBEDDING_MODEL,
+		// 	enhancedPrompt
+		// );
+
+		// const searchResult = await semanticSearchQdrantVectors(
+		// 	qdrant,
+		// 	"nas_portfolio",
+		// 	embeddedPrompt,
+		// 	contextLimit,
+		// 	scoreThreshold
+		// );
+
+		const searchResult = await keywordSearchQdrantVectors(
 			qdrant,
-			"nas_portfolio",
-			embeddedPrompt,
-			contextLimit,
-			scoreThreshold
+			COLLECTION_NAME,
+			enhancedPrompt.split(" ").map((word) => ({ field: "text", value: word })),
+			contextLimit
 		);
 
 		console.log(searchResult.points);
 
+		// const filteredSearchResult = searchResult.points.filter(
+		// 	(point) => point.score >= scoreThreshold && point.payload?.text
+		// );
+
 		const filteredSearchResult = searchResult.points.filter(
-			(point) => point.score >= scoreThreshold && point.payload?.text
+			(point) => point.payload?.text
 		);
 
 		context = filteredSearchResult
@@ -127,21 +176,6 @@ export async function POST(request: Request) {
 				"Cache-Control": "no-cache",
 				Connection: "keep-alive",
 			},
-		});
-	} catch (error) {
-		return Response.json({
-			success: false,
-			message: "Error: " + error,
-		});
-	}
-}
-
-export async function GET() {
-	try {
-		await initDB();
-		return Response.json({
-			success: true,
-			message: "Database initialized",
 		});
 	} catch (error) {
 		return Response.json({

@@ -4,13 +4,7 @@ import Link from "next/link";
 import { ThemeToggle } from "../theme-toggle";
 import { Logo } from "../logo";
 import { useState } from "react";
-import {
-	Sheet,
-	SheetContent,
-	SheetHeader,
-	SheetTitle,
-	SheetTrigger,
-} from "../ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
 
 export const NAV_ITEMS = [
@@ -33,6 +27,10 @@ export const NAV_ITEMS = [
 	{
 		name: "contact",
 		path: "/contact",
+	},
+	{
+		name: "resume",
+		path: "/resume",
 	},
 ] as const;
 
@@ -58,7 +56,7 @@ function MenuIcon() {
 export function Header({
 	activePath,
 }: {
-	activePath: (typeof NAV_ITEMS)[number]["name"];
+	activePath?: (typeof NAV_ITEMS)[number]["name"];
 }) {
 	const [open, setOpen] = useState(false);
 

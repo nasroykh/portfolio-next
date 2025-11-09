@@ -11,7 +11,7 @@ export default function ContactPage() {
 	return (
 		<Layout activePath="contact">
 			<section>
-				<h1 className="font-semibold text-xl sm:text-2xl md:text-3xl mb-6 md:mb-8 tracking-tighter">
+				<h1 className="font-semibold text-3xl md:text-4xl mb-8 tracking-tighter">
 					Get in Touch
 				</h1>
 				<div className="prose prose-neutral dark:prose-invert">

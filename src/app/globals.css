@@ -151,6 +151,10 @@
 		font-family: var(--font-league), sans-serif;
 	}
 
+	main {
+		@apply animate-[fadeIn_0.2s_ease-in-out];
+	}
+
 	h1,
 	h2,
 	h3,
@@ -168,6 +172,15 @@
 	/* Selection colors */
 	::selection {
 		@apply bg-[#47a3f3] text-[#fefefe];
+	}
+
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
 	}
 }
 
@@ -285,4 +298,26 @@ table {
 
 .title {
 	text-wrap: balance;
+}
+
+@media print {
+	body {
+		@apply bg-background;
+	}
+
+	header {
+		@apply hidden;
+	}
+	footer {
+		@apply hidden;
+	}
+	.print\:hidden {
+		@apply hidden;
+	}
+	.print\:shadow-none {
+		@apply shadow-none;
+	}
+	.print\:border-0 {
+		@apply border-0;
+	}
 }

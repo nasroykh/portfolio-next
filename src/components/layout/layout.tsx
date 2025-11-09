@@ -7,10 +7,10 @@ export const Layout = ({
 	activePath,
 }: {
 	children: React.ReactNode;
-	activePath: (typeof NAV_ITEMS)[number]["name"];
+	activePath?: (typeof NAV_ITEMS)[number]["name"];
 }) => {
 	return (
-		<div className="relative min-h-screen max-w-xl md:max-w-2xl mx-auto space-y-12 px-4">
+		<div className="relative flex flex-col min-h-screen max-w-xl md:max-w-2xl mx-auto space-y-12 px-4">
 			<Header activePath={activePath} />
 			<main>{children}</main>
 			<AIAssistant />

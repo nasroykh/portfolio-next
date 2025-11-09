@@ -34,13 +34,8 @@ interface Message {
 	timestamp: number;
 }
 
-const STORAGE_KEY = "usagi-chat-history";
+const STORAGE_KEY = "otacon-chat-history";
 const MAX_MESSAGES = 10;
-const INITIAL_MESSAGE: Message = {
-	role: "assistant",
-	content: "Hello! I'm Usagi, Nas's AI assistant. How can I help you today?",
-	timestamp: Date.now(),
-};
 
 // Custom hook for localStorage persistence
 function useChatHistory() {
@@ -56,7 +51,7 @@ function useChatHistory() {
 				}
 			}
 		}
-		return [INITIAL_MESSAGE];
+		return [];
 	});
 
 	useEffect(() => {
@@ -88,7 +83,7 @@ function useChatHistory() {
 	};
 
 	const clearMessages = () => {
-		setMessages([INITIAL_MESSAGE]);
+		setMessages([]);
 		localStorage.removeItem(STORAGE_KEY);
 	};
 
@@ -106,6 +101,7 @@ export const AIAssistant = () => {
 	const [inputValue, setInputValue] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 	const [isStreaming, setIsStreaming] = useState(false);
+	const [isNewChatDialogOpen, setIsNewChatDialogOpen] = useState(false);
 	const {
 		messages,
 		setMessages,
@@ -242,12 +238,12 @@ export const AIAssistant = () => {
 	return (
 		<>
 			{/* Floating Toggle Button */}
-			<TooltipWrapper content="Toggle Usagi AI Assistant">
+			<TooltipWrapper content="Toggle Otacon Assistant">
 				<Button
 					size="icon"
 					onClick={() => setIsOpen(!isOpen)}
-					className="fixed bottom-0 right-4 md:bottom-10 md:right-20 z-40 size-14 rounded-lg shadow-lg hover:scale-105 transition-all duration-200 flex items-center justify-center"
-					aria-label="Toggle AI Assistant"
+					className="print:hidden fixed bottom-0 right-4 md:bottom-10 md:right-20 z-40 size-14 rounded-lg shadow-lg hover:scale-105 transition-all duration-200 flex items-center justify-center"
+					aria-label="Toggle Otacon Assistant"
 				>
 					<IconSparkles className="size-6" />
 				</Button>
@@ -255,15 +251,18 @@ export const AIAssistant = () => {
 
 			{/* Chat Panel */}
 			{isOpen && (
-				<div className="fixed bottom-16 left-0 right-0 mx-auto md:bottom-24 md:left-auto md:right-32 z-50 w-[calc(100vw-1rem)] md:w-96 md:max-w-[calc(100vw-3rem)] h-[calc(100dvh-12rem)] md:h-[calc(100dvh-12rem)] bg-card border border-border rounded-lg shadow-xl flex flex-col animate-in fade-in duration-200">
+				<div className="print:hidden fixed bottom-16 left-0 right-0 mx-auto md:bottom-24 md:left-auto md:right-32 z-50 w-[calc(100vw-1rem)] md:w-96 md:max-w-[calc(100vw-3rem)] h-[calc(100dvh-12rem)] md:h-[calc(100dvh-12rem)] bg-card border border-border rounded-lg shadow-xl flex flex-col animate-in fade-in duration-200">
 					{/* Header */}
 					<div className="flex items-center justify-between p-4 border-b border-border">
 						<div className="flex items-center gap-2">
 							<IconSparkles className="size-5 text-primary" />
-							<h2 className="font-semibold text-lg">Usagi</h2>
+							<h2 className="font-semibold text-lg">Otacon</h2>
 						</div>
 						<div className="flex items-center gap-2">
-							<AlertDialog>
+							<AlertDialog
+								open={isNewChatDialogOpen}
+								onOpenChange={setIsNewChatDialogOpen}
+							>
 								<AlertDialogTrigger asChild>
 									<TooltipWrapper
 										content="New chat"
@@ -272,8 +271,8 @@ export const AIAssistant = () => {
 										<Button
 											variant="ghost"
 											size="icon-sm"
-											disabled={messages.length === 0}
 											title="New chat"
+											onClick={() => setIsNewChatDialogOpen(true)}
 										>
 											<IconMessageCirclePlus className="size-5" />
 										</Button>
@@ -313,9 +312,9 @@ export const AIAssistant = () => {
 							className="h-full overflow-y-auto p-4 space-y-4"
 						>
 							{messages.length === 0 && (
-								<div className="text-center text-muted-foreground py-8">
+								<div className="text-center h-full flex flex-col items-center justify-center text-muted-foreground py-8">
 									<IconSparkles className="size-12 mx-auto mb-2 opacity-50" />
-									<p>Start a conversation with Usagi!</p>
+									<p>Start a conversation with Otacon!</p>
 								</div>
 							)}
 							{messages.map((message, index) => (
@@ -371,7 +370,7 @@ export const AIAssistant = () => {
 								Message limit reached. Start a{" "}
 								<button
 									className="cursor-pointer underline hover:text-primary"
-									onClick={handleNewChat}
+									onClick={() => setIsNewChatDialogOpen(true)}
 								>
 									new chat
 								</button>{" "}
