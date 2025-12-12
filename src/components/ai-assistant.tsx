@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
 	AlertDialog,
@@ -250,160 +251,174 @@ export const AIAssistant = () => {
 			</TooltipWrapper>
 
 			{/* Chat Panel */}
-			{isOpen && (
-				<div className="print:hidden fixed bottom-16 left-0 right-0 mx-auto md:bottom-24 md:left-auto md:right-32 z-50 w-[calc(100vw-1rem)] md:w-96 md:max-w-[calc(100vw-3rem)] h-[calc(100dvh-12rem)] md:h-[calc(100dvh-12rem)] bg-card border border-border rounded-lg shadow-xl flex flex-col animate-in fade-in duration-200">
-					{/* Header */}
-					<div className="flex items-center justify-between p-4 border-b border-border">
-						<div className="flex items-center gap-2">
-							<IconSparkles className="size-5 text-primary" />
-							<h2 className="font-semibold text-lg">Otacon</h2>
-						</div>
-						<div className="flex items-center gap-2">
-							<AlertDialog
-								open={isNewChatDialogOpen}
-								onOpenChange={setIsNewChatDialogOpen}
-							>
-								<AlertDialogTrigger asChild>
-									<TooltipWrapper
-										content="New chat"
-										open={isAtMessageLimit ? true : undefined}
+			<AnimatePresence>
+				{isOpen && (
+					<motion.div
+						initial={{ opacity: 0, scale: 0.95, y: 20 }}
+						animate={{ opacity: 1, scale: 1, y: 0 }}
+						exit={{ opacity: 0, scale: 0.95, y: 20 }}
+						transition={{ duration: 0.2 }}
+						className="print:hidden fixed bottom-16 left-0 right-0 mx-auto md:bottom-24 md:left-auto md:right-32 z-50 w-[calc(100vw-1rem)] md:w-96 md:max-w-[calc(100vw-3rem)] h-[calc(100dvh-12rem)] md:h-[calc(100dvh-12rem)] bg-card border border-border rounded-lg shadow-xl flex flex-col"
+					>
+						{/* Header */}
+						<div className="flex items-center justify-between p-4 border-b border-border">
+							<div className="flex items-center gap-2">
+								<IconSparkles className="size-5 text-primary" />
+								<h2 className="font-semibold text-lg">Otacon</h2>
+							</div>
+							<div className="flex items-center gap-2">
+								{messages.length ? (
+									<AlertDialog
+										open={isNewChatDialogOpen}
+										onOpenChange={setIsNewChatDialogOpen}
 									>
-										<Button
-											variant="ghost"
-											size="icon-sm"
-											title="New chat"
-											onClick={() => setIsNewChatDialogOpen(true)}
-										>
-											<IconMessageCirclePlus className="size-5" />
-										</Button>
-									</TooltipWrapper>
-								</AlertDialogTrigger>
-								<AlertDialogContent>
-									<AlertDialogHeader>
-										<AlertDialogTitle>Clear chat history?</AlertDialogTitle>
-										<AlertDialogDescription>
-											This will permanently delete all messages in this
-											conversation. This action cannot be undone.
-										</AlertDialogDescription>
-									</AlertDialogHeader>
-									<AlertDialogFooter>
-										<AlertDialogCancel>Cancel</AlertDialogCancel>
-										<AlertDialogAction onClick={handleNewChat}>
-											Clear chat
-										</AlertDialogAction>
-									</AlertDialogFooter>
-								</AlertDialogContent>
-							</AlertDialog>
-							<Button
-								variant="ghost"
-								size="icon-sm"
-								onClick={() => setIsOpen(false)}
-								title="Close chat"
-							>
-								<IconX className="size-5" />
-							</Button>
-						</div>
-					</div>
-
-					{/* Messages Area */}
-					<div className="flex-1 overflow-hidden">
-						<div
-							ref={scrollViewportRef}
-							className="h-full overflow-y-auto p-4 space-y-4"
-						>
-							{messages.length === 0 && (
-								<div className="text-center h-full flex flex-col items-center justify-center text-muted-foreground py-8">
-									<IconSparkles className="size-12 mx-auto mb-2 opacity-50" />
-									<p>Start a conversation with Otacon!</p>
-								</div>
-							)}
-							{messages.map((message, index) => (
-								<div
-									key={index}
-									className={cn("flex", {
-										"justify-end": message.role === "user",
-										"justify-start": message.role === "assistant",
-									})}
+										<AlertDialogTrigger asChild>
+											<TooltipWrapper
+												content="New chat"
+												open={isAtMessageLimit ? true : undefined}
+											>
+												<Button
+													variant="ghost"
+													size="icon-sm"
+													title="New chat"
+													onClick={() => setIsNewChatDialogOpen(true)}
+												>
+													<IconMessageCirclePlus className="size-5" />
+												</Button>
+											</TooltipWrapper>
+										</AlertDialogTrigger>
+										<AlertDialogContent>
+											<AlertDialogHeader>
+												<AlertDialogTitle>Clear chat history?</AlertDialogTitle>
+												<AlertDialogDescription>
+													This will permanently delete all messages in this
+													conversation. This action cannot be undone.
+												</AlertDialogDescription>
+											</AlertDialogHeader>
+											<AlertDialogFooter>
+												<AlertDialogCancel>Cancel</AlertDialogCancel>
+												<AlertDialogAction onClick={handleNewChat}>
+													Clear chat
+												</AlertDialogAction>
+											</AlertDialogFooter>
+										</AlertDialogContent>
+									</AlertDialog>
+								) : (
+									""
+								)}
+								<Button
+									variant="ghost"
+									size="icon-sm"
+									onClick={() => setIsOpen(false)}
+									title="Close chat"
 								>
+									<IconX className="size-5" />
+								</Button>
+							</div>
+						</div>
+
+						{/* Messages Area */}
+						<div className="flex-1 overflow-hidden">
+							<div
+								ref={scrollViewportRef}
+								className="h-full overflow-y-auto p-4 space-y-4"
+							>
+								{messages.length === 0 && (
+									<div className="text-center h-full flex flex-col items-center justify-center text-muted-foreground py-8">
+										<IconSparkles className="size-12 mx-auto mb-2 opacity-50" />
+										<p>Start a conversation with Otacon!</p>
+									</div>
+								)}
+								{messages.map((message, index) => (
 									<div
-										className={cn("max-w-[80%] rounded-lg p-2", {
-											"bg-muted": message.role === "user",
+										key={index}
+										className={cn("flex", {
+											"justify-end": message.role === "user",
+											"justify-start": message.role === "assistant",
 										})}
 									>
-										<div className="text-sm prose prose-sm dark:prose-invert max-w-none [&>*:first-child]:mt-0! [&>*:last-child]:mb-0!">
-											<ReactMarkdown remarkPlugins={[remarkGfm]}>
-												{message.content}
-											</ReactMarkdown>
+										<div
+											className={cn("max-w-[80%] rounded-lg p-2", {
+												"bg-muted": message.role === "user",
+											})}
+										>
+											<div className="text-sm prose prose-sm dark:prose-invert max-w-none [&>*:first-child]:mt-0! [&>*:last-child]:mb-0!">
+												<ReactMarkdown remarkPlugins={[remarkGfm]}>
+													{message.content}
+												</ReactMarkdown>
+											</div>
 										</div>
 									</div>
-								</div>
-							))}
-							{isLoading && messages[messages.length - 1]?.content === "" && (
-								<div className="flex justify-start">
-									<div className="bg-muted text-foreground rounded-lg px-4 py-2">
-										<div className="flex gap-1">
-											<span
-												className="size-2 bg-foreground/40 rounded-full animate-bounce"
-												style={{ animationDelay: "0ms" }}
-											/>
-											<span
-												className="size-2 bg-foreground/40 rounded-full animate-bounce"
-												style={{ animationDelay: "150ms" }}
-											/>
-											<span
-												className="size-2 bg-foreground/40 rounded-full animate-bounce"
-												style={{ animationDelay: "300ms" }}
-											/>
+								))}
+								{isLoading && messages[messages.length - 1]?.content === "" && (
+									<div className="flex justify-start">
+										<div className="bg-muted text-foreground rounded-lg px-4 py-2">
+											<div className="flex gap-1">
+												<span
+													className="size-2 bg-foreground/40 rounded-full animate-bounce"
+													style={{ animationDelay: "0ms" }}
+												/>
+												<span
+													className="size-2 bg-foreground/40 rounded-full animate-bounce"
+													style={{ animationDelay: "150ms" }}
+												/>
+												<span
+													className="size-2 bg-foreground/40 rounded-full animate-bounce"
+													style={{ animationDelay: "300ms" }}
+												/>
+											</div>
 										</div>
 									</div>
-								</div>
-							)}
-							{/* Extra padding at bottom to ensure last message is visible */}
-							<div className="h-4" />
-						</div>
-					</div>
-
-					{/* Input Section */}
-					<div className="p-4 border-t border-border">
-						{isAtMessageLimit && (
-							<p className="text-xs text-destructive mb-2">
-								Message limit reached. Start a{" "}
-								<button
-									className="cursor-pointer underline hover:text-primary"
-									onClick={() => setIsNewChatDialogOpen(true)}
-								>
-									new chat
-								</button>{" "}
-								to continue.
-							</p>
-						)}
-						<div className="flex gap-2">
-							<Textarea
-								value={inputValue}
-								onChange={(e) => setInputValue(e.target.value)}
-								onKeyUp={handleKeyPress}
-								placeholder="Type your message..."
-								disabled={isLoading || isAtMessageLimit}
-								className="flex-1 min-h-9! max-h-24! resize-none"
-								maxLength={500}
-							/>
-							<Button
-								onClick={isStreaming ? handleStopStreaming : handleSendMessage}
-								disabled={
-									(!inputValue.trim() && !isLoading) || isAtMessageLimit
-								}
-								size="icon"
-							>
-								{isStreaming ? (
-									<IconPlayerStopFilled className="size-4" />
-								) : (
-									<IconSend className="size-4" />
 								)}
-							</Button>
+								{/* Extra padding at bottom to ensure last message is visible */}
+								<div className="h-4" />
+							</div>
 						</div>
-					</div>
-				</div>
-			)}
+
+						{/* Input Section */}
+						<div className="p-4 border-t border-border">
+							{isAtMessageLimit && (
+								<p className="text-xs text-destructive mb-2">
+									Message limit reached. Start a{" "}
+									<button
+										className="cursor-pointer underline hover:text-primary"
+										onClick={() => setIsNewChatDialogOpen(true)}
+									>
+										new chat
+									</button>{" "}
+									to continue.
+								</p>
+							)}
+							<div className="flex gap-2">
+								<Textarea
+									value={inputValue}
+									onChange={(e) => setInputValue(e.target.value)}
+									onKeyUp={handleKeyPress}
+									placeholder="Type your message..."
+									disabled={isLoading || isAtMessageLimit}
+									className="flex-1 min-h-9! max-h-24! resize-none"
+									maxLength={500}
+								/>
+								<Button
+									onClick={
+										isStreaming ? handleStopStreaming : handleSendMessage
+									}
+									disabled={
+										(!inputValue.trim() && !isLoading) || isAtMessageLimit
+									}
+									size="icon"
+								>
+									{isStreaming ? (
+										<IconPlayerStopFilled className="size-4" />
+									) : (
+										<IconSend className="size-4" />
+									)}
+								</Button>
+							</div>
+						</div>
+					</motion.div>
+				)}
+			</AnimatePresence>
 		</>
 	);
 };

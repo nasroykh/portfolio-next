@@ -6,7 +6,7 @@ import { Button } from "./ui/button";
 import { IconMoon, IconSun } from "@tabler/icons-react";
 
 export function ThemeToggle() {
-	const { theme, setTheme } = useTheme();
+	const { resolvedTheme: theme, setTheme } = useTheme();
 	const [mounted, setMounted] = React.useState(false);
 
 	// useEffect only runs on the client, so now we can safely show the UI
@@ -14,7 +14,7 @@ export function ThemeToggle() {
 		setMounted(true);
 	}, []);
 
-	if (!mounted) {
+	if (!mounted || !theme) {
 		return (
 			<button
 				className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 dark:focus-visible:ring-neutral-300 hover:bg-neutral-100 hover:text-neutral-900 dark:hover:bg-neutral-800 dark:hover:text-neutral-50 h-9 w-9"

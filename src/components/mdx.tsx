@@ -13,8 +13,16 @@ import {
 	TableCaption,
 } from "@/components/ui/table";
 import remarkGfm from "remark-gfm";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { Checkbox } from "./ui/checkbox";
 import { CodeBlock } from "./code-block";
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from "./ui/accordion";
 
 function CustomLink(props: React.ComponentProps<typeof Link>) {
 	const href = props.href.toString();
@@ -52,46 +60,7 @@ function Code({ children, ...props }: React.ComponentProps<"code">) {
 	return <code {...props} dangerouslySetInnerHTML={{ __html: codeHTML }} />;
 }
 
-function slugify(str: string) {
-	return str
-		.toString()
-		.toLowerCase()
-		.trim()
-		.replace(/\s+/g, "-")
-		.replace(/&/g, "-and-")
-		.replace(/[^\w\-]+/g, "")
-		.replace(/\-\-+/g, "-");
-}
-
-function createHeading(level: number) {
-	const Heading = ({ children }: { children: React.ReactNode }) => {
-		const slug = slugify(children as string);
-		return React.createElement(
-			`h${level}`,
-			{ id: slug },
-			[
-				React.createElement("a", {
-					href: `#${slug}`,
-					key: `link-${slug}`,
-					className: "anchor",
-				}),
-			],
-			children
-		);
-	};
-
-	Heading.displayName = `Heading${level}`;
-
-	return Heading;
-}
-
 const components: MDXRemoteProps["components"] = {
-	h1: createHeading(1),
-	h2: createHeading(2),
-	h3: createHeading(3),
-	h4: createHeading(4),
-	h5: createHeading(5),
-	h6: createHeading(6),
 	Image: RoundedImage,
 	a: CustomLink,
 	code: Code,
@@ -105,13 +74,32 @@ const components: MDXRemoteProps["components"] = {
 	input: (props: React.ComponentProps<typeof Checkbox>) => (
 		<Checkbox {...props} disabled={false} />
 	),
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
 };
 
 export function CustomMDX(props: MDXRemoteProps) {
 	return (
 		<MDXRemote
 			{...props}
-			options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+			options={{
+				mdxOptions: {
+					remarkPlugins: [remarkGfm],
+					rehypePlugins: [
+						rehypeSlug,
+						[
+							rehypeAutolinkHeadings,
+							{
+								properties: {
+									className: ["anchor"],
+								},
+							},
+						],
+					],
+				},
+			}}
 			components={{ ...components, ...(props.components || {}) }}
 		/>
 	);

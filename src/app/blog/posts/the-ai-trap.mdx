@@ -1,0 +1,106 @@
+---
+title: "The AI Trap: How to Learn Coding Without Losing Your Skills"
+publishedAt: "2025-11-05 16:42"
+summary: "AI is a powerful tool, but it can cripple your growth if used wrong. Here’s how to use it as a mentor, not a crutch."
+---
+
+<Accordion type="single" collapsible>
+	<AccordionItem value="tldr">
+		<AccordionTrigger className="cursor-pointer">TL;DR</AccordionTrigger>
+		<AccordionContent>
+			AI coding assistants are powerful but dangerous for beginners. Don't use
+			them as a crutch (copy-pasting code you don't understand). Use them as a
+			mentor (asking for explanations). To build real skills, practice coding
+			without AI regularly and focus on fundamentals like Data Structures and
+			Control Flow.
+		</AccordionContent>
+	</AccordionItem>
+</Accordion>
+
+AI coding assistants are incredible. They're like having a senior developer sitting next to you 24/7. But for beginners, they are a double-edged sword. Use them wrong, and you'll never learn to walk. Use them right, and you'll fly.
+
+I've seen too many new developers fall into the "copy-paste" trap. They feel productive because they're shipping features, but they're skipping the struggle—the exact part where learning happens. If you can't explain how your code works, you didn't write it; you just borrowed it.
+
+## The Foundation You Can't Skip
+
+Before you lean on AI, you need to understand the building blocks. AI can generate code, but it can't give you the intuition to know if that code is efficient, secure, or even correct.
+
+### 1. Data Structures & Complexity
+
+You need to know why one approach is faster than another. AI might give you a working solution that crashes under load.
+
+```typescript
+// Bad: O(n²) - A naive approach AI might suggest for small inputs
+function hasDuplicate(numbers: number[]): boolean {
+	for (let i = 0; i < numbers.length; i++) {
+		for (let j = i + 1; j < numbers.length; j++) {
+			if (numbers[i] === numbers[j]) return true;
+		}
+	}
+	return false;
+}
+```
+
+### 2. Control Flow
+
+If you can't write basic logic without a prompt, you're in trouble.
+
+```typescript
+// FizzBuzz: A classic test of basic logic control
+function fizzBuzz(n: number): void {
+	for (let i = 1; i <= n; i++) {
+		if (i % 15 === 0) console.log("FizzBuzz");
+		else if (i % 3 === 0) console.log("Fizz");
+		else if (i % 5 === 0) console.log("Buzz");
+		else console.log(i);
+	}
+}
+```
+
+## Teacher vs. Crutch
+
+The difference between a junior who stays a junior and one who grows is how they use AI.
+
+**The Crutch Approach:**
+
+- "Write a React component for a login form."
+- "Fix this error for me."
+- _Result:_ You get code, but you don't get knowledge.
+
+**The Teacher Approach:**
+
+- "Explain how React's `useEffect` dependency array works."
+- "Why is my login form re-rendering infinitely?"
+- _Result:_ You get understanding that applies to every future problem.
+
+## The "No-AI" Challenge
+
+If you want to build real confidence, try this: Pick one day a week where you code with zero AI. Just you, the documentation, and your brain.
+
+Start with a classic problem like "Two Sum" and solve it yourself:
+
+```typescript
+// Two Sum: Find indices of two numbers that add up to a target
+// Try to solve this efficiently (O(n)) using a Map
+function twoSum(nums: number[], target: number): number[] {
+	const map = new Map<number, number>();
+
+	for (let i = 0; i < nums.length; i++) {
+		const complement = target - nums[i];
+
+		if (map.has(complement)) {
+			return [map.get(complement)!, i];
+		}
+
+		map.set(nums[i], i);
+	}
+
+	return [];
+}
+```
+
+## Final Thoughts
+
+The goal isn't to stop using AI—that would be like refusing to use a calculator. The goal is to make sure _you_ are the one driving.
+
+Be the developer who uses AI to move faster, not the one who needs it to move at all. When the internet goes down, or the AI hallucinates, your skills are what remain.
