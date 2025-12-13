@@ -140,13 +140,34 @@ I ask one question first: **"What does the business need right now?"**
 
 ## Work Experience
 
-### 1. VexLogic Ltd
+### 1. KB Développement
+
+**Role**: Software Engineer  
+**Period**: November 2025 - Present  
+**Website**:
+
+- https://www.kbdev.co/
+- https://www.linkedin.com/company/kb-développement/
+
+**Description**: Building and enhancing enterprise software solutions and ERPs with a focus on accounting systems and AI integration. Working on full-stack development using modern technologies to deliver robust business applications.
+
+**Key Achievements**:
+
+- Developing and enhancing enterprise resource planning (ERP) systems with specialized accounting modules
+- Integrating AI capabilities using OpenAI and Anthropic LLMs to automate and improve business processes
+- Building full-stack features with React, Python and PostgreSQL databases
+- Implementing intelligent automation to streamline accounting workflows and data processing
+- Working on scalable enterprise software architecture for business-critical applications
+
+---
+
+### 2. VexLogic Ltd
 
 **Role**: AI/LLM Specialist & Lead Developer  
-**Period**: April 2025 - Present  
+**Period**: April 2025 - November 2025  
 **Website**: https://vexlogic.com
 
-**Description**: Specialize in building production-ready AI solutions with a focus on RAG systems, custom AI assistants, and intelligent automation tools. Work directly with OpenRouter, OpenAI, Qdrant and other tools to create practical business applications that leverage the latest advancements in generative AI.
+**Description**: Specialized in building production-ready AI solutions with a focus on RAG systems, custom AI assistants, and intelligent automation tools. Worked directly with OpenRouter, OpenAI, Qdrant and other tools to create practical business applications that leverage the latest advancements in generative AI.
 
 **Key Achievements**:
 
@@ -158,7 +179,7 @@ I ask one question first: **"What does the business need right now?"**
 
 ---
 
-### 2. Tech4Fab
+### 3. Tech4Fab
 
 **Role**: Full Stack Developer  
 **Period**: June 2024 - April 2025  
@@ -178,7 +199,7 @@ I ask one question first: **"What does the business need right now?"**
 
 ---
 
-### 3. Techivation Ltd
+### 4. Techivation Ltd
 
 **Role**: IT Specialist & Lead Developer  
 **Period**: September 2021 - December 2023  
@@ -197,7 +218,7 @@ I ask one question first: **"What does the business need right now?"**
 
 ---
 
-### 4. SoliderSound Ltd
+### 5. SoliderSound Ltd
 
 **Role**: Lead Developer  
 **Period**: April 2023 - December 2023  
@@ -216,7 +237,7 @@ I ask one question first: **"What does the business need right now?"**
 
 ---
 
-### 5. BRENCO Engineering & Consulting
+### 6. BRENCO Engineering & Consulting
 
 **Role**: Full Stack Developer  
 **Period**: August 2021 - February 2022  
@@ -238,7 +259,7 @@ I ask one question first: **"What does the business need right now?"**
 
 ---
 
-### 6. Freelancing / Personal Projects
+### 7. Freelancing / Personal Projects
 
 **Role**: Freelance Web Developer  
 **Period**: Before August 2021  

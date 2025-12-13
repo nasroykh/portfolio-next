@@ -1,0 +1,125 @@
+# Nasr Eddine Yakhou (Nas) - Portfolio
+
+> Software Engineer - AI/LLM Specialist with 5+ years of experience building web applications, AI-powered tools, and eCommerce platforms.
+
+## About
+- [About](https://nascodes.dev/about): Learn about Nas's background, philosophy, and approach.
+- [Experience](https://nascodes.dev/experience): Professional work history and key achievements.
+- [Resume](https://nascodes.dev/resume): Downloadable resume with complete work history.
+- [Blog](https://nascodes.dev/blog): Technical articles and insights.
+- [Contact](https://nascodes.dev/contact): Get in touch for projects and opportunities.
+
+## Professional Summary
+
+Nasr Eddine Yakhou (Nas) is a Software Engineer specializing in AI/LLM integration, eCommerce development, and SEO optimization. He builds web applications that solve real business problems—balancing speed with scalability based on project requirements.
+
+## Core Expertise
+
+### AI/LLM Integration
+- Building RAG (Retrieval-Augmented Generation) systems
+- Custom AI assistants using OpenRouter, OpenAI, and Anthropic
+- Vector embeddings and semantic search with Qdrant
+- Intelligent web scraping and data extraction with Playwright
+- Automated content analysis and structured data extraction
+
+### eCommerce Development
+- Architecting scalable platforms
+- Payment integration (Stripe, PayPal)
+- Admin dashboards with analytics
+- Subscription management
+- Automated license delivery systems
+
+### SEO Optimization
+- Technical SEO strategies (SSR, semantic HTML, schema markup)
+- Core Web Vitals optimization (60s to 95+ page speed scores)
+- 40%+ organic traffic increases through comprehensive strategies
+
+## Technical Skills
+
+### Frontend
+Next.js, React, Svelte, TypeScript, Tailwind CSS, Shadcn UI, Tanstack Query, Tanstack Router, Zustand, Jotai, Vite
+
+### Backend
+Node.js, Fastify, tRPC, Go, gRPC, Python, Drizzle ORM, Prisma, PostgreSQL, Redis, Qdrant, MongoDB, BullMQ
+
+### AI & Tools
+OpenRouter, OpenAI, Google Gemini, Anthropic, LangChain, Playwright, Docker, Linux, Stripe, PayPal, GraphQL, AWS
+
+## Work Experience
+
+### KB Développement (Nov 2025 - Present)
+**Role**: Software Engineer
+Building and enhancing enterprise software solutions and ERPs with focus on accounting systems and AI integration using React, Python, PostgreSQL, and OpenAI/Anthropic LLMs.
+
+### VexLogic Ltd (Apr 2025 - Nov 2025)
+**Role**: AI/LLM Specialist & Lead Developer
+Built production-ready AI solutions including RAG systems, custom AI assistants, and intelligent automation tools using OpenRouter, OpenAI, and Qdrant.
+
+### Tech4Fab (Jun 2024 - Apr 2025)
+**Role**: Full Stack Developer
+Developed a widget builder platform with drag-and-drop functionality for creating custom dashboards with real-time data visualization.
+
+### Techivation Ltd (Sep 2021 - Dec 2023)
+**Role**: IT Specialist & Lead Developer
+Led development of high-performance eCommerce platform. Drove 40%+ increase in organic traffic and improved page speed from 60s to 95+. Led team of 3 developers.
+
+### SoliderSound Ltd (Apr 2023 - Dec 2023)
+**Role**: Lead Developer
+Built complete eCommerce solution achieving first-page rankings for key product terms. Reduced page load time by 50%. Led team of 2 developers.
+
+### BRENCO Engineering & Consulting (Aug 2021 - Feb 2022)
+**Role**: Full Stack Developer
+First full-time developer role. Built monitoring systems, maintained IoT APIs, and developed custom websites for startups.
+
+## Career Highlights
+
+### Leadership
+- Led and mentored teams of 2-3 developers
+- Conducted code reviews and established CI/CD workflows
+- Interviewed and onboarded new developers
+
+### Measurable Impact
+- 40%+ organic traffic increase through SEO
+- Page speed improvements from 60s to 95+
+- 50% reduction in page load times
+- First-page Google rankings for key product terms
+- Significant conversion rate increases through AI-powered systems
+
+### Technical Achievements
+- Architected RESTful APIs and PostgreSQL databases from scratch
+- Built RAG systems with vector embeddings and semantic search
+- Implemented payment processing with Stripe and PayPal
+- Created AI assistants using OpenRouter API
+- Developed intelligent web scraping pipelines with Playwright
+
+## Social Links
+- GitHub: https://github.com/nasroykh
+- LinkedIn: https://www.linkedin.com/in/nas-y/
+- Medium: https://medium.com/@nascodes
+- Instagram: https://instagram.com/nascodes
+- X (Twitter): https://x.com/nas_codes
+
+## Open To
+
+- AI/LLM integration projects
+- eCommerce development
+- SEO optimization
+- RAG systems and custom AI assistants
+- Full-stack web applications
+- Technical consulting
+
+## Contact
+
+Interested in working together? Visit https://nascodes.dev/contact to get in touch.
+
+## Portfolio Tech Stack
+
+This portfolio is built with:
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS 4
+- **UI**: Radix UI / Shadcn UI
+- **Animations**: Framer Motion
+- **Content**: MDX (next-mdx-remote)
+- **AI Integration**: OpenAI, LangChain, Qdrant
+

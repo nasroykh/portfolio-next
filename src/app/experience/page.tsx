@@ -9,18 +9,43 @@ export const metadata = {
 
 const experiences = [
 	{
+		id: "kb-developpement",
+		companyName: "KB Développement",
+		dateRange: "November 2025 - Present",
+		role: "Software Engineer",
+		description:
+			"Building and enhancing enterprise software solutions and ERPs with a focus on accounting systems and AI integration. Working on full-stack development using modern technologies to deliver robust business applications.",
+		achievements: [
+			"Developing and enhancing enterprise resource planning (ERP) systems with specialized accounting modules",
+			"Integrating AI capabilities using OpenAI and Anthropic LLMs to automate and improve business processes",
+			"Building full-stack features with React, Python and PostgreSQL databases",
+			"Implementing intelligent automation to streamline accounting workflows and data processing",
+			"Working on scalable enterprise software architecture for business-critical applications",
+		],
+		website: [
+			{
+				title: "Visit Website",
+				url: "https://www.kbdev.co/",
+			},
+			{
+				title: "Visit LinkedIn",
+				url: "https://www.linkedin.com/company/kb-développement/",
+			},
+		],
+	},
+	{
 		id: "vexlogic",
 		companyName: "VexLogic Ltd",
-		dateRange: "April 2025 - Present",
+		dateRange: "April 2025 - November 2025",
 		role: "AI/LLM Specialist & Lead Developer",
 		description:
-			"Specialize in building production-ready AI solutions with a focus on RAG systems, custom AI assistants, and intelligent automation tools. Work directly with OpenRouter, OpenAI, Qdrant and other tools to create practical business applications that leverage the latest advancements in generative AI.",
+			"Specialized in building production-ready AI solutions with a focus on RAG systems, custom AI assistants, and intelligent automation tools. Worked directly with OpenRouter, OpenAI, Qdrant and other tools to create practical business applications that leverage the latest advancements in generative AI.",
 		achievements: [
 			"Architected and deployed custom RAG (Retrieval-Augmented Generation) systems enabling natural language querying of proprietary documents and knowledge bases using vector embeddings and semantic search",
 			"Built intelligent web scraping and data extraction pipelines with Playwright, integrated with LLMs for automated content analysis and structured data extraction",
 			"Created an AI-powered cold email system with automated personalization, A/B testing, and iterative improvement based on engagement metrics—significantly increasing conversion rates",
 			"Developed AI assistants using OpenRouter API for customer support, internal tooling, and workflow automation",
-			"Implemented prompt and context engineering strategiesfor improved AI response quality and reliability",
+			"Implemented prompt and context engineering strategies for improved AI response quality and reliability",
 		],
 		website: [
 			{

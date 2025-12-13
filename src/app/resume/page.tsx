@@ -90,10 +90,11 @@ export default function ResumePage() {
 					<section className="mb-8">
 						<h2 className="text-2xl font-bold mb-3">Professional Summary</h2>
 						<p className="text-muted-foreground leading-relaxed">
-							4+ years of experience as a Software engineer specializing in
-							AI/LLM integration, eCommerce platforms, and SEO optimization. I
-							build web applications that solve real business problems—balancing
-							speed with scalability based on what the project actually needs.
+							5+ years of experience as a Software engineer specializing in
+							enterprise software, ERPs, AI integration, and full-stack
+							development. I build applications that solve real business
+							problems—balancing speed with scalability based on what the
+							project actually needs.
 						</p>
 					</section>
 
@@ -118,7 +119,7 @@ export default function ResumePage() {
 							<div>
 								<h3 className="font-semibold mb-2">AI & Tools</h3>
 								<p className="text-muted-foreground">
-									OpenRouter, OpenAI, Google Gemini, Anthropic, LangChain,
+									Anthropic, OpenRouter, OpenAI, Google Gemini, LangChain,
 									Playwright, Docker, Stripe, GraphQL
 								</p>
 							</div>
@@ -136,6 +137,34 @@ export default function ResumePage() {
 						<h2 className="text-2xl font-bold mb-4">Work Experience</h2>
 
 						<div className="space-y-6">
+							{/* KB Développement */}
+							<div>
+								<div className="flex justify-between items-start mb-2">
+									<div>
+										<h3 className="text-lg font-semibold">Software Engineer</h3>
+										<p className="text-muted-foreground">KB Développement</p>
+									</div>
+									<span className="text-sm text-muted-foreground whitespace-nowrap">
+										Nov 2025 - Present
+									</span>
+								</div>
+								<ul className="text-sm text-muted-foreground space-y-1 ml-4">
+									<li>
+										• Developing and enhancing ERP systems with specialized
+										accounting modules and AI integration using OpenAI and
+										Anthropic LLMs
+									</li>
+									<li>
+										• Building full-stack features with React, Python and
+										PostgreSQL databases
+									</li>
+									<li>
+										• Implementing intelligent automation to streamline
+										accounting workflows and business processes
+									</li>
+								</ul>
+							</div>
+
 							{/* VexLogic */}
 							<div>
 								<div className="flex justify-between items-start mb-2">
@@ -148,7 +177,7 @@ export default function ResumePage() {
 										</p>
 									</div>
 									<span className="text-sm text-muted-foreground whitespace-nowrap">
-										Apr 2025 - Present
+										Apr 2025 - Nov 2025
 									</span>
 								</div>
 								<ul className="text-sm text-muted-foreground space-y-1 ml-4">
