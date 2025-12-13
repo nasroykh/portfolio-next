@@ -1,0 +1,234 @@
+{
+	"common": {
+		"allRightsReserved": "Tous droits réservés.",
+		"visitWebsite": "Visiter le site",
+		"visitLinkedIn": "Visiter LinkedIn",
+		"visitFirstPortfolio": "Visiter mon premier portfolio",
+		"visitPreviousPortfolio": "Visiter mon ancien portfolio",
+		"present": "Présent"
+	},
+	"nav": {
+		"home": "accueil",
+		"about": "à propos",
+		"experience": "expérience",
+		"blog": "blog",
+		"contact": "contact",
+		"resume": "CV"
+	},
+	"settings": {
+		"title": "Paramètres",
+		"theme": "Thème",
+		"themeSystem": "Système",
+		"themeLight": "Clair",
+		"themeDark": "Sombre",
+		"language": "Langue",
+		"languageEnglish": "Anglais",
+		"languageFrench": "Français"
+	},
+	"home": {
+		"title": "Ingénieur Logiciel - Spécialiste IA/LLM",
+		"subtitle": "Nasr Eddine Yakhou (Nas)",
+		"intro": "Je développe des applications web qui fonctionnent vraiment—des outils IA aux plateformes e-commerce.",
+		"cta": "Résolvons ensemble vos problèmes métier.",
+		"viewWork": "Voir mon travail",
+		"getInTouch": "Me contacter",
+		"recentPosts": "Articles récents"
+	},
+	"about": {
+		"pageTitle": "À propos de moi",
+		"intro1": "Je suis Nas, un ingénieur logiciel concentré sur une chose :",
+		"intro1Bold": "aider les entreprises à augmenter leurs revenus.",
+		"intro2Part1": "Je sais quand",
+		"intro2MoveFast": "aller vite",
+		"intro2And": "et quand",
+		"intro2Scale": "construire pour l'échelle",
+		"expertise": "Mon expertise couvre trois domaines clés :",
+		"expertiseAI": "Intégration IA/LLM",
+		"expertiseAIDesc": "(Création de systèmes RAG, assistants IA personnalisés et outils alimentés par l'IA)",
+		"expertiseEcommerce": "Développement e-Commerce",
+		"expertiseEcommerceDesc": "(Architecture de plateformes évolutives avec intégration complète des paiements, tableaux de bord admin et fonctionnalités personnalisées)",
+		"expertiseSEO": "Optimisation SEO",
+		"expertiseSEODesc": "(Croissance mesurable du trafic organique grâce à des stratégies techniques et de contenu)",
+		"leadershipIntro": "J'ai dirigé des équipes de développement, géré des projets full-stack et constamment livré des solutions qui impactent directement les revenus et l'engagement utilisateur.",
+		"philosophyTitle": "Philosophie & Approche",
+		"philosophyIntro": "La plupart des développeurs sur-conçoivent tout ou bricolent.",
+		"philosophyNeither": "Je ne fais ni l'un ni l'autre.",
+		"philosophyQuestion": "Je pose d'abord une question :",
+		"philosophyQuestionBold": "de quoi l'entreprise a-t-elle besoin maintenant ?",
+		"philosophyMVP": "Parfois c'est un MVP rapide pour tester le marché.",
+		"philosophyFast": "Parfois c'est construire vite mais avec une architecture propre qui évolue quand nécessaire.",
+		"philosophyRobust": "Parfois c'est prendre le temps de construire une base solide qui ne cassera pas à l'échelle.",
+		"philosophyConclusion": "Le bon choix dépend de votre calendrier, budget et trajectoire de croissance—pas de ce qui est à la mode.",
+		"beyondCodeTitle": "Au-delà du code",
+		"beyondCode1": "Je passe beaucoup de temps à expérimenter avec les outils IA avant qu'ils ne deviennent mainstream—pas parce que je suis les tendances, mais parce que je veux savoir ce qui est vraiment utile versus ce qui n'est que du battage.",
+		"beyondCode2": "Je suis particulièrement intéressé par la façon dont l'IA peut automatiser les parties ennuyeuses des affaires pour que les humains puissent se concentrer sur ce qui compte.",
+		"skillsTitle": "Compétences techniques",
+		"skillsFrontend": "Développement Front-End",
+		"skillsBackend": "Développement Back-End",
+		"skillsTools": "Outils & Technologies"
+	},
+	"experience": {
+		"pageTitle": "Expérience professionnelle",
+		"keyAchievements": "Réalisations clés :",
+		"kbDeveloppement": {
+			"role": "Ingénieur Logiciel",
+			"dateRange": "Novembre 2025 - Présent",
+			"description": "Développement et amélioration de solutions logicielles d'entreprise et d'ERP avec un focus sur les systèmes comptables et l'intégration IA. Travail sur le développement full-stack utilisant des technologies modernes pour livrer des applications métier robustes.",
+			"achievements": [
+				"Développement et amélioration de systèmes ERP avec des modules comptables spécialisés",
+				"Intégration de capacités IA utilisant les LLM OpenAI et Anthropic pour automatiser et améliorer les processus métier",
+				"Développement de fonctionnalités full-stack avec React, Python et bases de données PostgreSQL",
+				"Implémentation d'automatisation intelligente pour rationaliser les flux comptables et le traitement des données",
+				"Travail sur une architecture logicielle d'entreprise évolutive pour des applications critiques"
+			]
+		},
+		"vexlogic": {
+			"role": "Spécialiste IA/LLM & Lead Developer",
+			"dateRange": "Avril 2025 - Novembre 2025",
+			"description": "Spécialisé dans la création de solutions IA prêtes pour la production avec un focus sur les systèmes RAG, les assistants IA personnalisés et les outils d'automatisation intelligente. Travail direct avec OpenRouter, OpenAI, Qdrant et d'autres outils pour créer des applications métier pratiques exploitant les dernières avancées en IA générative.",
+			"achievements": [
+				"Conception et déploiement de systèmes RAG (Retrieval-Augmented Generation) personnalisés permettant l'interrogation en langage naturel de documents propriétaires et bases de connaissances via embeddings vectoriels et recherche sémantique",
+				"Création de pipelines intelligents de web scraping et d'extraction de données avec Playwright, intégrés aux LLM pour l'analyse automatisée de contenu et l'extraction de données structurées",
+				"Création d'un système d'emails à froid alimenté par l'IA avec personnalisation automatique, tests A/B et amélioration itérative basée sur les métriques d'engagement—augmentant significativement les taux de conversion",
+				"Développement d'assistants IA utilisant l'API OpenRouter pour le support client, l'outillage interne et l'automatisation des workflows",
+				"Implémentation de stratégies d'ingénierie de prompts et de contexte pour améliorer la qualité et la fiabilité des réponses IA"
+			]
+		},
+		"tech4fab": {
+			"role": "Développeur Full Stack",
+			"dateRange": "Juin 2024 - Avril 2025",
+			"description": "Développement et amélioration d'une plateforme de création de widgets permettant aux entreprises de créer des tableaux de bord personnalisés pour visualiser leurs données. Travail sur l'interface glisser-déposer et les systèmes backend.",
+			"achievements": [
+				"Construction et amélioration d'un créateur de widgets flexible avec fonctionnalité glisser-déposer pour créer des tableaux de bord personnalisés",
+				"Création de composants de visualisation de données en temps réel qui se mettent à jour dynamiquement selon les changements de données",
+				"Implémentation de filtres, personnalisation et fonctionnalités de tri pour le créateur de widgets",
+				"Développement de l'infrastructure backend pour gérer les configurations de widgets personnalisés et le traitement des données"
+			]
+		},
+		"techivation": {
+			"role": "Spécialiste IT & Lead Developer",
+			"dateRange": "Septembre 2021 - Décembre 2023",
+			"description": "Direction du développement de bout en bout d'une plateforme e-commerce haute performance pour une entreprise britannique de logiciels audio. Architecture d'infrastructure backend évolutive, implémentation du traitement des paiements et améliorations SEO significatives ayant directement augmenté le trafic organique et les revenus.",
+			"achievements": [
+				"Conception et construction d'API RESTful et base de données PostgreSQL from scratch, gérant produits, licences, commandes et gestion clients avec performances de requêtes optimisées",
+				"Implémentation d'une stratégie SEO complète combinant optimisations techniques (rendu côté serveur, HTML sémantique, balisage schema) et améliorations de contenu—générant +40% d'augmentation du trafic organique",
+				"Intégration des passerelles de paiement Stripe et PayPal avec gestion des abonnements, webhooks pour livraison automatique des licences et mesures anti-fraude",
+				"Construction de tableaux de bord admin complets avec analytics, gestion des stocks, traitement des commandes et outils de support client en React et TypeScript",
+				"Optimisation des Core Web Vitals via lazy loading, optimisation d'images et code splitting stratégique—améliorant les scores de vitesse de page de 60 à 95+",
+				"Direction et mentorat d'une équipe de 3 développeurs juniors, revues de code et établissement des bonnes pratiques de développement et workflows CI/CD"
+			]
+		},
+		"solidersound": {
+			"role": "Lead Developer",
+			"dateRange": "Avril 2023 - Décembre 2023",
+			"description": "Conception et développement d'une solution e-commerce complète pour une entreprise de plugins audio, gérant le développement full-stack de la conception de base de données à l'implémentation frontend. Direction de l'équipe de développement et implémentation de stratégies SEO techniques ayant amélioré les classements de recherche et les performances de page.",
+			"achievements": [
+				"Construction d'une plateforme e-commerce évolutive from scratch avec backend Node.js, base de données PostgreSQL et frontend Next.js avec rendu côté serveur pour un SEO optimal",
+				"Implémentation des meilleures pratiques SEO techniques incluant balisage de données structurées, sitemaps XML, URLs canoniques et balises Open Graph—obtenant des classements en première page pour les termes produits clés",
+				"Intégration du traitement des paiements Stripe et PayPal avec génération automatique de clés de licence et workflows de livraison par email",
+				"Optimisation des performances du site via intégration CDN, compression des assets et optimisation des requêtes de base de données—réduisant le temps de chargement moyen de 50%",
+				"Direction d'une équipe de 2 développeurs, établissement des workflows Git et maintien des délais projet tout en coordonnant avec les parties prenantes",
+				"Construction de pages produits responsives avec filtrage dynamique et fonctionnalité de recherche, améliorant l'expérience utilisateur et réduisant les taux de rebond"
+			]
+		},
+		"brenco": {
+			"role": "Développeur Full Stack",
+			"dateRange": "Août 2021 - Février 2022",
+			"description": "Mon premier poste de développeur à temps plein. Travail sur plusieurs projets simultanément, collaboration avec managers, designers et autres développeurs sur divers projets clients.",
+			"achievements": [
+				"Travail avec des équipes transversales sur différents projets clients simultanément",
+				"Maintenance et amélioration de l'infrastructure API IoT pour appareils connectés",
+				"Conversion de sites web traditionnels en applications interactives basées sur React",
+				"Construction et déploiement de systèmes de monitoring pour suivre la santé et les performances des serveurs",
+				"Développement de sites web personnalisés pour les startups du programme d'incubateur de l'entreprise",
+				"Participation aux entretiens et à l'intégration des nouveaux développeurs rejoignant l'équipe"
+			]
+		},
+		"freelancing": {
+			"role": "Développeur Web Freelance",
+			"dateRange": "Avant Août 2021",
+			"description": "Environ 8 mois d'apprentissage du développement web et d'application des connaissances acquises à travers des projets freelance et personnels. Cela m'a donné une expérience pratique avant de décrocher mon premier poste à temps plein.",
+			"achievements": [
+				"Réalisation de divers projets de développement web freelance pour des clients locaux et Upwork",
+				"Apprentissage du développement de thèmes Shopify et création de quelques thèmes personnalisés",
+				"Construction de projets personnels pour pratiquer les compétences de développement front-end",
+				"Création d'une application de chat en temps réel utilisant React et WebSockets",
+				"Développement d'un système de gestion des employés comme projet de fin d'études en informatique",
+				"Construction d'un système de gestion des patients pour un centre médical local"
+			]
+		}
+	},
+	"blog": {
+		"pageTitle": "Mon Blog"
+	},
+	"contact": {
+		"pageTitle": "Me contacter",
+		"intro": "Je suis toujours intéressé par de nouveaux projets et opportunités, particulièrement ceux impliquant l'intégration IA/LLM, le développement e-commerce ou l'optimisation SEO. Que vous ayez besoin d'aide pour construire un système RAG personnalisé, concevoir une plateforme e-commerce, ou améliorer le référencement de votre site—ou simplement dire bonjour—n'hésitez pas à me contacter !"
+	},
+	"resume": {
+		"backHome": "Retour à l'accueil",
+		"exportPDF": "Exporter en PDF",
+		"title": "Ingénieur Logiciel - Spécialiste IA/LLM",
+		"professionalSummary": "Résumé professionnel",
+		"professionalSummaryText": "Plus de 5 ans d'expérience en tant qu'ingénieur logiciel spécialisé dans les logiciels d'entreprise, les ERP, l'intégration IA et le développement full-stack. Je construis des applications qui résolvent de vrais problèmes métier—en équilibrant vitesse et évolutivité selon les besoins réels du projet.",
+		"technicalSkills": "Compétences techniques",
+		"frontend": "Frontend",
+		"backend": "Backend",
+		"aiTools": "IA & Outils",
+		"infrastructure": "Infrastructure",
+		"workExperience": "Expérience professionnelle",
+		"kbDeveloppement": {
+			"role": "Ingénieur Logiciel",
+			"dateRange": "Nov 2025 - Présent",
+			"achievements": [
+				"Développement et amélioration de systèmes ERP avec modules comptables spécialisés et intégration IA via OpenAI et Anthropic LLMs",
+				"Développement de fonctionnalités full-stack avec React, Python et bases de données PostgreSQL",
+				"Implémentation d'automatisation intelligente pour rationaliser les flux comptables et processus métier"
+			]
+		},
+		"vexlogic": {
+			"role": "Spécialiste IA/LLM & Lead Developer",
+			"dateRange": "Avr 2025 - Nov 2025",
+			"achievements": [
+				"Construction de systèmes RAG pour l'interrogation en langage naturel de documents propriétaires via embeddings vectoriels et recherche sémantique",
+				"Développement d'outils d'automatisation intelligente : pipelines de web scraping avec Playwright + LLMs et système d'emails à froid alimenté par l'IA avec tests A/B ayant significativement boosté les conversions",
+				"Création d'assistants IA personnalisés utilisant OpenRouter pour le support client et l'automatisation des workflows"
+			]
+		},
+		"tech4fab": {
+			"role": "Développeur Full Stack",
+			"dateRange": "Juin 2024 - Avr 2025",
+			"achievements": [
+				"Construction d'un créateur de widgets glisser-déposer avec visualisation de données en temps réel pour tableaux de bord personnalisés",
+				"Implémentation de filtres, tri et fonctionnalités de personnalisation avec infrastructure backend pour les configurations de widgets"
+			]
+		},
+		"techivation": {
+			"role": "Spécialiste IT & Lead Developer",
+			"dateRange": "Sep 2021 - Déc 2023",
+			"achievements": [
+				"Construction d'une plateforme e-commerce full-stack from scratch : API RESTful, base de données PostgreSQL et intégration Stripe/PayPal avec livraison automatique des licences",
+				"Augmentation de +40% du trafic organique via stratégie SEO et amélioration de la vitesse de page de 60 à 95+ via optimisation Core Web Vitals",
+				"Direction d'une équipe de 3 développeurs, établissement des workflows CI/CD et bonnes pratiques de développement"
+			]
+		},
+		"solidersound": {
+			"role": "Lead Developer",
+			"dateRange": "Avr 2023 - Déc 2023",
+			"achievements": [
+				"Construction d'une plateforme e-commerce avec Node.js, PostgreSQL et Next.js—obtention de classements en première page via SEO technique et réduction des temps de chargement de 50%",
+				"Direction d'une équipe de 2 développeurs et établissement des workflows Git"
+			]
+		},
+		"brenco": {
+			"role": "Développeur Full Stack",
+			"dateRange": "Août 2021 - Fév 2022",
+			"achievements": [
+				"Travail sur plusieurs projets clients avec équipes transversales—construction de systèmes de monitoring, maintenance d'APIs IoT et conversion de sites vers React"
+			]
+		}
+	},
+	"footer": {
+		"copyright": "© {year} Nas. Tous droits réservés."
+	}
+}

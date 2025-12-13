@@ -1,4 +1,5 @@
 import { Layout } from "@/components/layout/layout";
+import { getTranslations } from "next-intl/server";
 
 export const metadata = {
 	title: "About",
@@ -58,102 +59,86 @@ const skills = {
 	],
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+	const t = await getTranslations("about");
+
 	return (
 		<Layout activePath="about">
 			<section className="prose prose-neutral dark:prose-invert">
 				<h1 className="font-semibold! text-3xl! md:text-4xl! mb-6! md:mb-8! mt-0! tracking-tighter">
-					About Me
+					{t("pageTitle")}
 				</h1>
 				<p className="mb-1!">
-					I&apos;m Nas, a software engineer focused on one thing :{" "}
+					{t("intro1")}{" "}
 					<strong className="font-semibold! border-b border-foreground/50">
-						helping businesses increase revenue.
+						{t("intro1Bold")}
 					</strong>
 				</p>
 				<p className="mt-0!">
-					I know when to <strong className="font-semibold!">move fast</strong>{" "}
-					and when to{" "}
-					<strong className="font-semibold!">build for scale</strong>.
+					{t("intro2Part1")}{" "}
+					<strong className="font-semibold!">{t("intro2MoveFast")}</strong>{" "}
+					{t("intro2And")}{" "}
+					<strong className="font-semibold!">{t("intro2Scale")}</strong>.
 				</p>
-				<p>My expertise spans three core areas:</p>
+				<p>{t("expertise")}</p>
 				<ul className="space-y-1">
 					<li>
-						<strong className="font-semibold!">AI/LLM Integration</strong>{" "}
-						(Building RAG systems, custom AI assistants, and AI-powered tools)
+						<strong className="font-semibold!">{t("expertiseAI")}</strong>{" "}
+						{t("expertiseAIDesc")}
 					</li>
 					<li>
-						<strong className="font-semibold!">eCommerce Development</strong>{" "}
-						(Architecting scalable platforms with full payment integration,
-						admin dashboards, and custom features)
+						<strong className="font-semibold!">
+							{t("expertiseEcommerce")}
+						</strong>{" "}
+						{t("expertiseEcommerceDesc")}
 					</li>
 					<li>
-						<strong className="font-semibold!">SEO Optimization</strong>{" "}
-						(Driving measurable organic traffic growth through technical and
-						content strategies)
+						<strong className="font-semibold!">{t("expertiseSEO")}</strong>{" "}
+						{t("expertiseSEODesc")}
 					</li>
 				</ul>
-				<p>
-					I&apos;ve led development teams, managed full-stack projects, and
-					consistently delivered solutions that directly impact revenue and user
-					engagement.
-				</p>
+				<p>{t("leadershipIntro")}</p>
 			</section>
 			<hr className="my-6 border-neutral-200 dark:border-neutral-800" />
 			<section className="prose prose-neutral dark:prose-invert">
 				<h2 className="text-2xl! mb-4 sm:mb-6 tracking-tighter">
-					Philosophy & Approach
+					{t("philosophyTitle")}
 				</h2>
+				<p>{t("philosophyIntro")}</p>
 				<p>
-					Most developers either over-engineer everything or hack things
-					together.
-				</p>
-				<p>
-					I do <strong className="font-semibold!"> neither</strong>.
+					<strong className="font-semibold!">{t("philosophyNeither")}</strong>
 				</p>
 				<p className="mb-2!">
-					I ask one question first: &quot;
+					{t("philosophyQuestion")} &quot;
 					<strong className="font-semibold! border-b border-foreground/50">
-						what does the business need right now?
+						{t("philosophyQuestionBold")}
 					</strong>
 					&quot;
 				</p>
 				<ul className="space-y-1">
-					<li>Sometimes that&apos;s a quick MVP to test the market.</li>
-					<li>
-						Sometimes it&apos;s building fast but with clean architecture that
-						scales when you need it.
-					</li>
-					<li>
-						Sometimes it&apos;s taking the time to build a robust foundation
-						that won&apos;t break at scale.{" "}
-					</li>
+					<li>{t("philosophyMVP")}</li>
+					<li>{t("philosophyFast")}</li>
+					<li>{t("philosophyRobust")}</li>
 				</ul>
 				<p className="font-semibold border-l-4 border-foreground pl-2 py-1 bg-muted/50">
-					The right choice depends on your timeline, budget, and growth
-					trajectory—not on what&apos;s trendy.
+					{t("philosophyConclusion")}
 				</p>
-				<h2 className="text-2xl! mb-4 sm:mb-6 tracking-tighter">Beyond Code</h2>
-				<p>
-					I spend a lot of time experimenting with AI tools before they hit
-					mainstream—not because I chase trends, but because I want to know
-					what&apos;s actually useful versus what&apos;s just hype.
-				</p>
-				<p>
-					I&apos;m particularly interested in how AI can automate the boring
-					parts of business so humans can focus on what matters.
-				</p>
+				<h2 className="text-2xl! mb-4 sm:mb-6 tracking-tighter">
+					{t("beyondCodeTitle")}
+				</h2>
+				<p>{t("beyondCode1")}</p>
+				<p>{t("beyondCode2")}</p>
 			</section>
 			<hr className="my-6 border-neutral-200 dark:border-neutral-800" />
 			<section className="prose prose-neutral dark:prose-invert">
 				<div>
 					<h2 className="text-2xl! mb-4 sm:mb-6 tracking-tighter">
-						Technical Skills
+						{t("skillsTitle")}
 					</h2>
 					<div className="space-y-6">
 						<div>
 							<h3 className="font-medium text-base! mb-3 text-neutral-700 dark:text-neutral-300">
-								Front-End Development
+								{t("skillsFrontend")}
 							</h3>
 							<div className="flex flex-wrap gap-2">
 								{skills.frontEnd.map((skill) => (
@@ -168,7 +153,7 @@ export default function AboutPage() {
 						</div>
 						<div>
 							<h3 className="font-medium text-base! mb-3 text-neutral-700 dark:text-neutral-300">
-								Back-End Development
+								{t("skillsBackend")}
 							</h3>
 							<div className="flex flex-wrap gap-2">
 								{skills.backEnd.map((skill) => (
@@ -183,7 +168,7 @@ export default function AboutPage() {
 						</div>
 						<div>
 							<h3 className="font-medium text-base! mb-3 text-neutral-700 dark:text-neutral-300">
-								Tools & Technologies
+								{t("skillsTools")}
 							</h3>
 							<div className="flex flex-wrap gap-2">
 								{skills.toolsAndTechnologies.map((skill) => (

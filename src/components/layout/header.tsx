@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { ThemeToggle } from "../theme-toggle";
+import { SettingsDropdown } from "../settings-dropdown";
 import { Logo } from "../logo";
 import { useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
+import { useTranslations } from "next-intl";
 
 export const NAV_ITEMS = [
 	{
@@ -59,6 +60,7 @@ export function Header({
 	activePath?: (typeof NAV_ITEMS)[number]["name"];
 }) {
 	const [open, setOpen] = useState(false);
+	const t = useTranslations("nav");
 
 	return (
 		<header className="py-4 sticky top-0 bg-background z-50">
@@ -85,21 +87,18 @@ export function Header({
 										: "text-neutral-500 dark:text-neutral-400"
 								}`}
 							>
-								{name}
+								{t(name)}
 							</Link>
 						);
 					})}
 				</div>
 
-				{/* Mobile Menu & Theme Toggle */}
+				{/* Settings & Mobile Menu */}
 				<div className="flex items-center gap-2 shrink-0">
-					<div className="hidden md:block">
-						<ThemeToggle />
-					</div>
+					<SettingsDropdown />
 
 					{/* Mobile Controls */}
-					<div className="flex md:hidden items-center gap-2">
-						<ThemeToggle />
+					<div className="flex md:hidden items-center gap-0">
 						<Sheet open={open} onOpenChange={setOpen}>
 							<SheetTrigger asChild>
 								<Button
@@ -129,7 +128,7 @@ export function Header({
 														: "text-neutral-600 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-neutral-900"
 												}`}
 											>
-												{name}
+												{t(name)}
 											</Link>
 										);
 									})}

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { League_Spartan, Nova_Square } from "next/font/google";
 import { WithContext, WebSite } from "schema-dts";
 import { Toaster } from "sonner";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
 
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -93,8 +95,11 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	const locale = await getLocale();
+	const messages = await getMessages();
+
 	return (
-		<html lang="en" suppressHydrationWarning>
+		<html lang={locale} suppressHydrationWarning>
 			<head>
 				<meta name="apple-mobile-web-app-title" content="Nas" />
 				<JsonLd content={jsonLdContent} />
@@ -107,8 +112,10 @@ export default async function RootLayout({
 					defaultTheme="dark"
 					disableTransitionOnChange
 				>
-					{children}
-					<Toaster />
+					<NextIntlClientProvider messages={messages}>
+						{children}
+						<Toaster />
+					</NextIntlClientProvider>
 				</ThemeProvider>
 			</body>
 		</html>

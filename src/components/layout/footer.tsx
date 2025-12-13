@@ -1,3 +1,5 @@
+"use client";
+
 import {
 	IconBrandGithub,
 	IconBrandInstagram,
@@ -5,9 +7,12 @@ import {
 	IconBrandMedium,
 	IconBrandX,
 } from "@tabler/icons-react";
+import { useTranslations } from "next-intl";
 import { TooltipWrapper } from "../ui/tooltip-wrapper";
 
 export const Footer = () => {
+	const t = useTranslations("footer");
+
 	return (
 		<footer className="mt-auto pt-2 pb-10 flex flex-col space-y-6 md:flex-row md:space-y-0 items-center justify-between">
 			<ul className="flex items-center justify-center md:justify-start space-x-4 text-neutral-600 dark:text-neutral-300">
@@ -73,7 +78,7 @@ export const Footer = () => {
 				</li>
 			</ul>
 			<p className="text-center md:text-left text-neutral-600 dark:text-neutral-300">
-				© {new Date().getFullYear()} Nas. All rights reserved.
+				{t("copyright", { year: new Date().getFullYear() })}
 			</p>
 		</footer>
 	);
