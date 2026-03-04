@@ -11,6 +11,7 @@
 		"home": "accueil",
 		"about": "à propos",
 		"experience": "expérience",
+		"projects": "projets",
 		"blog": "blog",
 		"contact": "contact",
 		"resume": "CV"
@@ -33,6 +34,10 @@
 		"viewWork": "Voir mon travail",
 		"getInTouch": "Me contacter",
 		"recentPosts": "Articles récents"
+	},
+	"projects": {
+		"pageTitle": "Projets",
+		"intro": "Portfolio orienté production: templates pour accélérer la livraison et plateformes IA construites pour la fiabilité, la maintenabilité et l’impact réel."
 	},
 	"about": {
 		"pageTitle": "À propos de moi",

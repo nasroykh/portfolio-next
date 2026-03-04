@@ -22,6 +22,10 @@ export const NAV_ITEMS = [
 		path: "/experience",
 	},
 	{
+		name: "projects",
+		path: "/projects",
+	},
+	{
 		name: "blog",
 		path: "/blog",
 	},

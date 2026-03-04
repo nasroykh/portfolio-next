@@ -11,6 +11,7 @@
 		"home": "home",
 		"about": "about",
 		"experience": "experience",
+		"projects": "projects",
 		"blog": "blog",
 		"contact": "contact",
 		"resume": "resume"
@@ -33,6 +34,10 @@
 		"viewWork": "View My Work",
 		"getInTouch": "Get In Touch",
 		"recentPosts": "Recent Blog Posts"
+	},
+	"projects": {
+		"pageTitle": "Projects",
+		"intro": "A practical portfolio of shipping systems: templates for faster delivery and AI platforms built for reliability, maintainability, and real-world impact."
 	},
 	"about": {
 		"pageTitle": "About Me",
