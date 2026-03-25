@@ -37,7 +37,30 @@
 	},
 	"projects": {
 		"pageTitle": "Projects",
-		"intro": "A practical portfolio of shipping systems: templates for faster delivery and AI platforms built for reliability, maintainability, and real-world impact."
+		"intro": "A practical portfolio of shipping systems: templates for faster delivery and AI platforms built for reliability, maintainability, and real-world impact.",
+		"searchPlaceholder": "Search projects by name, tech, or keyword...",
+		"filterAll": "All",
+		"filterTemplates": "Templates",
+		"filterAI": "AI / ML",
+		"filterSaaS": "SaaS",
+		"filterDevtools": "Dev Tools",
+		"filterEcommerce": "eCommerce",
+		"statusProduction": "Production",
+		"statusInProgress": "In Progress",
+		"statusArchived": "Archived",
+		"resultsCount": "{count} of {total} projects",
+		"noResults": "No projects match your search.",
+		"noResultsHint": "Try a different keyword or clear your filters.",
+		"keyAchievement": "Key Achievement",
+		"commonQuestions": "Common Questions",
+		"viewCode": "View Code",
+		"caseStudy": "Case Study",
+		"clearFilters": "Clear all filters",
+		"projectDetails": "Project Details",
+		"copyCommand": "Copy Command",
+		"copied": "Command Copied!",
+		"bootstrap": "Try it now",
+		"imageAlt": "{title} screenshot {index}"
 	},
 	"about": {
 		"pageTitle": "About Me",
@@ -162,6 +185,27 @@
 				"Built a patient management system for a local medical center"
 			]
 		}
+	},
+	"caseStudy": {
+		"projects": "Projects",
+		"atAGlance": "At a Glance",
+		"challenge": "Challenge",
+		"result": "Result",
+		"techStack": "Tech Stack",
+		"status": "Status",
+		"situation": "Situation",
+		"task": "The Challenge",
+		"action": "What Was Built",
+		"results": "Results",
+		"keyAchievement": "Key Achievement",
+		"faq": "Frequently Asked Questions",
+		"viewSource": "View Source",
+		"allProjects": "All Projects",
+		"prev": "Previous",
+		"next": "Next",
+		"statusProduction": "Production",
+		"statusInProgress": "In Progress",
+		"statusArchived": "Archived"
 	},
 	"blog": {
 		"pageTitle": "My Blog"

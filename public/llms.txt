@@ -5,6 +5,7 @@
 ## About
 - [About](https://nascodes.dev/about): Learn about Nas's background, philosophy, and approach.
 - [Experience](https://nascodes.dev/experience): Professional work history and key achievements.
+- [Projects](https://nascodes.dev/projects): Portfolio of production projects with detailed case studies.
 - [Resume](https://nascodes.dev/resume): Downloadable resume with complete work history.
 - [Blog](https://nascodes.dev/blog): Technical articles and insights.
 - [Contact](https://nascodes.dev/contact): Get in touch for projects and opportunities.
@@ -92,6 +93,21 @@ First full-time developer role. Built monitoring systems, maintained IoT APIs, a
 - Created AI assistants using OpenRouter API
 - Developed intelligent web scraping pipelines with Playwright
 
+## Projects
+
+### Templates
+- [Website Template](https://nascodes.dev/projects/website-template): Next.js 16 starter with 56 UI components, SEO tooling, and Docker deployment. Cut project setup from weeks to hours.
+- [App Template](https://nascodes.dev/projects/app-template): Full-stack monorepo starter (Hono + React + PostgreSQL) with end-to-end type safety via oRPC and Turborepo.
+- [Jinja Template Renderer](https://nascodes.dev/projects/jinja-template-renderer): Standalone Jinja2 previewer with AST-powered mock data generation and live reload for Frappe templates.
+
+### AI
+- [Foxmayn AI](https://nascodes.dev/projects/foxmayn-ai): Enterprise RAG platform with multi-strategy retrieval, BullMQ workers, and multi-tenant knowledge base management.
+- [Foxmayn AI CLI](https://nascodes.dev/projects/foxmayn-ai-cli): Terminal chat UI for 7 AI models via OpenRouter, built with Go and Bubble Tea.
+
+### Dev Tools
+- [ffc — Foxmayn Frappe CLI](https://nascodes.dev/projects/foxmayn-frappe-cli): Go CLI for full Frappe/ERPNext site management — CRUD, schema inspection, reports, and RPC from the terminal.
+- [ffm — Foxmayn Frappe Manager](https://nascodes.dev/projects/foxmayn-frappe-manager): Single-command Frappe bench creation with Docker orchestration, smart port allocation, and Traefik domain routing.
+
 ## Social Links
 - GitHub: https://github.com/nasroykh
 - LinkedIn: https://www.linkedin.com/in/nas-y/
@@ -115,11 +131,12 @@ Interested in working together? Visit https://nascodes.dev/contact to get in tou
 ## Portfolio Tech Stack
 
 This portfolio is built with:
-- **Framework**: Next.js 16 (App Router)
-- **Language**: TypeScript
+- **Framework**: Next.js 16.1.1 (App Router)
+- **Language**: TypeScript 5.9
 - **Styling**: Tailwind CSS 4
-- **UI**: Radix UI / Shadcn UI
+- **UI**: Radix UI / shadcn/ui
 - **Animations**: Framer Motion
 - **Content**: MDX (next-mdx-remote)
-- **AI Integration**: OpenAI, LangChain, Qdrant
+- **AI Integration**: OpenRouter, LangChain, Qdrant
+- **i18n**: next-intl (English/French)
 

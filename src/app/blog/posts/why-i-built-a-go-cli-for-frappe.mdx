@@ -1,0 +1,124 @@
+---
+title: "Why I Built an LLM-Friendly Go CLI for Frappe (And What I Learned)"
+summary: "ffc is a Go CLI for Frappe's REST API that ships with agent skills, so Claude Code, Cursor, and Gemini CLI can manage your ERP without hallucinating flag names. One curl pipe to install."
+publishedAt: "2026-03-25 21:51"
+tags:
+  [
+    "go",
+    "frappe",
+    "erpnext",
+    "cli",
+    "open-source",
+    "developer-tools",
+    "ai",
+    "agent-skills",
+  ]
+image: "/blog/ffc-cli-cover.png"
+---
+
+<Accordion type="single" collapsible>
+	<AccordionItem value="tldr">
+		<AccordionTrigger className="cursor-pointer">TL;DR</AccordionTrigger>
+		<AccordionContent>
+        `ffc` is a Go CLI for Frappe's REST API — CRUD, reports, schema introspection, multi-site config. The twist: it ships with agent skills so LLMs can operate your Frappe site without guessing. `curl` pipe to install, `npx skills add` to teach your AI agent. [GitHub →](https://github.com/nasroykh/foxmayn_frappe_cli)
+    </AccordionContent>
+</AccordionItem>
+
+</Accordion>
+
+## The Itch
+
+I work inside Frappe and ERPNext every day. Custom apps, compliance logic, late-night invoice debugging — the usual.
+
+And every time I needed to check a document, bulk-update a field, or run a report from the terminal, I'd end up writing `curl` commands with token headers and nested JSON that looked like a cry for help.
+
+The alternatives? Python's `frappe.client` (requires a full bench environment), or just... opening the browser. Neither composes well with scripts, cron jobs, CI pipelines — or the AI coding agents I increasingly rely on to do the tedious stuff.
+
+So I built [**ffc**](https://github.com/nasroykh/foxmayn_frappe_cli).
+
+## What It Does
+
+```bash
+# Get a document
+ffc get-doc -d "Sales Invoice" -n "SINV-00042" -f '["status","grand_total"]'
+
+# List filtered records
+ffc list-docs -d "ToDo" --filters '{"status":"Open"}' -o "modified desc"
+
+# Run a report
+ffc run-report -n "General Ledger" --filters '{"company":"Acme","from_date":"2026-01-01"}'
+
+# Call any whitelisted method
+ffc call-method --method "my_app.api.recalculate" --args '{"batch_id":"B001"}'
+
+# Inspect a DocType's schema
+ffc get-schema -d "Sales Invoice"
+```
+
+Every command supports `--json` for piping output and `--site` for targeting a specific configured site. Full CRUD, schema introspection, report execution, RPC calls.
+
+## The Interesting Parts
+
+**Multi-site with env var fallback.** Config lives at `~/.config/ffc/config.yaml` with named sites (dev, staging, prod). In CI, it falls back to `FFC_URL`, `FFC_API_KEY`, `FFC_API_SECRET`. Flags override everything. Standard Viper precedence — nothing clever, which is the point.
+
+**Frappe's API quirks.** List responses changed between v14 and older versions (`"data"` vs `"message"` wrapper). Error responses contain nested JSON strings with Python tracebacks. The client handles both and extracts user-facing messages from the noise.
+
+**Number formatting.** Since I work with Algerian and French accounting daily, this was non-negotiable. `ffc` supports `french` (1 000 000,00), `us`, `german`, and `plain` formats out of the box.
+
+**Interactive when it should be.** `ffc init` walks you through setup with a TUI wizard. `ffc config` drops into an interactive menu when called bare, but exposes `ffc config get --json` and `ffc config set` for scripts. Humans get nice UX, scripts get flags.
+
+## Built for LLMs, Not Just Humans
+
+This is the part I haven't seen in other Frappe tools: `ffc` ships with [agent skills](https://github.com/nasroykh/foxmayn_frappe_cli/tree/main/skills) — `SKILL.md` files that teach AI coding agents (Claude Code, Cursor, Gemini CLI, etc.) how to use the tool.
+
+There are two:
+
+- **`foxmayn-frappe-cli`** — the usage skill. Tells the LLM every command, every flag, every filter syntax, and includes scripting recipes. It also enforces a hard rule: _always use `--json`_. Table output is for humans; JSON output is what an agent can actually parse and act on.
+- **`ffc-dev`** — the contributor skill. Teaches an agent how to add commands, extend the API client, handle huh forms, and follow the project's conventions. Point Claude Code at the repo and tell it to add a new subcommand — it knows the exact pattern.
+
+The practical result: you can tell an LLM "list all unpaid Sales Invoices on production and export them" and it knows to run `ffc --site production list-docs -d "Sales Invoice" --filters '{"status":"Unpaid"}' --json`, pipe it through `jq`, and write the output. No hallucinated API calls, no guessing at flag names.
+
+This matters because Frappe's API surface is large and inconsistent across versions. An LLM without a skill file will guess — and guess wrong. A skill file turns `ffc` into a reliable tool in an agentic workflow instead of a source of retry loops.
+
+Install the skills with:
+
+```bash
+npx skills add nasroykh/foxmayn_frappe_cli
+```
+
+## What's Missing (Honestly)
+
+**Tests.** Not yet. For a CLI that talks to an external API, this means either a mock Frappe server or integration tests against a real instance. Shipped functionality first — defensible for v0.1, not for v1.0.
+
+**Batch operations.** Bulk updates currently mean looping `ffc update-doc` in a shell script. A proper `bulk-update` command with concurrency is on the roadmap.
+
+**File attachments.** Frappe's upload API is multipart and stateful. Didn't make the cut.
+
+**No bench integration.** By design — `ffc` talks HTTP. Works the same whether your Frappe is local, on Frappe Cloud, or on a VPS across the world.
+
+## Install
+
+**Linux / macOS:**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/nasroykh/foxmayn_frappe_cli/main/install.sh | sh
+```
+
+**Windows (PowerShell):**
+
+```powershell
+powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/nasroykh/foxmayn_frappe_cli/main/install.ps1 | iex"
+```
+
+Both scripts auto-detect your OS/arch, download the correct binary, and verify the SHA256 checksum. You can also `go install` from source or grab a binary from the [releases page](https://github.com/nasroykh/foxmayn_frappe_cli/releases).
+
+```bash
+ffc init    # Interactive setup
+ffc ping    # Verify connection
+```
+
+The repo is at [github.com/nasroykh/foxmayn_frappe_cli](https://github.com/nasroykh/foxmayn_frappe_cli). MIT licensed. Issues and PRs welcome.
+
+---
+
+_More tools for the Frappe/ERPNext ecosystem coming soon._

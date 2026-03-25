@@ -37,7 +37,30 @@
 	},
 	"projects": {
 		"pageTitle": "Projets",
-		"intro": "Portfolio orienté production: templates pour accélérer la livraison et plateformes IA construites pour la fiabilité, la maintenabilité et l’impact réel."
+		"intro": "Portfolio orienté production: templates pour accélérer la livraison et plateformes IA construites pour la fiabilité, la maintenabilité et l’impact réel.",
+		"searchPlaceholder": "Rechercher des projets par nom, technologie ou mot-clé...",
+		"filterAll": "Tous",
+		"filterTemplates": "Modèles",
+		"filterAI": "IA / ML",
+		"filterSaaS": "SaaS",
+		"filterDevtools": "Outils Dev",
+		"filterEcommerce": "eCommerce",
+		"statusProduction": "Production",
+		"statusInProgress": "En cours",
+		"statusArchived": "Archivé",
+		"resultsCount": "{count} sur {total} projets",
+		"noResults": "Aucun projet ne correspond à votre recherche.",
+		"noResultsHint": "Essayez un autre mot-clé ou effacez vos filtres.",
+		"keyAchievement": "Réalisation clé",
+		"commonQuestions": "Questions fréquentes",
+		"viewCode": "Voir le code",
+		"caseStudy": "Étude de cas",
+		"clearFilters": "Effacer les filtres",
+		"projectDetails": "Détails du projet",
+		"copyCommand": "Copier la commande",
+		"copied": "Commande copiée !",
+		"bootstrap": "Essayez maintenant",
+		"imageAlt": "Capture d'écran {index} de {title}"
 	},
 	"about": {
 		"pageTitle": "À propos de moi",
@@ -162,6 +185,27 @@
 				"Construction d'un système de gestion des patients pour un centre médical local"
 			]
 		}
+	},
+	"caseStudy": {
+		"projects": "Projets",
+		"atAGlance": "En bref",
+		"challenge": "Défi",
+		"result": "Résultat",
+		"techStack": "Technologies",
+		"status": "Statut",
+		"situation": "Situation",
+		"task": "Le défi",
+		"action": "Ce qui a été construit",
+		"results": "Résultats",
+		"keyAchievement": "Réalisation clé",
+		"faq": "Questions fréquentes",
+		"viewSource": "Voir le code",
+		"allProjects": "Tous les projets",
+		"prev": "Précédent",
+		"next": "Suivant",
+		"statusProduction": "Production",
+		"statusInProgress": "En cours",
+		"statusArchived": "Archivé"
 	},
 	"blog": {
 		"pageTitle": "Mon Blog"
