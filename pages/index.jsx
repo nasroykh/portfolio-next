@@ -61,7 +61,7 @@ export default function Home() {
           </div>
         </h1>
 
-        {hasMusicEnded ? 
+        {hasMusicEnded ?
           <h2 className={classes.SecondaryTextContainer}>
             <span>Kept you waiting, huh?</span>
             <div className={classes.SecondaryText}>
@@ -74,7 +74,7 @@ export default function Home() {
 
         <button className={`${classes.PlayButton} ${isTextFinished ? classes.PlayButtonVisible : ""} ${hasMusicEnded ? classes.PlayButtonHidden : ""}`} onClick={() => setIsMusicPlaying(prevState => !prevState)}>
           {
-            isMusicPlaying ? 
+            isMusicPlaying ?
               <Image src="/pause.svg" height={75} width={75} /> :
               <Image src="/play.svg" height={75} width={75} />
           }
