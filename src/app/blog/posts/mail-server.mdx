@@ -1,0 +1,43 @@
+---
+title: I Spent a Day Setting Up a Self-Hosted Mail Server. Here's Everything That Broke.
+publishedAt: "2026-05-13 11:00"
+summary: Most guides make self-hosting email look easy. Here's what they don't tell you — 11 real errors I hit setting up Postfix + Dovecot + OpenDKIM on Ubuntu 24.04, and the full A-to-Z guide I wrote from it.
+---
+
+Most guides make it look easy. Install Postfix, configure Dovecot, add some DNS records, done.
+
+They're lying to you.
+
+I recently went through the full process on a Contabo VPS — Postfix + Dovecot + OpenDKIM, Cloudflare DNS, Ubuntu 24.04 LTS — and got to `dkim=pass`, `spf=pass`, `dmarc=pass` at Gmail. But the path there involved 11 distinct errors I had to debug and fix, none of which the standard guides mention.
+
+So I documented all of it.
+
+## What actually makes self-hosting email hard
+
+The install itself is not the problem. The real complexity is everything around it:
+
+- **DNS alignment** — PTR, MX, SPF, DKIM, and DMARC all have to be correct simultaneously. One wrong record and your mail either bounces or lands in spam silently.
+- **Postfix chroot** — most guides tell you to use a Unix socket for OpenDKIM. This fails, because Postfix runs `smtpd` in a chroot at `/var/spool/postfix`. The socket path doesn't exist inside the chroot. You need an inet socket.
+- **Ubuntu 24.04 doesn't install rsyslog** — so `/var/log/mail.log` doesn't exist and Postfix logs go nowhere. You're debugging blind until you notice.
+- **The `mydestination` trap** — the default Postfix config adds your domain to `mydestination`. This silently breaks virtual mailbox delivery because Postfix prefers local delivery and finds no matching system user.
+- **`virtual_mailbox_limit`** — defaults to ~51MB, which is smaller than the default `message_size_limit`. This causes a fatal startup error that defers all incoming mail with a cryptic log message.
+
+Those are just five of the eleven issues I hit.
+
+## What the guide covers
+
+I turned the entire setup into a structured A-to-Z reference: 9 implementation phases, a dedicated section covering every real error with its root cause and fix, and a hardening checklist for after everything is working.
+
+It covers the full stack — PTR, Cloudflare DNS, swap, UFW, Let's Encrypt via DNS-01 challenge, Postfix virtual mailboxes without a database backend, Dovecot with flat-file auth, OpenDKIM wired correctly via inet socket, rsyslog, swaks testing, and mail client configuration.
+
+The guide is live at **[mail-server-guide.nascodes.dev](https://mail-server-guide.nascodes.dev)**.
+
+## Should you actually self-host email?
+
+Honest answer: depends. For a personal mailbox or internal tooling — yes, totally worthwhile once it's running. For critical client-facing business email — the ROI versus Migadu or Fastmail is genuinely bad.
+
+The guide has an honest section on this at the top so you can make the call before investing the time.
+
+---
+
+*Stack: Ubuntu 24.04 LTS · Postfix · Dovecot · OpenDKIM · Contabo · Cloudflare*
