@@ -1,12 +1,15 @@
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
 import { Layout } from "@/components/layout/layout";
 import { Button } from "@/components/ui/button";
 import { getTranslations } from "next-intl/server";
 
-export const metadata = {
+export const metadata: Metadata = pageMetadata({
 	title: "Experience",
 	description:
 		"Professional experience in AI/LLM development, eCommerce platforms, SEO optimization, and full-stack engineering.",
-};
+	path: "/experience",
+});
 
 const experiences = [
 	{
@@ -109,7 +112,7 @@ export default async function ExperiencePage() {
 	const tCommon = await getTranslations("common");
 
 	return (
-		<Layout activePath="experience">
+		<Layout>
 			<section>
 				<h1 className="font-semibold text-3xl md:text-4xl mb-8 tracking-tighter">
 					{t("pageTitle")}

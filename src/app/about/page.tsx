@@ -1,11 +1,14 @@
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
 import { Layout } from "@/components/layout/layout";
 import { getTranslations } from "next-intl/server";
 
-export const metadata = {
+export const metadata: Metadata = pageMetadata({
 	title: "About",
 	description:
 		"AI/LLM Specialist and Software Engineer specializing in RAG systems, eCommerce platforms, and SEO optimization.",
-};
+	path: "/about",
+});
 
 const skills = {
 	frontEnd: [
@@ -63,8 +66,8 @@ export default async function AboutPage() {
 	const t = await getTranslations("about");
 
 	return (
-		<Layout activePath="about">
-			<section className="prose prose-neutral dark:prose-invert">
+		<Layout>
+			<section className="prose">
 				<h1 className="font-semibold! text-3xl! md:text-4xl! mb-6! md:mb-8! mt-0! tracking-tighter">
 					{t("pageTitle")}
 				</h1>
@@ -100,7 +103,7 @@ export default async function AboutPage() {
 				<p>{t("leadershipIntro")}</p>
 			</section>
 			<hr className="my-6 border-neutral-200 dark:border-neutral-800" />
-			<section className="prose prose-neutral dark:prose-invert">
+			<section className="prose">
 				<h2 className="text-2xl! mb-4 sm:mb-6 tracking-tighter">
 					{t("philosophyTitle")}
 				</h2>
@@ -130,7 +133,7 @@ export default async function AboutPage() {
 				<p>{t("beyondCode2")}</p>
 			</section>
 			<hr className="my-6 border-neutral-200 dark:border-neutral-800" />
-			<section className="prose prose-neutral dark:prose-invert">
+			<section className="prose">
 				<div>
 					<h2 className="text-2xl! mb-4 sm:mb-6 tracking-tighter">
 						{t("skillsTitle")}

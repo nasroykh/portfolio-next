@@ -3,14 +3,14 @@ import { League_Spartan, Nova_Square } from "next/font/google";
 import { WithContext, WebSite } from "schema-dts";
 import { Toaster } from "sonner";
 import { NextIntlClientProvider } from "next-intl";
-import { getLocale, getMessages } from "next-intl/server";
+import { getLocale } from "next-intl/server";
 
 import { ThemeProvider } from "@/components/theme-provider";
+import JsonLd from "@/components/json-ld";
+import { AIAssistant } from "@/components/ai-assistant";
+import { AUTHOR_NAME, SITE_NAME, SITE_URL } from "@/lib/site";
 
 import "./globals.css";
-import JsonLd from "@/components/json-ld";
-
-const pathUrl = `https://${process.env.NEXT_PUBLIC_DOMAIN_NAME}`;
 
 const novaSquare = Nova_Square({
 	subsets: ["latin"],
@@ -22,22 +22,29 @@ const leagueSpartan = League_Spartan({
 	variable: "--font-league",
 });
 
+const DESCRIPTION =
+	"AI/LLM Specialist and Software Engineer specializing in RAG systems, custom AI assistants, eCommerce platforms, and SEO optimization. Building production-ready AI solutions and high-performance web applications.";
+
 export const metadata: Metadata = {
-	metadataBase: new URL(pathUrl),
+	metadataBase: new URL(SITE_URL),
 	title: {
 		default: "Nas - AI/LLM Specialist & Software Engineer",
 		template: "%s | Nas",
 	},
-	description:
-		"AI/LLM Specialist and Software Engineer specializing in RAG systems, custom AI assistants, eCommerce platforms, and SEO optimization. Building production-ready AI solutions and high-performance web applications.",
+	description: DESCRIPTION,
+	applicationName: "Nas",
+	appleWebApp: { title: "Nas" },
 	openGraph: {
 		title: "Nas - AI/LLM Specialist & Software Engineer",
-		description:
-			"AI/LLM Specialist and Software Engineer specializing in RAG systems, custom AI assistants, eCommerce platforms, and SEO optimization. Building production-ready AI solutions and high-performance web applications.",
-		url: pathUrl,
-		siteName: "Nas Portfolio",
+		description: DESCRIPTION,
+		url: "/",
+		siteName: SITE_NAME,
 		locale: "en_US",
 		type: "website",
+	},
+	twitter: {
+		card: "summary_large_image",
+		creator: "@nas_codes",
 	},
 	robots: {
 		index: true,
@@ -71,22 +78,18 @@ export const metadata: Metadata = {
 		"Puppeteer",
 		"Playwright",
 	],
-	alternates: {
-		canonical: pathUrl,
-	},
 };
 
 const jsonLdContent: WithContext<WebSite> = {
 	"@context": "https://schema.org",
 	"@type": "WebSite",
-	name: "Nas Portfolio",
-	url: pathUrl,
-	description:
-		"AI/LLM Specialist and Software Engineer specializing in RAG systems, custom AI assistants, eCommerce platforms, and SEO optimization. Building production-ready AI solutions and high-performance web applications.",
+	name: SITE_NAME,
+	url: SITE_URL,
+	description: DESCRIPTION,
 	author: {
 		"@type": "Person",
-		name: "Nasr Eddine Yakhou",
-		url: pathUrl,
+		name: AUTHOR_NAME,
+		url: SITE_URL,
 	},
 };
 
@@ -96,24 +99,22 @@ export default async function RootLayout({
 	children: React.ReactNode;
 }>) {
 	const locale = await getLocale();
-	const messages = await getMessages();
 
 	return (
 		<html lang={locale} suppressHydrationWarning>
-			<head>
-				<meta name="apple-mobile-web-app-title" content="Nas" />
-				<JsonLd content={jsonLdContent} />
-			</head>
 			<body
 				className={`${novaSquare.variable} ${leagueSpartan.variable} antialiased`}
 			>
+				<JsonLd content={jsonLdContent} />
 				<ThemeProvider
 					attribute="class"
 					defaultTheme="dark"
 					disableTransitionOnChange
 				>
-					<NextIntlClientProvider messages={messages}>
+					<NextIntlClientProvider>
 						{children}
+						{/* Mounted once here so the chat survives client-side navigation */}
+						<AIAssistant />
 						<Toaster />
 					</NextIntlClientProvider>
 				</ThemeProvider>

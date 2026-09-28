@@ -42,10 +42,13 @@ import {
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 import { projects } from "@/data/projects";
+import { ogImageUrl, BASE_OPEN_GRAPH } from "@/lib/site";
 
 type Props = {
 	params: Promise<{ slug: string }>;
 };
+
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
 	return projects.map((project) => ({
@@ -59,9 +62,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 	if (!project) return { title: "Project Not Found" };
 
+	const title = `${project.title} — Case Study`;
+	const path = `/projects/${project.id}`;
+
 	return {
-		title: `${project.title} — Case Study`,
+		title,
 		description: project.caseStudy.headline,
+		alternates: { canonical: path },
+		openGraph: {
+			...BASE_OPEN_GRAPH,
+			title,
+			description: project.caseStudy.headline,
+			type: "article",
+			url: path,
+			images: [{ url: ogImageUrl(project.title) }],
+		},
 	};
 }
 
@@ -72,7 +87,15 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
 	if (!project) notFound();
 
 	const t = await getTranslations("caseStudy");
+	const tProjects = await getTranslations("projects");
 	const cs = project.caseStudy;
+
+	const statusLabel =
+		project.status === "production"
+			? t("statusProduction")
+			: project.status === "in-progress"
+				? t("statusInProgress")
+				: t("statusArchived");
 
 	const currentIndex = projects.findIndex((p) => p.id === slug);
 	const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : null;
@@ -80,14 +103,15 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
 		currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
 
 	return (
-		<Layout activePath="projects">
+		<Layout>
 			<article className="space-y-10">
 				{/* Breadcrumb */}
 				<Breadcrumb>
 					<BreadcrumbList>
 						<BreadcrumbItem>
-							<BreadcrumbLink href="/projects">
-								{t("projects")}
+							<BreadcrumbLink asChild>
+								<Link href="/projects">
+								{t("projects")}</Link>
 							</BreadcrumbLink>
 						</BreadcrumbItem>
 						<BreadcrumbSeparator />
@@ -104,7 +128,7 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
 							variant="outline"
 							className="text-[10px] font-mono uppercase"
 						>
-							{project.category}
+							{tProjects(`category.${project.category}`)}
 						</Badge>
 						<Badge
 							variant={
@@ -112,11 +136,7 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
 							}
 							className="text-[10px]"
 						>
-							{project.status === "production"
-								? t("statusProduction")
-								: project.status === "in-progress"
-									? t("statusInProgress")
-									: t("statusArchived")}
+							{statusLabel}
 						</Badge>
 						<span className="text-xs text-muted-foreground font-mono">
 							{project.year}
@@ -133,7 +153,7 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
 
 					<div className="flex flex-wrap gap-3 pt-2">
 						<Button size="sm" variant="outline" className="gap-2" asChild>
-							<a href={project.codeUrl} target="_blank" rel="noreferrer">
+							<a href={project.codeUrl} target="_blank" rel="noopener noreferrer">
 								<IconBrandGithub className="size-4" />
 								{t("viewSource")}
 							</a>
@@ -187,7 +207,7 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
 							<p className="text-xs text-muted-foreground font-medium">
 								{t("status")}
 							</p>
-							<p className="text-sm capitalize">{project.status}</p>
+							<p className="text-sm">{statusLabel}</p>
 						</div>
 					</div>
 				</div>

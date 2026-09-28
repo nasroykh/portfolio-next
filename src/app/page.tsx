@@ -3,12 +3,17 @@ import { BlogPosts } from "@/components/posts";
 import { Button } from "@/components/ui/button";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+	alternates: { canonical: "/" },
+};
 
 export default async function Home() {
 	const t = await getTranslations("home");
 
 	return (
-		<Layout activePath="home">
+		<Layout>
 			<section className="space-y-4 mb-16">
 				<div className="space-y-1">
 					<h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
@@ -31,7 +36,7 @@ export default async function Home() {
 
 			<section className="space-y-4">
 				<h2 className="text-xl tracking-tighter">{t("recentPosts")}</h2>
-				<BlogPosts />
+				<BlogPosts limit={5} />
 			</section>
 		</Layout>
 	);

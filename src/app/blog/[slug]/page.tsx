@@ -1,51 +1,58 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getLocale } from "next-intl/server";
+import type { BlogPosting, WithContext } from "schema-dts";
 import { CustomMDX } from "@/components/mdx";
-import { formatDate, getBlogPosts } from "@/app/blog/utils";
+import JsonLd from "@/components/json-ld";
+import {
+	formatDate,
+	getBlogPost,
+	getBlogPosts,
+	getExistingImage,
+	parsePublishedAt,
+} from "@/app/blog/utils";
 import { Layout } from "@/components/layout/layout";
+import { AUTHOR_NAME, SITE_URL, absoluteUrl, ogImageUrl, BASE_OPEN_GRAPH } from "@/lib/site";
+
+type Props = {
+	params: Promise<{ slug: string }>;
+};
+
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
-	const posts = getBlogPosts();
-
-	return posts.map((post) => ({
-		slug: post.slug,
-	}));
+	return getBlogPosts().map((post) => ({ slug: post.slug }));
 }
 
-export async function generateMetadata({
-	params,
-}: {
-	params: Promise<{ slug: string }>;
-}) {
-	const { slug } = await params;
-	const post = getBlogPosts().find((post) => post.slug === slug);
-	if (!post) {
-		return;
-	}
+const getCoverImage = (title: string, image?: string) => {
+	const existing = getExistingImage(image);
+	return existing ? absoluteUrl(existing) : ogImageUrl(title);
+};
 
-	const {
-		title,
-		publishedAt: publishedTime,
-		summary: description,
-		image,
-	} = post.metadata;
-	const ogImage = image
-		? image
-		: `https://nascodes.dev/og?title=${encodeURIComponent(title)}`;
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const { slug } = await params;
+	const post = getBlogPost(slug);
+	if (!post) return {};
+
+	const { title, publishedAt, summary: description, image, tags } =
+		post.metadata;
+	const ogImage = getCoverImage(title, image);
+	const path = `/blog/${post.slug}`;
 
 	return {
 		title,
 		description,
+		keywords: tags,
+		alternates: { canonical: path },
 		openGraph: {
+			...BASE_OPEN_GRAPH,
 			title,
 			description,
 			type: "article",
-			publishedTime,
-			url: `https://nascodes.dev/blog/${post.slug}`,
-			images: [
-				{
-					url: ogImage,
-				},
-			],
+			publishedTime: parsePublishedAt(publishedAt).toISOString(),
+			authors: [AUTHOR_NAME],
+			url: path,
+			images: [{ url: ogImage }],
 		},
 		twitter: {
 			card: "summary_large_image",
@@ -56,54 +63,48 @@ export async function generateMetadata({
 	};
 }
 
-export default async function Blog({
-	params,
-}: {
-	params: Promise<{ slug: string }>;
-}) {
+export default async function Blog({ params }: Props) {
 	const { slug } = await params;
-	const post = getBlogPosts().find((post) => post.slug === slug);
+	const post = getBlogPost(slug);
 
-	if (!post) {
-		notFound();
-	}
+	if (!post) notFound();
+
+	const locale = await getLocale();
+	const publishedIso = parsePublishedAt(post.metadata.publishedAt).toISOString();
+
+	const jsonLd: WithContext<BlogPosting> = {
+		"@context": "https://schema.org",
+		"@type": "BlogPosting",
+		headline: post.metadata.title,
+		datePublished: publishedIso,
+		dateModified: publishedIso,
+		description: post.metadata.summary,
+		image: getCoverImage(post.metadata.title, post.metadata.image),
+		url: absoluteUrl(`/blog/${post.slug}`),
+		inLanguage: "en",
+		author: {
+			"@type": "Person",
+			name: AUTHOR_NAME,
+			url: SITE_URL,
+		},
+	};
 
 	return (
-		<Layout activePath="blog">
+		<Layout>
 			<section>
-				<script
-					type="application/ld+json"
-					suppressHydrationWarning
-					dangerouslySetInnerHTML={{
-						__html: JSON.stringify({
-							"@context": "https://schema.org",
-							"@type": "BlogPosting",
-							headline: post.metadata.title,
-							datePublished: post.metadata.publishedAt,
-							dateModified: post.metadata.publishedAt,
-							description: post.metadata.summary,
-							image: post.metadata.image
-								? `https://nascodes.dev${post.metadata.image}`
-								: `https://nascodes.dev/og?title=${encodeURIComponent(
-										post.metadata.title
-								  )}`,
-							url: `https://nascodes.dev/blog/${post.slug}`,
-							author: {
-								"@type": "Person",
-								name: "Nas",
-							},
-						}),
-					}}
-				/>
+				<JsonLd content={jsonLd} />
 				<h1 className="title font-semibold text-2xl tracking-tighter">
 					{post.metadata.title}
 				</h1>
 				<div className="flex justify-between items-center mt-2 mb-8 text-sm">
-					<p className="text-sm text-neutral-800 dark:text-neutral-400">
-						{formatDate(post.metadata.publishedAt)}
-					</p>
+					<time
+						dateTime={publishedIso}
+						className="text-sm text-neutral-800 dark:text-neutral-400"
+					>
+						{formatDate(post.metadata.publishedAt, locale)}
+					</time>
 				</div>
-				<article className="prose">
+				<article className="prose" lang="en">
 					<CustomMDX source={post.content} />
 				</article>
 			</section>
