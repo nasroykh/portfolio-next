@@ -1,19 +1,11 @@
-import { AIAssistant } from "../ai-assistant";
 import { Footer } from "./footer";
-import { Header, NAV_ITEMS } from "./header";
+import { Header } from "./header";
 
-export const Layout = ({
-	children,
-	activePath,
-}: {
-	children: React.ReactNode;
-	activePath?: (typeof NAV_ITEMS)[number]["name"];
-}) => {
+export const Layout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<div className="relative flex flex-col min-h-screen max-w-xl md:max-w-4xl mx-auto space-y-12 px-4">
-			<Header activePath={activePath} />
-			<main>{children}</main>
-			<AIAssistant />
+			<Header />
+			<main id="main">{children}</main>
 			<Footer />
 		</div>
 	);

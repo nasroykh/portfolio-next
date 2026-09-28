@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import Link from "next/link";
 import {
 	Search,
@@ -51,7 +51,7 @@ import {
 } from "@/components/ui/empty";
 
 import { useTranslations } from "next-intl";
-import { projects, ProjectItem, ProjectCategory } from "@/data/projects";
+import type { ProjectCategory, ProjectSummary } from "@/data/projects";
 import { cn } from "@/lib/utils";
 import { TooltipWrapper } from "./ui/tooltip-wrapper";
 
@@ -66,7 +66,7 @@ const CATEGORIES: { labelKey: string; value: ProjectCategory | "all" }[] = [
 	{ labelKey: "filterEcommerce", value: "ecommerce" },
 ];
 
-export function ProjectsExplorer() {
+export function ProjectsExplorer({ projects }: { projects: ProjectSummary[] }) {
 	const t = useTranslations("projects");
 	const [searchQuery, setSearchQuery] = useState("");
 	const [activeCategory, setActiveCategory] = useState<ProjectCategory | "all">(
@@ -81,10 +81,10 @@ export function ProjectsExplorer() {
 			counts.set(project.category, (counts.get(project.category) ?? 0) + 1);
 		}
 		return CATEGORIES.filter((cat) => (counts.get(cat.value) ?? 0) > 0);
-	}, []);
+	}, [projects]);
 
 	const filteredProjects = useMemo(() => {
-		const q = searchQuery.toLowerCase();
+		const q = searchQuery.trim().toLowerCase();
 		return projects.filter((project) => {
 			const matchesSearch =
 				project.title.toLowerCase().includes(q) ||
@@ -96,7 +96,7 @@ export function ProjectsExplorer() {
 
 			return matchesSearch && matchesCategory;
 		});
-	}, [searchQuery, activeCategory]);
+	}, [projects, searchQuery, activeCategory]);
 
 	const totalPages = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE);
 	const paginatedProjects = filteredProjects.slice(
@@ -125,12 +125,18 @@ export function ProjectsExplorer() {
 			{/* Search and Filters */}
 			<div className="flex flex-col gap-6">
 				<div className="relative group">
-					<Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
 					<Input
+						type="search"
+						aria-label={t("searchPlaceholder")}
 						placeholder={t("searchPlaceholder")}
 						className="pl-10 h-11 bg-background/50 backdrop-blur-sm border-neutral-200 dark:border-neutral-800 focus-visible:ring-primary/20"
 						value={searchQuery}
 						onChange={handleSearch}
+					/>
+					{/* Rendered after the input: the input backdrop-blur would otherwise blur the icon */}
+					<Search
+						aria-hidden
+						className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground group-focus-within:text-primary transition-colors"
 					/>
 				</div>
 
@@ -138,6 +144,8 @@ export function ProjectsExplorer() {
 					{populatedCategories.map((cat) => (
 						<button
 							key={cat.value}
+							type="button"
+							aria-pressed={activeCategory === cat.value}
 							onClick={() => handleCategoryChange(cat.value)}
 							className={cn(
 								"px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-200 border",
@@ -150,7 +158,10 @@ export function ProjectsExplorer() {
 						</button>
 					))}
 
-					<div className="ml-auto text-xs text-muted-foreground font-mono">
+					<div
+						role="status"
+						className="ml-auto text-xs text-muted-foreground font-mono"
+					>
 						{t("resultsCount", {
 							count: filteredProjects.length,
 							total: projects.length,
@@ -211,11 +222,9 @@ export function ProjectsExplorer() {
 					<PaginationContent>
 						<PaginationItem>
 							<PaginationPrevious
+								label={t("previousPage")}
 								onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
-								className={cn(
-									"cursor-pointer",
-									currentPage === 1 && "pointer-events-none opacity-50",
-								)}
+								disabled={currentPage === 1}
 							/>
 						</PaginationItem>
 
@@ -224,7 +233,7 @@ export function ProjectsExplorer() {
 								<PaginationLink
 									isActive={currentPage === page}
 									onClick={() => setCurrentPage(page)}
-									className="cursor-pointer"
+									aria-label={t("goToPage", { page })}
 								>
 									{page}
 								</PaginationLink>
@@ -233,14 +242,11 @@ export function ProjectsExplorer() {
 
 						<PaginationItem>
 							<PaginationNext
+								label={t("nextPage")}
 								onClick={() =>
 									setCurrentPage((prev) => Math.min(totalPages, prev + 1))
 								}
-								className={cn(
-									"cursor-pointer",
-									currentPage === totalPages &&
-										"pointer-events-none opacity-50",
-								)}
+								disabled={currentPage === totalPages}
 							/>
 						</PaginationItem>
 					</PaginationContent>
@@ -250,7 +256,7 @@ export function ProjectsExplorer() {
 	);
 }
 
-function ProjectCard({ project }: { project: ProjectItem }) {
+function ProjectCard({ project }: { project: ProjectSummary }) {
 	const t = useTranslations("projects");
 	const { copied, copy } = useCopyToClipboard();
 
@@ -284,8 +290,8 @@ function ProjectCard({ project }: { project: ProjectItem }) {
 						</CarouselContent>
 						{project.images.length > 1 && (
 							<>
-								<CarouselPrevious className="left-2 opacity-0 group-hover:opacity-100 transition-opacity bg-background/80 backdrop-blur-sm size-8" />
-								<CarouselNext className="right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-background/80 backdrop-blur-sm size-8" />
+								<CarouselPrevious className="left-2 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity bg-background/80 backdrop-blur-sm size-8" />
+								<CarouselNext className="right-2 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity bg-background/80 backdrop-blur-sm size-8" />
 							</>
 						)}
 					</Carousel>
@@ -298,8 +304,8 @@ function ProjectCard({ project }: { project: ProjectItem }) {
 						<CardTitle className="text-xl group-hover:text-primary transition-colors">
 							{project.title}
 						</CardTitle>
-						<CardDescription className="text-xs font-mono">
-							{project.category.toUpperCase()}
+						<CardDescription className="text-xs font-mono uppercase">
+							{t(`category.${project.category}`)}
 						</CardDescription>
 					</div>
 					<CardAction>
@@ -346,7 +352,7 @@ function ProjectCard({ project }: { project: ProjectItem }) {
 							className="h-8 text-xs gap-2 rounded-md"
 							asChild
 						>
-							<a href={project.codeUrl} target="_blank" rel="noreferrer">
+							<a href={project.codeUrl} target="_blank" rel="noopener noreferrer">
 								<IconBrandGithub className="size-3.5" />
 								{t("viewCode")}
 							</a>

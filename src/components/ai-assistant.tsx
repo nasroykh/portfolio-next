@@ -1,7 +1,9 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
+import { useTranslations } from "next-intl";
+import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import {
 	AlertDialog,
@@ -12,7 +14,6 @@ import {
 	AlertDialogFooter,
 	AlertDialogHeader,
 	AlertDialogTitle,
-	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import {
 	IconSend,
@@ -21,65 +22,92 @@ import {
 	IconX,
 	IconMessageCirclePlus,
 } from "@tabler/icons-react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import { cn } from "@/lib/utils";
 import { TooltipWrapper } from "./ui/tooltip-wrapper";
 import { Textarea } from "./ui/textarea";
 import { toast } from "sonner";
+import {
+	CHAT_MAX_MESSAGES,
+	CHAT_MAX_PROMPT_LENGTH,
+	type ChatMessage,
+} from "@/lib/chat";
 
-// Types
-interface Message {
-	role: "user" | "assistant";
-	content: string;
+interface Message extends ChatMessage {
 	timestamp: number;
 }
 
-const STORAGE_KEY = "otacon-chat-history";
-const MAX_MESSAGES = 10;
+// Markdown rendering is only needed once the panel shows a reply
+const ChatMarkdown = dynamic(() => import("./chat-markdown"));
 
-// Custom hook for localStorage persistence
+const STORAGE_KEY = "otacon-chat-history";
+
+const isStoredMessage = (value: unknown): value is Message =>
+	typeof value === "object" &&
+	value !== null &&
+	((value as Message).role === "user" ||
+		(value as Message).role === "assistant") &&
+	typeof (value as Message).content === "string" &&
+	// Empty assistant placeholders are never valid history
+	(value as Message).content.length > 0;
+
 function useChatHistory() {
-	const [messages, setMessages] = useState<Message[]>(() => {
-		// Initialize state from localStorage
-		if (typeof window !== "undefined") {
-			const stored = localStorage.getItem(STORAGE_KEY);
-			if (stored) {
-				try {
-					return JSON.parse(stored);
-				} catch (e) {
-					console.error("Failed to parse chat history:", e);
-				}
+	const [messages, setMessages] = useState<Message[]>([]);
+	const hydratedRef = useRef(false);
+
+	// Read localStorage after mount so the server and first client render match
+	useEffect(() => {
+		try {
+			const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
+			if (Array.isArray(stored)) {
+				// eslint-disable-next-line react-hooks/set-state-in-effect -- one-time hydration from localStorage
+				setMessages(stored.filter(isStoredMessage).slice(-CHAT_MAX_MESSAGES));
 			}
+		} catch {
+			localStorage.removeItem(STORAGE_KEY);
 		}
-		return [];
-	});
+		hydratedRef.current = true;
+	}, []);
 
 	useEffect(() => {
-		if (messages.length > 0) {
-			localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+		// Skip the initial empty render so it does not wipe stored history before hydration
+		if (!hydratedRef.current) return;
+		const persisted = messages.filter((message) => message.content);
+		if (persisted.length > 0) {
+			localStorage.setItem(STORAGE_KEY, JSON.stringify(persisted));
+		} else {
+			localStorage.removeItem(STORAGE_KEY);
 		}
 	}, [messages]);
 
 	const addMessage = (message: Message) => {
-		setMessages((prev) => {
-			const updated = [...prev, message];
-			// Enforce message limit
-			if (updated.length > MAX_MESSAGES) {
-				return updated.slice(updated.length - MAX_MESSAGES);
-			}
-			return updated;
-		});
+		setMessages((prev) => [...prev, message].slice(-CHAT_MAX_MESSAGES));
 	};
 
 	const updateLastMessage = (content: string) => {
 		setMessages((prev) => {
-			const updated = [...prev];
-			const lastMessage = updated[updated.length - 1];
-			if (lastMessage && lastMessage.role === "assistant") {
-				lastMessage.content = content;
-			}
-			return updated;
+			const last = prev[prev.length - 1];
+			if (!last || last.role !== "assistant") return prev;
+			return [...prev.slice(0, -1), { ...last, content }];
+		});
+	};
+
+	const removeEmptyAssistantMessage = () => {
+		setMessages((prev) => {
+			const last = prev[prev.length - 1];
+			return last?.role === "assistant" && !last.content
+				? prev.slice(0, -1)
+				: prev;
+		});
+	};
+
+	// Drops the unanswered prompt and its placeholder so a retry does not duplicate it
+	const rollbackLastExchange = () => {
+		setMessages((prev) => {
+			const last = prev[prev.length - 1];
+			const previous = prev[prev.length - 2];
+			return last?.role === "assistant" && previous?.role === "user"
+				? prev.slice(0, -2)
+				: prev;
 		});
 	};
 
@@ -90,136 +118,127 @@ function useChatHistory() {
 
 	return {
 		messages,
-		setMessages,
 		addMessage,
 		updateLastMessage,
+		removeEmptyAssistantMessage,
+		rollbackLastExchange,
 		clearMessages,
 	};
 }
 
 export const AIAssistant = () => {
+	const t = useTranslations("assistant");
 	const [isOpen, setIsOpen] = useState(false);
 	const [inputValue, setInputValue] = useState("");
-	const [isLoading, setIsLoading] = useState(false);
 	const [isStreaming, setIsStreaming] = useState(false);
 	const [isNewChatDialogOpen, setIsNewChatDialogOpen] = useState(false);
 	const {
 		messages,
-		setMessages,
 		addMessage,
 		updateLastMessage,
+		removeEmptyAssistantMessage,
+		rollbackLastExchange,
 		clearMessages,
 	} = useChatHistory();
 	const scrollViewportRef = useRef<HTMLDivElement>(null);
 	const abortControllerRef = useRef<AbortController | null>(null);
 
-	// Auto-scroll to bottom when messages change
 	useEffect(() => {
-		if (scrollViewportRef.current) {
-			const viewport = scrollViewportRef.current;
-			viewport.scrollTop = viewport.scrollHeight;
-		}
-	}, [messages, isLoading]);
+		const viewport = scrollViewportRef.current;
+		if (viewport) viewport.scrollTop = viewport.scrollHeight;
+	}, [messages, isStreaming]);
 
-	// Streaming message handler
+	useEffect(() => () => abortControllerRef.current?.abort(), []);
+
+	const isAtMessageLimit = messages.length >= CHAT_MAX_MESSAGES;
+
 	const handleSendMessage = async () => {
-		if (!inputValue.trim() || isLoading) return;
-
-		if (inputValue.length > 500) {
-			toast.error(
-				"Message is too long. Please shorten it to 500 characters or less."
-			);
-			return;
-		}
-
-		if (messages.length >= MAX_MESSAGES) {
-			toast.error(
-				"Message limit reached. Please start a new chat to continue."
-			);
-			return;
-		}
-
 		const userPrompt = inputValue.trim();
-		const userMessage: Message = {
-			role: "user",
-			content: userPrompt,
-			timestamp: Date.now(),
-		};
+		if (!userPrompt || isStreaming) return;
 
-		addMessage(userMessage);
+		if (userPrompt.length > CHAT_MAX_PROMPT_LENGTH) {
+			toast.error(t("tooLong", { max: CHAT_MAX_PROMPT_LENGTH }));
+			return;
+		}
+
+		if (isAtMessageLimit) {
+			toast.error(t("limitReachedToast"));
+			return;
+		}
+
+		// History sent to the API excludes the new prompt and client-only fields
+		const history: ChatMessage[] = messages.map(({ role, content }) => ({
+			role,
+			content,
+		}));
+
+		addMessage({ role: "user", content: userPrompt, timestamp: Date.now() });
+		addMessage({ role: "assistant", content: "", timestamp: Date.now() });
 		setInputValue("");
-		setIsLoading(true);
 		setIsStreaming(true);
 
-		// Create placeholder for assistant message
-		const assistantMessage: Message = {
-			role: "assistant",
-			content: "",
-			timestamp: Date.now(),
-		};
-		addMessage(assistantMessage);
-
-		// Create abort controller for stopping stream
-		abortControllerRef.current = new AbortController();
+		let accumulated = "";
+		const controller = new AbortController();
+		abortControllerRef.current = controller;
 
 		try {
 			const response = await fetch("/api", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ prompt: userPrompt, messages }),
-				signal: abortControllerRef.current.signal,
+				body: JSON.stringify({ prompt: userPrompt, messages: history }),
+				signal: controller.signal,
 			});
 
-			if (!response.ok) throw new Error("Failed to fetch");
+			if (!response.ok || !response.body) {
+				throw new Error(`Chat request failed with status ${response.status}`);
+			}
 
-			const reader = response.body?.getReader();
+			const reader = response.body.getReader();
 			const decoder = new TextDecoder();
-			let accumulatedContent = "";
+			let buffer = "";
 
-			if (reader) {
-				while (true) {
-					const { done, value } = await reader.read();
-					if (done) break;
+			// The API streams newline-delimited JSON; a network chunk can end mid-line
+			while (true) {
+				const { done, value } = await reader.read();
+				buffer += decoder.decode(value, { stream: !done });
+				const lines = buffer.split("\n");
+				buffer = done ? "" : (lines.pop() ?? "");
 
-					const chunk = decoder.decode(value);
-					const lines = chunk.split("\n").filter((line) => line.trim());
-
-					for (const line of lines) {
-						try {
-							const data = JSON.parse(line);
-							if (data.content) {
-								accumulatedContent += data.content;
-								updateLastMessage(accumulatedContent);
-							}
-						} catch {
-							// Skip invalid JSON
-						}
+				for (const line of lines) {
+					if (!line.trim()) continue;
+					const data = JSON.parse(line) as { content?: string; error?: string };
+					if (data.error) throw new Error(data.error);
+					if (data.content) {
+						accumulated += data.content;
+						updateLastMessage(accumulated);
 					}
 				}
+
+				if (done) break;
 			}
+
+			if (!accumulated) throw new Error("Empty response");
 		} catch (error) {
 			if (error instanceof Error && error.name === "AbortError") {
-				console.log("Stream aborted by user");
+				// Stopped by the user: keep whatever was streamed so far
+				removeEmptyAssistantMessage();
+			} else if (accumulated) {
+				// Stream broke mid-answer: keep the partial reply
+				toast.error(t("error"));
 			} else {
 				console.error("Streaming error:", error);
-				// Remove the empty assistant message on error
-				setMessages((prev) => prev.slice(0, -1));
+				toast.error(t("error"));
+				rollbackLastExchange();
+				setInputValue(userPrompt);
 			}
 		} finally {
-			setIsLoading(false);
 			setIsStreaming(false);
 			abortControllerRef.current = null;
 		}
 	};
 
-	const handleStopStreaming = () => {
-		if (abortControllerRef.current) {
-			abortControllerRef.current.abort();
-		}
-	};
-
-	const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-		if (e.key === "Enter" && !e.shiftKey) {
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+		if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
 			e.preventDefault();
 			handleSendMessage();
 		}
@@ -230,183 +249,176 @@ export const AIAssistant = () => {
 		}
 	};
 
-	const handleNewChat = () => {
-		clearMessages();
-	};
-
-	const isAtMessageLimit = messages.length >= MAX_MESSAGES;
-
 	return (
 		<>
-			{/* Floating Toggle Button */}
-			<TooltipWrapper content="Toggle Otacon Assistant">
+			<TooltipWrapper content={t("toggle")}>
 				<Button
 					size="icon"
-					onClick={() => setIsOpen(!isOpen)}
-					className="print:hidden fixed bottom-0 right-4 md:bottom-10 md:right-20 z-40 size-14 rounded-lg shadow-lg hover:scale-105 transition-all duration-200 flex items-center justify-center"
-					aria-label="Toggle Otacon Assistant"
+					onClick={() => setIsOpen((open) => !open)}
+					className="print:hidden fixed bottom-4 right-4 md:bottom-10 md:right-20 z-40 size-14 rounded-lg shadow-lg hover:scale-105 transition-all duration-200 flex items-center justify-center"
+					aria-label={t("toggle")}
+					aria-expanded={isOpen}
+					aria-controls="otacon-panel"
 				>
 					<IconSparkles className="size-6" />
 				</Button>
 			</TooltipWrapper>
 
-			{/* Chat Panel */}
+			<AlertDialog
+				open={isNewChatDialogOpen}
+				onOpenChange={setIsNewChatDialogOpen}
+			>
+				<AlertDialogContent>
+					<AlertDialogHeader>
+						<AlertDialogTitle>{t("clearTitle")}</AlertDialogTitle>
+						<AlertDialogDescription>
+							{t("clearDescription")}
+						</AlertDialogDescription>
+					</AlertDialogHeader>
+					<AlertDialogFooter>
+						<AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
+						<AlertDialogAction
+							onClick={() => {
+								abortControllerRef.current?.abort();
+								clearMessages();
+							}}
+						>
+							{t("clearConfirm")}
+						</AlertDialogAction>
+					</AlertDialogFooter>
+				</AlertDialogContent>
+			</AlertDialog>
+
 			<AnimatePresence>
 				{isOpen && (
 					<motion.div
+						id="otacon-panel"
+						role="dialog"
+						aria-label="Otacon"
 						initial={{ opacity: 0, scale: 0.95, y: 20 }}
 						animate={{ opacity: 1, scale: 1, y: 0 }}
 						exit={{ opacity: 0, scale: 0.95, y: 20 }}
 						transition={{ duration: 0.2 }}
-						className="print:hidden fixed bottom-16 left-0 right-0 mx-auto md:bottom-24 md:left-auto md:right-32 z-50 w-[calc(100vw-1rem)] md:w-96 md:max-w-[calc(100vw-3rem)] h-[calc(100dvh-12rem)] md:h-[calc(100dvh-12rem)] bg-card border border-border rounded-lg shadow-xl flex flex-col"
+						className="print:hidden fixed bottom-20 left-0 right-0 mx-auto md:bottom-28 md:left-auto md:right-20 z-50 w-[calc(100vw-1rem)] md:w-96 h-[calc(100dvh-8rem)] md:h-[min(40rem,calc(100dvh-10rem))] bg-card border border-border rounded-lg shadow-xl flex flex-col"
 					>
-						{/* Header */}
 						<div className="flex items-center justify-between p-4 border-b border-border">
 							<div className="flex items-center gap-2">
 								<IconSparkles className="size-5 text-primary" />
 								<h2 className="font-semibold text-lg">Otacon</h2>
 							</div>
 							<div className="flex items-center gap-2">
-								{messages.length ? (
-									<AlertDialog
-										open={isNewChatDialogOpen}
-										onOpenChange={setIsNewChatDialogOpen}
+								{messages.length > 0 && (
+									<TooltipWrapper
+										content={t("newChat")}
+										open={isAtMessageLimit ? true : undefined}
 									>
-										<AlertDialogTrigger asChild>
-											<TooltipWrapper
-												content="New chat"
-												open={isAtMessageLimit ? true : undefined}
-											>
-												<Button
-													variant="ghost"
-													size="icon-sm"
-													title="New chat"
-													onClick={() => setIsNewChatDialogOpen(true)}
-												>
-													<IconMessageCirclePlus className="size-5" />
-												</Button>
-											</TooltipWrapper>
-										</AlertDialogTrigger>
-										<AlertDialogContent>
-											<AlertDialogHeader>
-												<AlertDialogTitle>Clear chat history?</AlertDialogTitle>
-												<AlertDialogDescription>
-													This will permanently delete all messages in this
-													conversation. This action cannot be undone.
-												</AlertDialogDescription>
-											</AlertDialogHeader>
-											<AlertDialogFooter>
-												<AlertDialogCancel>Cancel</AlertDialogCancel>
-												<AlertDialogAction onClick={handleNewChat}>
-													Clear chat
-												</AlertDialogAction>
-											</AlertDialogFooter>
-										</AlertDialogContent>
-									</AlertDialog>
-								) : (
-									""
+										<Button
+											variant="ghost"
+											size="icon-sm"
+											aria-label={t("newChat")}
+											onClick={() => setIsNewChatDialogOpen(true)}
+										>
+											<IconMessageCirclePlus className="size-5" />
+										</Button>
+									</TooltipWrapper>
 								)}
 								<Button
 									variant="ghost"
 									size="icon-sm"
 									onClick={() => setIsOpen(false)}
-									title="Close chat"
+									aria-label={t("close")}
 								>
 									<IconX className="size-5" />
 								</Button>
 							</div>
 						</div>
 
-						{/* Messages Area */}
 						<div className="flex-1 overflow-hidden">
 							<div
 								ref={scrollViewportRef}
 								className="h-full overflow-y-auto p-4 space-y-4"
+								aria-busy={isStreaming}
 							>
 								{messages.length === 0 && (
 									<div className="text-center h-full flex flex-col items-center justify-center text-muted-foreground py-8">
 										<IconSparkles className="size-12 mx-auto mb-2 opacity-50" />
-										<p>Start a conversation with Otacon!</p>
+										<p>{t("empty")}</p>
 									</div>
 								)}
-								{messages.map((message, index) => (
+								{messages.map((message) => (
 									<div
-										key={index}
+										key={`${message.timestamp}-${message.role}`}
 										className={cn("flex", {
 											"justify-end": message.role === "user",
 											"justify-start": message.role === "assistant",
 										})}
 									>
-										<div
-											className={cn("max-w-[80%] rounded-lg p-2", {
-												"bg-muted": message.role === "user",
-											})}
-										>
-											<div className="text-sm prose prose-sm dark:prose-invert max-w-none [&>*:first-child]:mt-0! [&>*:last-child]:mb-0!">
-												<ReactMarkdown remarkPlugins={[remarkGfm]}>
-													{message.content}
-												</ReactMarkdown>
+										{message.content ? (
+											<div
+												className={cn("max-w-[80%] rounded-lg p-2", {
+													"bg-muted": message.role === "user",
+												})}
+											>
+												<div className="chat-markdown text-sm wrap-break-word">
+													<ChatMarkdown>{message.content}</ChatMarkdown>
+												</div>
 											</div>
-										</div>
+										) : (
+											<div className="bg-muted text-foreground rounded-lg px-4 py-2">
+												<div className="flex gap-1">
+													{[0, 150, 300].map((delay) => (
+														<span
+															key={delay}
+															className="size-2 bg-foreground/40 rounded-full animate-bounce"
+															style={{ animationDelay: `${delay}ms` }}
+														/>
+													))}
+												</div>
+											</div>
+										)}
 									</div>
 								))}
-								{isLoading && messages[messages.length - 1]?.content === "" && (
-									<div className="flex justify-start">
-										<div className="bg-muted text-foreground rounded-lg px-4 py-2">
-											<div className="flex gap-1">
-												<span
-													className="size-2 bg-foreground/40 rounded-full animate-bounce"
-													style={{ animationDelay: "0ms" }}
-												/>
-												<span
-													className="size-2 bg-foreground/40 rounded-full animate-bounce"
-													style={{ animationDelay: "150ms" }}
-												/>
-												<span
-													className="size-2 bg-foreground/40 rounded-full animate-bounce"
-													style={{ animationDelay: "300ms" }}
-												/>
-											</div>
-										</div>
-									</div>
-								)}
-								{/* Extra padding at bottom to ensure last message is visible */}
 								<div className="h-4" />
 							</div>
 						</div>
 
-						{/* Input Section */}
 						<div className="p-4 border-t border-border">
 							{isAtMessageLimit && (
 								<p className="text-xs text-destructive mb-2">
-									Message limit reached. Start a{" "}
+									{t("limitReachedPrefix")}{" "}
 									<button
+										type="button"
 										className="cursor-pointer underline hover:text-primary"
 										onClick={() => setIsNewChatDialogOpen(true)}
 									>
-										new chat
+										{t("limitReachedLink")}
 									</button>{" "}
-									to continue.
+									{t("limitReachedSuffix")}
 								</p>
 							)}
 							<div className="flex gap-2">
 								<Textarea
 									value={inputValue}
 									onChange={(e) => setInputValue(e.target.value)}
-									onKeyUp={handleKeyPress}
-									placeholder="Type your message..."
-									disabled={isLoading || isAtMessageLimit}
+									onKeyDown={handleKeyDown}
+									placeholder={t("placeholder")}
+									aria-label={t("inputLabel")}
+									autoFocus
+									disabled={isStreaming || isAtMessageLimit}
 									className="flex-1 min-h-9! max-h-24! resize-none"
-									maxLength={500}
+									maxLength={CHAT_MAX_PROMPT_LENGTH}
 								/>
 								<Button
 									onClick={
-										isStreaming ? handleStopStreaming : handleSendMessage
+										isStreaming
+											? () => abortControllerRef.current?.abort()
+											: handleSendMessage
 									}
 									disabled={
-										(!inputValue.trim() && !isLoading) || isAtMessageLimit
+										!isStreaming && (!inputValue.trim() || isAtMessageLimit)
 									}
 									size="icon"
+									aria-label={isStreaming ? t("stop") : t("send")}
 								>
 									{isStreaming ? (
 										<IconPlayerStopFilled className="size-4" />

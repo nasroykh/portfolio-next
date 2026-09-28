@@ -1,11 +1,12 @@
 {
 	"common": {
-		"allRightsReserved": "Tous droits réservés.",
 		"visitWebsite": "Visiter le site",
 		"visitLinkedIn": "Visiter LinkedIn",
 		"visitFirstPortfolio": "Visiter mon premier portfolio",
 		"visitPreviousPortfolio": "Visiter mon ancien portfolio",
-		"present": "Présent"
+		"openMenu": "Ouvrir le menu",
+		"home": "Accueil",
+		"socialLinks": "Réseaux sociaux"
 	},
 	"nav": {
 		"home": "accueil",
@@ -52,15 +53,23 @@
 		"noResults": "Aucun projet ne correspond à votre recherche.",
 		"noResultsHint": "Essayez un autre mot-clé ou effacez vos filtres.",
 		"keyAchievement": "Réalisation clé",
-		"commonQuestions": "Questions fréquentes",
 		"viewCode": "Voir le code",
 		"caseStudy": "Étude de cas",
 		"clearFilters": "Effacer les filtres",
 		"projectDetails": "Détails du projet",
-		"copyCommand": "Copier la commande",
 		"copied": "Commande copiée !",
 		"bootstrap": "Essayez maintenant",
-		"imageAlt": "Capture d'écran {index} de {title}"
+		"imageAlt": "Capture d'écran {index} de {title}",
+		"category": {
+			"template": "Modèle",
+			"ai": "IA",
+			"saas": "SaaS",
+			"ecommerce": "eCommerce",
+			"devtool": "Outil dev"
+		},
+		"previousPage": "Précédent",
+		"nextPage": "Suivant",
+		"goToPage": "Aller à la page {page}"
 	},
 	"about": {
 		"pageTitle": "À propos de moi",
@@ -212,7 +221,12 @@
 	},
 	"contact": {
 		"pageTitle": "Me contacter",
-		"intro": "Je suis toujours intéressé par de nouveaux projets et opportunités, particulièrement ceux impliquant l'intégration IA/LLM, le développement e-commerce ou l'optimisation SEO. Que vous ayez besoin d'aide pour construire un système RAG personnalisé, concevoir une plateforme e-commerce, ou améliorer le référencement de votre site—ou simplement dire bonjour—n'hésitez pas à me contacter !"
+		"intro": "Je suis toujours intéressé par de nouveaux projets et opportunités, particulièrement ceux impliquant l'intégration IA/LLM, le développement e-commerce ou l'optimisation SEO. Que vous ayez besoin d'aide pour construire un système RAG personnalisé, concevoir une plateforme e-commerce, ou améliorer le référencement de votre site—ou simplement dire bonjour—n'hésitez pas à me contacter !",
+		"showEmail": "Afficher l'e-mail",
+		"copyEmail": "Cliquer pour copier l'e-mail",
+		"emailCopied": "E-mail copié !",
+		"copyFailed": "Copie impossible. Veuillez le copier manuellement.",
+		"sendEmail": "Envoyer un e-mail"
 	},
 	"resume": {
 		"backHome": "Retour à l'accueil",
@@ -279,5 +293,29 @@
 	},
 	"footer": {
 		"copyright": "© {year} Nas. Tous droits réservés."
+	},
+	"codeBlock": {
+		"copy": "Copier",
+		"copied": "Copié"
+	},
+	"assistant": {
+		"toggle": "Ouvrir/fermer l'assistant Otacon",
+		"newChat": "Nouvelle discussion",
+		"close": "Fermer la discussion",
+		"clearTitle": "Effacer l'historique ?",
+		"clearDescription": "Tous les messages de cette conversation seront définitivement supprimés. Cette action est irréversible.",
+		"cancel": "Annuler",
+		"clearConfirm": "Effacer",
+		"empty": "Commencez une conversation avec Otacon !",
+		"limitReachedPrefix": "Limite de messages atteinte. Démarrez une",
+		"limitReachedLink": "nouvelle discussion",
+		"limitReachedSuffix": "pour continuer.",
+		"limitReachedToast": "Limite de messages atteinte. Démarrez une nouvelle discussion pour continuer.",
+		"tooLong": "Message trop long. Limitez-le à {max} caractères.",
+		"placeholder": "Écrivez votre message...",
+		"inputLabel": "Message à Otacon",
+		"send": "Envoyer le message",
+		"stop": "Arrêter la génération",
+		"error": "Otacon est indisponible pour le moment. Veuillez réessayer plus tard."
 	}
 }

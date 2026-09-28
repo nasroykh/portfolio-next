@@ -3,23 +3,15 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Hide scrollbar for mobile navigation */
-@layer utilities {
-	.scrollbar-hide {
-		-ms-overflow-style: none;
-		scrollbar-width: none;
-	}
-	.scrollbar-hide::-webkit-scrollbar {
-		display: none;
-	}
-}
 @theme inline {
 	--font-nova: var(--font-nova);
 	--font-league: var(--font-league);
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
-	--font-sans: var(--font-geist-sans);
-	--font-mono: var(--font-geist-mono);
+	--font-sans: var(--font-league), ui-sans-serif, system-ui, sans-serif;
+	--font-mono:
+		ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+		"Courier New", monospace;
 	--color-sidebar-ring: var(--sidebar-ring);
 	--color-sidebar-border: var(--sidebar-border);
 	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -147,8 +139,7 @@
 	}
 
 	body {
-		@apply bg-background text-foreground antialiased min-w-[360px];
-		font-family: var(--font-league), sans-serif;
+		@apply bg-background text-foreground font-sans antialiased min-w-[360px];
 	}
 
 	main {
@@ -224,8 +215,8 @@
 	@apply bg-neutral-50 dark:bg-neutral-900 rounded-lg overflow-x-auto border border-neutral-200 dark:border-neutral-900 text-sm;
 }
 
-.prose code {
-	@apply px-2 py-0.5 rounded-lg;
+.prose code:not(.code-block) {
+	@apply px-1.5 py-0.5 rounded-md bg-neutral-100 dark:bg-neutral-800/70 text-[0.9em];
 }
 
 .prose pre code {
@@ -272,6 +263,47 @@
 	@apply list-decimal pl-6;
 }
 
+.prose li {
+	@apply my-1;
+}
+
+.prose blockquote {
+	@apply my-4 border-l-4 border-neutral-300 dark:border-neutral-700 pl-4 italic text-neutral-700 dark:text-neutral-300;
+}
+
+.prose hr {
+	@apply my-8 border-neutral-200 dark:border-neutral-800;
+}
+
+.prose table {
+	@apply my-4;
+}
+
+/* Markdown rendered inside the Otacon chat bubbles */
+.chat-markdown > * + * {
+	@apply mt-2;
+}
+
+.chat-markdown ul {
+	@apply list-disc pl-5;
+}
+
+.chat-markdown ol {
+	@apply list-decimal pl-5;
+}
+
+.chat-markdown a {
+	@apply underline underline-offset-2;
+}
+
+.chat-markdown code {
+	@apply rounded bg-background/60 px-1 font-mono text-[0.9em];
+}
+
+.chat-markdown pre {
+	@apply overflow-x-auto rounded-md bg-background/60 p-2;
+}
+
 .prose > :first-child {
 	@apply mt-5! mb-5!;
 }
@@ -301,23 +333,14 @@ table {
 }
 
 @media print {
-	body {
-		@apply bg-background;
-	}
-
-	header {
-		@apply hidden;
-	}
+	header,
 	footer {
 		@apply hidden;
 	}
-	.print\:hidden {
-		@apply hidden;
-	}
-	.print\:shadow-none {
-		@apply shadow-none;
-	}
-	.print\:border-0 {
-		@apply border-0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	main {
+		animation: none;
 	}
 }

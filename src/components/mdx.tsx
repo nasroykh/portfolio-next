@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MDXRemote, MDXRemoteProps } from "next-mdx-remote/rsc";
 import { highlight } from "sugar-high";
+import { lang as toSugarHighLang } from "sugar-high/lang";
 import React from "react";
 import {
 	Table as TableUI,
@@ -23,6 +24,35 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "./ui/accordion";
+
+const LANGUAGE_MAP: Record<string, string> = {
+	js: "JavaScript",
+	jsx: "JavaScript",
+	ts: "TypeScript",
+	tsx: "TypeScript",
+	python: "Python",
+	py: "Python",
+	html: "HTML",
+	css: "CSS",
+	scss: "SCSS",
+	json: "JSON",
+	md: "Markdown",
+	markdown: "Markdown",
+	bash: "Bash",
+	sh: "Shell",
+	yaml: "YAML",
+	yml: "YAML",
+	sql: "SQL",
+	go: "Go",
+	rust: "Rust",
+	java: "Java",
+	cpp: "C++",
+	c: "C",
+	php: "PHP",
+	ruby: "Ruby",
+	swift: "Swift",
+	kotlin: "Kotlin",
+};
 
 function CustomLink(props: React.ComponentProps<typeof Link>) {
 	const href = props.href.toString();
@@ -46,18 +76,36 @@ function RoundedImage(props: React.ComponentProps<typeof Image>) {
 	return <Image {...props} className="rounded-lg" alt={props.alt || ""} />;
 }
 
-function Code({ children, ...props }: React.ComponentProps<"code">) {
-	const codeText = children as string;
-	const isCodeBlock = props.className?.startsWith("language-");
+const toText = (children: React.ReactNode): string =>
+	React.Children.toArray(children)
+		.map((child) => (typeof child === "string" ? child : ""))
+		.join("");
 
-	// Code blocks get the full CodeBlock component with header
-	if (isCodeBlock) {
-		return <CodeBlock className={props.className}>{codeText}</CodeBlock>;
+function Code({ children, className, ...props }: React.ComponentProps<"code">) {
+	// Posts checked out on Windows can have CRLF endings, which render as blank lines
+	const codeText = toText(children).replace(/\r\n?/g, "\n");
+
+	// Fenced blocks get the header + copy button; highlighting stays on the server
+	if (className?.startsWith("language-")) {
+		const code = codeText.trim();
+		const lang = className.replace("language-", "");
+		return (
+			<CodeBlock
+				className={className}
+				code={code}
+				html={highlight(code, { lang: toSugarHighLang(lang) })}
+				language={LANGUAGE_MAP[lang.toLowerCase()] ?? lang.toUpperCase()}
+			/>
+		);
 	}
 
-	// Inline code gets simple highlighting
-	const codeHTML = highlight(codeText);
-	return <code {...props} dangerouslySetInnerHTML={{ __html: codeHTML }} />;
+	return (
+		<code
+			{...props}
+			className={className}
+			dangerouslySetInnerHTML={{ __html: highlight(codeText) }}
+		/>
+	);
 }
 
 const components: MDXRemoteProps["components"] = {
@@ -71,8 +119,9 @@ const components: MDXRemoteProps["components"] = {
 	tbody: TableBody,
 	thead: TableHeader,
 	caption: TableCaption,
+	// GFM task-list items are static content, not form controls
 	input: (props: React.ComponentProps<typeof Checkbox>) => (
-		<Checkbox {...props} disabled={false} />
+		<Checkbox {...props} disabled aria-readonly />
 	),
 	Accordion,
 	AccordionContent,
@@ -94,6 +143,8 @@ export function CustomMDX(props: MDXRemoteProps) {
 							{
 								properties: {
 									className: ["anchor"],
+									ariaHidden: true,
+									tabIndex: -1,
 								},
 							},
 						],

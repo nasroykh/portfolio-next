@@ -1,48 +1,51 @@
 "use client";
 
 import React from "react";
+import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 import { Button } from "./ui/button";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import { TooltipWrapper } from "./ui/tooltip-wrapper";
+import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
+import { CONTACT_EMAIL } from "@/lib/site";
 
+// The address is only rendered after a click to keep it out of the server-rendered HTML
 export const EmailButton = () => {
+	const t = useTranslations("contact");
 	const [isVisible, setIsVisible] = React.useState(false);
-	const [isCopied, setIsCopied] = React.useState(false);
+	const { copied, copy } = useCopyToClipboard();
 
-	React.useEffect(() => {
-		if (isCopied) {
-			const timeout = setTimeout(() => {
-				setIsCopied(false);
-			}, 2000);
-			return () => clearTimeout(timeout);
+	const handleCopyEmail = async () => {
+		if (!(await copy(CONTACT_EMAIL))) {
+			toast.error(t("copyFailed"));
 		}
-	}, [isCopied]);
-
-	const handleCopyEmail = () => {
-		navigator.clipboard.writeText("nascodes@protonmail.com");
-		setIsCopied(true);
 	};
 
-	return isVisible ? (
-		<Tooltip delayDuration={0}>
-			<TooltipTrigger asChild>
+	if (!isVisible) {
+		return (
+			<Button onClick={() => setIsVisible(true)} size="sm">
+				{t("showEmail")}
+			</Button>
+		);
+	}
+
+	return (
+		<div className="flex flex-col sm:flex-row gap-2">
+			<TooltipWrapper content={t("copyEmail")}>
 				<Button
 					className="w-full sm:w-auto min-w-[200px] max-w-[300px]"
 					size="sm"
 					variant="outline"
 					onClick={handleCopyEmail}
+					aria-live="polite"
 				>
 					<span className="truncate">
-						{isCopied ? "Email copied!" : "nascodes@protonmail.com"}
+						{copied ? t("emailCopied") : CONTACT_EMAIL}
 					</span>
 				</Button>
-			</TooltipTrigger>
-			<TooltipContent>
-				<p>Click to copy email</p>
-			</TooltipContent>
-		</Tooltip>
-	) : (
-		<Button onClick={() => setIsVisible(true)} size="sm">
-			Click to view email
-		</Button>
+			</TooltipWrapper>
+			<Button asChild size="sm" variant="ghost">
+				<a href={`mailto:${CONTACT_EMAIL}`}>{t("sendEmail")}</a>
+			</Button>
+		</div>
 	);
 };

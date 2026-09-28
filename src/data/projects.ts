@@ -45,6 +45,32 @@ export type ProjectItem = {
 	caseStudy: CaseStudy;
 };
 
+/** Fields the client-side explorer needs; keeps case studies and FAQs out of the JS bundle. */
+export type ProjectSummary = Pick<
+	ProjectItem,
+	"id" | "title" | "whatItSolves" | "techStack" | "codeUrl" | "bootstrapCommand" | "category" | "images"
+>;
+
+export const toProjectSummary = ({
+	id,
+	title,
+	whatItSolves,
+	techStack,
+	codeUrl,
+	bootstrapCommand,
+	category,
+	images,
+}: ProjectItem): ProjectSummary => ({
+	id,
+	title,
+	whatItSolves,
+	techStack,
+	codeUrl,
+	bootstrapCommand,
+	category,
+	images,
+});
+
 export const projects: ProjectItem[] = [
 	{
 		id: "website-template",

@@ -1,70 +1,34 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { useTranslations } from "next-intl";
+import { IconMenu2 } from "@tabler/icons-react";
 import { SettingsDropdown } from "../settings-dropdown";
 import { Logo } from "../logo";
-import { useState } from "react";
-import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
-import { useTranslations } from "next-intl";
+import { cn } from "@/lib/utils";
 
 export const NAV_ITEMS = [
-	{
-		name: "home",
-		path: "/",
-	},
-	{
-		name: "about",
-		path: "/about",
-	},
-	{
-		name: "experience",
-		path: "/experience",
-	},
-	{
-		name: "projects",
-		path: "/projects",
-	},
-	{
-		name: "blog",
-		path: "/blog",
-	},
-	{
-		name: "contact",
-		path: "/contact",
-	},
-	{
-		name: "resume",
-		path: "/resume",
-	},
+	{ name: "home", path: "/" },
+	{ name: "about", path: "/about" },
+	{ name: "experience", path: "/experience" },
+	{ name: "projects", path: "/projects" },
+	{ name: "blog", path: "/blog" },
+	{ name: "contact", path: "/contact" },
+	{ name: "resume", path: "/resume" },
 ] as const;
 
-function MenuIcon() {
-	return (
-		<svg
-			width="24"
-			height="24"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			strokeWidth="2"
-			strokeLinecap="round"
-			strokeLinejoin="round"
-		>
-			<line x1="3" y1="12" x2="21" y2="12" />
-			<line x1="3" y1="6" x2="21" y2="6" />
-			<line x1="3" y1="18" x2="21" y2="18" />
-		</svg>
-	);
-}
+const isActivePath = (pathname: string, path: string) =>
+	path === "/" ? pathname === "/" : pathname.startsWith(path);
 
-export function Header({
-	activePath,
-}: {
-	activePath?: (typeof NAV_ITEMS)[number]["name"];
-}) {
+export function Header() {
 	const [open, setOpen] = useState(false);
+	const pathname = usePathname();
 	const t = useTranslations("nav");
+	const tCommon = useTranslations("common");
 
 	return (
 		<header className="py-4 sticky top-0 bg-background z-50">
@@ -72,24 +36,25 @@ export function Header({
 				<Link
 					href="/"
 					className="size-10 sm:size-12 flex items-center justify-center shrink-0"
-					aria-label="Home"
+					aria-label={tCommon("home")}
 				>
 					<Logo />
 				</Link>
 
-				{/* Desktop Navigation */}
 				<div className="hidden md:flex flex-row tracking-tight">
 					{NAV_ITEMS.map(({ name, path }) => {
-						const isActive = activePath === name;
+						const isActive = isActivePath(pathname, path);
 						return (
 							<Link
 								key={path}
 								href={path}
-								className={`transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle relative py-1 px-2 m-1 ${
+								aria-current={isActive ? "page" : undefined}
+								className={cn(
+									"transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle relative py-1 px-2 m-1",
 									isActive
-										? "text-neutral-800 dark:text-neutral-200"
-										: "text-neutral-500 dark:text-neutral-400"
-								}`}
+										? "text-neutral-800 dark:text-neutral-200 underline underline-offset-8 decoration-1"
+										: "text-neutral-500 dark:text-neutral-400",
+								)}
 							>
 								{t(name)}
 							</Link>
@@ -97,11 +62,9 @@ export function Header({
 					})}
 				</div>
 
-				{/* Settings & Mobile Menu */}
 				<div className="flex items-center gap-2 shrink-0">
 					<SettingsDropdown />
 
-					{/* Mobile Controls */}
 					<div className="flex md:hidden items-center gap-0">
 						<Sheet open={open} onOpenChange={setOpen}>
 							<SheetTrigger asChild>
@@ -109,28 +72,32 @@ export function Header({
 									variant="ghost"
 									size="icon"
 									className="size-9"
-									aria-label="Open menu"
+									aria-label={tCommon("openMenu")}
 								>
-									<MenuIcon />
+									<IconMenu2 className="size-6" />
 								</Button>
 							</SheetTrigger>
 							<SheetContent
 								side="right"
 								className="w-[280px] sm:w-[320px] px-4 py-16"
+								aria-describedby={undefined}
 							>
+								<SheetTitle className="sr-only">{tCommon("openMenu")}</SheetTitle>
 								<div className="flex flex-col gap-4">
 									{NAV_ITEMS.map(({ name, path }) => {
-										const isActive = activePath === name;
+										const isActive = isActivePath(pathname, path);
 										return (
 											<Link
 												key={path}
 												href={path}
+												aria-current={isActive ? "page" : undefined}
 												onClick={() => setOpen(false)}
-												className={`text-lg py-2 px-4 rounded-md transition-all ${
+												className={cn(
+													"text-lg py-2 px-4 rounded-md transition-all",
 													isActive
 														? "text-neutral-800 dark:text-neutral-200 bg-neutral-100 dark:bg-neutral-800"
-														: "text-neutral-600 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-neutral-900"
-												}`}
+														: "text-neutral-600 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-neutral-900",
+												)}
 											>
 												{t(name)}
 											</Link>

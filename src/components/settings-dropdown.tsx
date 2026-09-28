@@ -1,8 +1,9 @@
 "use client";
 
 import * as React from "react";
+import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import {
 	IconSettings,
 	IconSun,
@@ -21,43 +22,43 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { LOCALE_COOKIE, type Locale } from "@/i18n/config";
+
+const LANGUAGES: { locale: Locale; labelKey: string }[] = [
+	{ locale: "en", labelKey: "languageEnglish" },
+	{ locale: "fr", labelKey: "languageFrench" },
+];
+
+const THEMES = [
+	{ value: "system", labelKey: "themeSystem", Icon: IconDeviceDesktop },
+	{ value: "light", labelKey: "themeLight", Icon: IconSun },
+	{ value: "dark", labelKey: "themeDark", Icon: IconMoon },
+] as const;
+
+const setLocaleCookie = (locale: Locale) => {
+	document.cookie = `${LOCALE_COOKIE}=${locale}; path=/; max-age=31536000; samesite=lax`;
+};
+
+const noopSubscribe = () => () => {};
 
 export function SettingsDropdown() {
 	const { theme, setTheme } = useTheme();
 	const t = useTranslations("settings");
-	const [mounted, setMounted] = React.useState(false);
-	const [currentLocale, setCurrentLocale] = React.useState("en");
+	const locale = useLocale();
+	const router = useRouter();
+	const [isPending, startTransition] = React.useTransition();
+	// The active theme is only known on the client; avoid a hydration mismatch on the check marks
+	const mounted = React.useSyncExternalStore(
+		noopSubscribe,
+		() => true,
+		() => false,
+	);
 
-	React.useEffect(() => {
-		setMounted(true);
-		// Get locale from cookie
-		const locale = document.cookie
-			.split("; ")
-			.find((row) => row.startsWith("locale="))
-			?.split("=")[1];
-		if (locale) {
-			setCurrentLocale(locale);
-		}
-	}, []);
-
-	const handleLocaleChange = (locale: string) => {
-		document.cookie = `locale=${locale};path=/;max-age=31536000`;
-		setCurrentLocale(locale);
-		window.location.reload();
+	const handleLocaleChange = (next: Locale) => {
+		if (next === locale) return;
+		setLocaleCookie(next);
+		startTransition(() => router.refresh());
 	};
-
-	if (!mounted) {
-		return (
-			<Button
-				variant="ghost"
-				size="icon"
-				className="size-9"
-				aria-label="Settings"
-			>
-				<IconSettings className="size-5 opacity-0" />
-			</Button>
-		);
-	}
 
 	return (
 		<DropdownMenu>
@@ -66,51 +67,46 @@ export function SettingsDropdown() {
 					variant="ghost"
 					size="icon"
 					className="size-9"
-					aria-label="Settings"
+					aria-label={t("title")}
+					disabled={isPending}
 				>
 					<IconSettings className="size-5" />
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end" className="w-48">
-				{/* Theme Section */}
 				<DropdownMenuLabel className="flex items-center gap-2">
 					<IconSun className="size-4" />
 					{t("theme")}
 				</DropdownMenuLabel>
 				<DropdownMenuGroup>
-					<DropdownMenuItem onClick={() => setTheme("system")}>
-						<IconDeviceDesktop className="size-4" />
-						{t("themeSystem")}
-						{theme === "system" && <IconCheck className="size-4 ml-auto" />}
-					</DropdownMenuItem>
-					<DropdownMenuItem onClick={() => setTheme("light")}>
-						<IconSun className="size-4" />
-						{t("themeLight")}
-						{theme === "light" && <IconCheck className="size-4 ml-auto" />}
-					</DropdownMenuItem>
-					<DropdownMenuItem onClick={() => setTheme("dark")}>
-						<IconMoon className="size-4" />
-						{t("themeDark")}
-						{theme === "dark" && <IconCheck className="size-4 ml-auto" />}
-					</DropdownMenuItem>
+					{THEMES.map(({ value, labelKey, Icon }) => (
+						<DropdownMenuItem key={value} onClick={() => setTheme(value)}>
+							<Icon className="size-4" />
+							{t(labelKey)}
+							{mounted && theme === value && (
+								<IconCheck className="size-4 ml-auto" />
+							)}
+						</DropdownMenuItem>
+					))}
 				</DropdownMenuGroup>
 
 				<DropdownMenuSeparator />
 
-				{/* Language Section */}
 				<DropdownMenuLabel className="flex items-center gap-2">
 					<IconLanguage className="size-4" />
 					{t("language")}
 				</DropdownMenuLabel>
 				<DropdownMenuGroup>
-					<DropdownMenuItem onClick={() => handleLocaleChange("en")}>
-						🇺🇸 {t("languageEnglish")}
-						{currentLocale === "en" && <IconCheck className="size-4 ml-auto" />}
-					</DropdownMenuItem>
-					<DropdownMenuItem onClick={() => handleLocaleChange("fr")}>
-						🇫🇷 {t("languageFrench")}
-						{currentLocale === "fr" && <IconCheck className="size-4 ml-auto" />}
-					</DropdownMenuItem>
+					{LANGUAGES.map(({ locale: value, labelKey }) => (
+						<DropdownMenuItem
+							key={value}
+							lang={value}
+							onClick={() => handleLocaleChange(value)}
+						>
+							{t(labelKey)}
+							{locale === value && <IconCheck className="size-4 ml-auto" />}
+						</DropdownMenuItem>
+					))}
 				</DropdownMenuGroup>
 			</DropdownMenuContent>
 		</DropdownMenu>

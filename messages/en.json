@@ -1,11 +1,12 @@
 {
 	"common": {
-		"allRightsReserved": "All rights reserved.",
 		"visitWebsite": "Visit Website",
 		"visitLinkedIn": "Visit LinkedIn",
 		"visitFirstPortfolio": "Visit First Portfolio",
 		"visitPreviousPortfolio": "Visit Previous Portfolio",
-		"present": "Present"
+		"openMenu": "Open menu",
+		"home": "Home",
+		"socialLinks": "Social links"
 	},
 	"nav": {
 		"home": "home",
@@ -52,15 +53,23 @@
 		"noResults": "No projects match your search.",
 		"noResultsHint": "Try a different keyword or clear your filters.",
 		"keyAchievement": "Key Achievement",
-		"commonQuestions": "Common Questions",
 		"viewCode": "View Code",
 		"caseStudy": "Case Study",
 		"clearFilters": "Clear all filters",
 		"projectDetails": "Project Details",
-		"copyCommand": "Copy Command",
 		"copied": "Command Copied!",
 		"bootstrap": "Try it now",
-		"imageAlt": "{title} screenshot {index}"
+		"imageAlt": "{title} screenshot {index}",
+		"category": {
+			"template": "Template",
+			"ai": "AI",
+			"saas": "SaaS",
+			"ecommerce": "eCommerce",
+			"devtool": "Dev Tool"
+		},
+		"previousPage": "Previous",
+		"nextPage": "Next",
+		"goToPage": "Go to page {page}"
 	},
 	"about": {
 		"pageTitle": "About Me",
@@ -212,7 +221,12 @@
 	},
 	"contact": {
 		"pageTitle": "Get in Touch",
-		"intro": "I'm always interested in hearing about new projects and opportunities, particularly those involving AI/LLM integration, eCommerce development, or SEO optimization. Whether you need help building a custom RAG system, architecting an eCommerce platform, or improving your site's search rankings—or just want to say hi—feel free to reach out!"
+		"intro": "I'm always interested in hearing about new projects and opportunities, particularly those involving AI/LLM integration, eCommerce development, or SEO optimization. Whether you need help building a custom RAG system, architecting an eCommerce platform, or improving your site's search rankings—or just want to say hi—feel free to reach out!",
+		"showEmail": "Click to view email",
+		"copyEmail": "Click to copy email",
+		"emailCopied": "Email copied!",
+		"copyFailed": "Could not copy. Please copy it manually.",
+		"sendEmail": "Send an email"
 	},
 	"resume": {
 		"backHome": "Back to Home",
@@ -279,5 +293,29 @@
 	},
 	"footer": {
 		"copyright": "© {year} Nas. All rights reserved."
+	},
+	"codeBlock": {
+		"copy": "Copy",
+		"copied": "Copied"
+	},
+	"assistant": {
+		"toggle": "Toggle Otacon assistant",
+		"newChat": "New chat",
+		"close": "Close chat",
+		"clearTitle": "Clear chat history?",
+		"clearDescription": "This will permanently delete all messages in this conversation. This action cannot be undone.",
+		"cancel": "Cancel",
+		"clearConfirm": "Clear chat",
+		"empty": "Start a conversation with Otacon!",
+		"limitReachedPrefix": "Message limit reached. Start a",
+		"limitReachedLink": "new chat",
+		"limitReachedSuffix": "to continue.",
+		"limitReachedToast": "Message limit reached. Please start a new chat to continue.",
+		"tooLong": "Message is too long. Please shorten it to {max} characters or less.",
+		"placeholder": "Type your message...",
+		"inputLabel": "Message Otacon",
+		"send": "Send message",
+		"stop": "Stop generating",
+		"error": "Otacon is unavailable right now. Please try again later."
 	}
 }
