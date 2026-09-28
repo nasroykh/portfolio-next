@@ -1,0 +1,8 @@
+allowBuilds:
+  # next-intl pulls these in for its optional message-extraction tooling; prebuilt binaries are enough
+  '@parcel/watcher': false
+  '@swc/core': false
+  # Used by next/image optimization in production
+  sharp: true
+  # eslint-import-resolver native binding ships as prebuilt optional deps
+  unrs-resolver: false
