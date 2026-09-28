@@ -1,18 +1,29 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/site";
 import { Layout } from "@/components/layout/layout";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ProjectsExplorer } from "@/components/projects-explorer";
 import { projects, toProjectSummary } from "@/data/projects";
 
-export const metadata: Metadata = pageMetadata({
-	title: "Projects",
-	description:
-		"An overview of selected production projects with architecture focus, outcomes, and implementation rationale.",
-	path: "/projects",
-});
+type Props = {
+	params: Promise<{ locale: string }>;
+};
 
-export default async function ProjectsPage() {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const { locale } = await params;
+	const t = await getTranslations({ locale, namespace: "meta" });
+
+	return pageMetadata({
+		title: t("projectsTitle"),
+		description: t("projectsDescription"),
+		path: "/projects",
+		locale,
+	});
+}
+
+export default async function ProjectsPage({ params }: Props) {
+	const { locale } = await params;
+	setRequestLocale(locale);
 	const t = await getTranslations("projects");
 
 	return (

@@ -18,35 +18,39 @@ This is a **Next.js 16** portfolio site using the App Router, React 19, Tailwind
 
 ### Internationalization
 
-- Cookie-based locale detection (no route prefixes) via `next-intl`
-- Locale stored in a `locale` cookie; defaults to `en`
-- Supported locales: `en`, `fr` — constants in `src/i18n/config.ts` (client-safe), request config in `src/i18n/request.ts` (unknown cookie values fall back to `en`)
-- Translation JSON files in `messages/{en,fr}.json`
+- Locale-prefixed routes via `next-intl` routing (`localePrefix: "as-needed"`): English at `/about`, French at `/fr/about`; `/en/...` redirects to the unprefixed URL
+- All pages live under `src/app/[locale]/` and are statically generated: every page and layout must call `setRequestLocale(locale)` before using next-intl
+- `src/proxy.ts` (Next 16 middleware) handles detection and redirects: `locale` cookie first, then `Accept-Language`; it skips `/api`, `/og` and files with an extension
+- Config: locales, native names, OG codes and `getDirection()` (RTL-ready) in `src/i18n/config.ts`; routing in `src/i18n/routing.ts`; request config in `src/i18n/request.ts`
+- ALWAYS import `Link`, `usePathname`, `useRouter`, `redirect` from `@/i18n/navigation`, not from `next/link` / `next/navigation`
+- Translation JSON files in `messages/{en,fr}.json` (page titles/descriptions in the `meta` namespace); keep both files at the same keys
 - Server components: `getTranslations()` / Client components: `useTranslations()`
+- Adding a locale: add it to `locales`, `LOCALE_NAMES` and `OG_LOCALES` in `src/i18n/config.ts` and create `messages/<locale>.json`
 
 ### Layout & Routing
 
 - Shared layout wrapper: `src/components/layout/layout.tsx` (Header + Footer); the Header derives the active nav item from `usePathname()`
-- `AIAssistant` is mounted once in `src/app/layout.tsx` so the chat survives client-side navigation
+- `src/app/[locale]/layout.tsx` is the root layout (`<html lang dir>`, fonts, providers); `AIAssistant` is mounted once there so the chat survives client-side navigation
 - Site-wide constants (URL, author, social links, OG helper) live in `src/lib/site.ts` — never hardcode the domain
-- Each page sets its own `alternates.canonical`; `/og?title=` (`src/app/og/route.tsx`) renders fallback OG images
+- Each page builds its metadata with `pageMetadata()` / `localeAlternates()` from `src/lib/site.ts` (canonical + hreflang). Blog posts and case studies are English only, so they pass `translated: false` and every locale points its canonical at the English URL; `/og?title=` (`src/app/og/route.tsx`) renders fallback OG images
 - Nav items defined in `src/components/layout/header.tsx` (`NAV_ITEMS` array)
-- Pages: `/`, `/about`, `/experience`, `/projects`, `/projects/[slug]`, `/blog`, `/blog/[slug]`, `/contact`, `/resume`
+- Unknown paths hit `src/app/[locale]/[...rest]/page.tsx` and render the localized `src/app/[locale]/not-found.tsx`
+- Pages (each also under `/fr`): `/`, `/about`, `/experience`, `/projects`, `/projects/[slug]`, `/blog`, `/blog/[slug]`, `/contact`, `/resume`
 
 ### Projects & Case Studies
 
 - Project data and types defined in `src/data/projects.ts`
 - Types: `ProjectItem`, `CaseStudy`, `MetricItem`, `FaqItem`, `TechItem`
 - Categories: `template`, `ai`, `saas`, `ecommerce`, `devtool`
-- Project listing page: `src/app/projects/page.tsx` with `ProjectsExplorer` client component
-- Dynamic case study pages: `src/app/projects/[slug]/page.tsx` — STAR framework (Situation, Task, Action, Results)
+- Project listing page: `src/app/[locale]/projects/page.tsx` with `ProjectsExplorer` client component
+- Dynamic case study pages: `src/app/[locale]/projects/[slug]/page.tsx` — STAR framework (Situation, Task, Action, Results)
 - Case study data is embedded in each `ProjectItem` via the `caseStudy` field
 - `ProjectsExplorer` receives `ProjectSummary[]` (`toProjectSummary`) from the server page so case-study content is not shipped to the client
 
 ### Blog System
 
-- MDX files in `src/app/blog/posts/`; files prefixed with `_draft_` are excluded
-- Parsed with `gray-matter` via `src/app/blog/utils.ts` (`getBlogPosts()` is sorted newest-first and memoized per request; dates formatted with `Intl` in the active locale)
+- MDX files in `src/content/blog/`; files prefixed with `_draft_` are excluded
+- Parsed with `gray-matter` via `src/lib/blog.ts` (`getBlogPosts()` is sorted newest-first and memoized per request; dates formatted with `Intl` in the active locale)
 - Code blocks are highlighted on the server with `sugar-high`; `CodeBlock` is a client component only for the copy button
 - Rendered with `next-mdx-remote` in `src/components/mdx.tsx`
 

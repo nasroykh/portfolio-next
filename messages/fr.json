@@ -23,9 +23,7 @@
 		"themeSystem": "Système",
 		"themeLight": "Clair",
 		"themeDark": "Sombre",
-		"language": "Langue",
-		"languageEnglish": "Anglais",
-		"languageFrench": "Français"
+		"language": "Langue"
 	},
 	"home": {
 		"title": "Ingénieur Logiciel - Spécialiste IA/LLM",
@@ -317,5 +315,27 @@
 		"send": "Envoyer le message",
 		"stop": "Arrêter la génération",
 		"error": "Otacon est indisponible pour le moment. Veuillez réessayer plus tard."
+	},
+	"meta": {
+		"siteTitle": "Nas - Spécialiste IA/LLM & Ingénieur logiciel",
+		"siteDescription": "Spécialiste IA/LLM et ingénieur logiciel spécialisé dans les systèmes RAG, les assistants IA sur mesure, les plateformes eCommerce et l'optimisation SEO. Je construis des solutions IA prêtes pour la production et des applications web performantes.",
+		"aboutTitle": "À propos",
+		"aboutDescription": "Spécialiste IA/LLM et ingénieur logiciel spécialisé dans les systèmes RAG, les plateformes eCommerce et l'optimisation SEO.",
+		"experienceTitle": "Expérience",
+		"experienceDescription": "Expérience professionnelle en développement IA/LLM, plateformes eCommerce, optimisation SEO et ingénierie full-stack.",
+		"projectsTitle": "Projets",
+		"projectsDescription": "Un aperçu de projets en production, avec l'architecture, les résultats et les choix d'implémentation.",
+		"blogTitle": "Blog",
+		"blogDescription": "Mes réflexions sur le développement IA/LLM, les systèmes RAG, l'eCommerce, le SEO et l'ingénierie logicielle.",
+		"contactTitle": "Contact",
+		"contactDescription": "Contactez Nas pour vos projets IA/LLM, le développement eCommerce ou du conseil SEO.",
+		"resumeTitle": "CV",
+		"resumeDescription": "CV de Nasr Eddine Yakhou (Nas), ingénieur logiciel et spécialiste IA/LLM : compétences, parcours et réalisations clés.",
+		"caseStudySuffix": "Étude de cas"
+	},
+	"notFound": {
+		"title": "Page introuvable",
+		"description": "Cette page n'existe pas ou a été déplacée.",
+		"backHome": "Retour à l'accueil"
 	}
 }

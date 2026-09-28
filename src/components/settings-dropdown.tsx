@@ -22,12 +22,13 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { LOCALE_COOKIE, type Locale } from "@/i18n/config";
-
-const LANGUAGES: { locale: Locale; labelKey: string }[] = [
-	{ locale: "en", labelKey: "languageEnglish" },
-	{ locale: "fr", labelKey: "languageFrench" },
-];
+import {
+	LOCALE_COOKIE,
+	LOCALE_NAMES,
+	locales,
+	type Locale,
+} from "@/i18n/config";
+import { getPathname, usePathname } from "@/i18n/navigation";
 
 const THEMES = [
 	{ value: "system", labelKey: "themeSystem", Icon: IconDeviceDesktop },
@@ -46,6 +47,7 @@ export function SettingsDropdown() {
 	const t = useTranslations("settings");
 	const locale = useLocale();
 	const router = useRouter();
+	const pathname = usePathname();
 	const [isPending, startTransition] = React.useTransition();
 	// The active theme is only known on the client; avoid a hydration mismatch on the check marks
 	const mounted = React.useSyncExternalStore(
@@ -56,8 +58,12 @@ export function SettingsDropdown() {
 
 	const handleLocaleChange = (next: Locale) => {
 		if (next === locale) return;
+		// Store the choice first so the proxy does not redirect back to the old locale. next-intl's
+		// router always prefixes on a locale change ("/en/about"), which stays in the address bar.
 		setLocaleCookie(next);
-		startTransition(() => router.refresh());
+		startTransition(() =>
+			router.replace(getPathname({ href: pathname, locale: next })),
+		);
 	};
 
 	return (
@@ -97,13 +103,13 @@ export function SettingsDropdown() {
 					{t("language")}
 				</DropdownMenuLabel>
 				<DropdownMenuGroup>
-					{LANGUAGES.map(({ locale: value, labelKey }) => (
+					{locales.map((value) => (
 						<DropdownMenuItem
 							key={value}
 							lang={value}
 							onClick={() => handleLocaleChange(value)}
 						>
-							{t(labelKey)}
+							{LOCALE_NAMES[value]}
 							{locale === value && <IconCheck className="size-4 ml-auto" />}
 						</DropdownMenuItem>
 					))}

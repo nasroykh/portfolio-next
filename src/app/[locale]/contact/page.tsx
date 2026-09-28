@@ -2,16 +2,27 @@ import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/site";
 import { EmailButton } from "@/components/email-button";
 import { Layout } from "@/components/layout/layout";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
-export const metadata: Metadata = pageMetadata({
-	title: "Contact",
-	description:
-		"Get in touch with Nas for AI/LLM projects, eCommerce development, or SEO consulting.",
-	path: "/contact",
-});
+type Props = {
+	params: Promise<{ locale: string }>;
+};
 
-export default async function ContactPage() {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const { locale } = await params;
+	const t = await getTranslations({ locale, namespace: "meta" });
+
+	return pageMetadata({
+		title: t("contactTitle"),
+		description: t("contactDescription"),
+		path: "/contact",
+		locale,
+	});
+}
+
+export default async function ContactPage({ params }: Props) {
+	const { locale } = await params;
+	setRequestLocale(locale);
 	const t = await getTranslations("contact");
 
 	return (

@@ -2,14 +2,23 @@ import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/site";
 import { Layout } from "@/components/layout/layout";
 import { Button } from "@/components/ui/button";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
-export const metadata: Metadata = pageMetadata({
-	title: "Experience",
-	description:
-		"Professional experience in AI/LLM development, eCommerce platforms, SEO optimization, and full-stack engineering.",
-	path: "/experience",
-});
+type Props = {
+	params: Promise<{ locale: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const { locale } = await params;
+	const t = await getTranslations({ locale, namespace: "meta" });
+
+	return pageMetadata({
+		title: t("experienceTitle"),
+		description: t("experienceDescription"),
+		path: "/experience",
+		locale,
+	});
+}
 
 const experiences = [
 	{
@@ -107,7 +116,9 @@ const experiences = [
 	},
 ] as const;
 
-export default async function ExperiencePage() {
+export default async function ExperiencePage({ params }: Props) {
+	const { locale } = await params;
+	setRequestLocale(locale);
 	const t = await getTranslations("experience");
 	const tCommon = await getTranslations("common");
 

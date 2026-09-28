@@ -1,15 +1,36 @@
 import { Layout } from "@/components/layout/layout";
 import { BlogPosts } from "@/components/posts";
 import { Button } from "@/components/ui/button";
-import { getTranslations } from "next-intl/server";
-import Link from "next/link";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import type { Metadata } from "next";
+import { localeAlternates, localizedPath, openGraphBase } from "@/lib/site";
 
-export const metadata: Metadata = {
-	alternates: { canonical: "/" },
+type Props = {
+	params: Promise<{ locale: string }>;
 };
 
-export default async function Home() {
+// Title and description come from the locale layout; the canonical lives here so that
+// not-found pages do not inherit the homepage URL
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const { locale } = await params;
+	const t = await getTranslations({ locale, namespace: "meta" });
+
+	return {
+		alternates: localeAlternates(locale, "/"),
+		openGraph: {
+			...openGraphBase(locale),
+			type: "website",
+			title: t("siteTitle"),
+			description: t("siteDescription"),
+			url: localizedPath(locale, "/"),
+		},
+	};
+}
+
+export default async function Home({ params }: Props) {
+	const { locale } = await params;
+	setRequestLocale(locale);
 	const t = await getTranslations("home");
 
 	return (

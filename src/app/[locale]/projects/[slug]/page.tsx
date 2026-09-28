@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import {
 	ArrowLeft,
 	CheckCircle2,
@@ -42,10 +42,10 @@ import {
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 import { projects } from "@/data/projects";
-import { ogImageUrl, BASE_OPEN_GRAPH } from "@/lib/site";
+import { localeAlternates, ogImageUrl, openGraphBase } from "@/lib/site";
 
 type Props = {
-	params: Promise<{ slug: string }>;
+	params: Promise<{ locale: string; slug: string }>;
 };
 
 export const dynamicParams = false;
@@ -57,20 +57,22 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-	const { slug } = await params;
+	const { locale, slug } = await params;
 	const project = projects.find((p) => p.id === slug);
 
-	if (!project) return { title: "Project Not Found" };
+	if (!project) return {};
 
-	const title = `${project.title} — Case Study`;
+	const t = await getTranslations({ locale, namespace: "meta" });
+	const title = `${project.title} — ${t("caseStudySuffix")}`;
 	const path = `/projects/${project.id}`;
 
 	return {
 		title,
 		description: project.caseStudy.headline,
-		alternates: { canonical: path },
+		// Case studies are written in English only: every locale points at the English URL
+		alternates: localeAlternates(locale, path, false),
 		openGraph: {
-			...BASE_OPEN_GRAPH,
+			...openGraphBase("en"),
 			title,
 			description: project.caseStudy.headline,
 			type: "article",
@@ -81,7 +83,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ProjectCaseStudyPage({ params }: Props) {
-	const { slug } = await params;
+	const { locale, slug } = await params;
+	setRequestLocale(locale);
 	const project = projects.find((p) => p.id === slug);
 
 	if (!project) notFound();

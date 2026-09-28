@@ -23,9 +23,7 @@
 		"themeSystem": "System",
 		"themeLight": "Light",
 		"themeDark": "Dark",
-		"language": "Language",
-		"languageEnglish": "English",
-		"languageFrench": "French"
+		"language": "Language"
 	},
 	"home": {
 		"title": "Software Engineer - AI/LLM Specialist",
@@ -317,5 +315,27 @@
 		"send": "Send message",
 		"stop": "Stop generating",
 		"error": "Otacon is unavailable right now. Please try again later."
+	},
+	"meta": {
+		"siteTitle": "Nas - AI/LLM Specialist & Software Engineer",
+		"siteDescription": "AI/LLM Specialist and Software Engineer specializing in RAG systems, custom AI assistants, eCommerce platforms, and SEO optimization. Building production-ready AI solutions and high-performance web applications.",
+		"aboutTitle": "About",
+		"aboutDescription": "AI/LLM Specialist and Software Engineer specializing in RAG systems, eCommerce platforms, and SEO optimization.",
+		"experienceTitle": "Experience",
+		"experienceDescription": "Professional experience in AI/LLM development, eCommerce platforms, SEO optimization, and full-stack engineering.",
+		"projectsTitle": "Projects",
+		"projectsDescription": "An overview of selected production projects with architecture focus, outcomes, and implementation rationale.",
+		"blogTitle": "Blog",
+		"blogDescription": "Read my thoughts on AI/LLM development, RAG systems, eCommerce, SEO optimization, and software engineering.",
+		"contactTitle": "Contact",
+		"contactDescription": "Get in touch with Nas for AI/LLM projects, eCommerce development, or SEO consulting.",
+		"resumeTitle": "Resume",
+		"resumeDescription": "Resume of Nasr Eddine Yakhou (Nas), Software Engineer and AI/LLM Specialist: skills, work history and key achievements.",
+		"caseStudySuffix": "Case Study"
+	},
+	"notFound": {
+		"title": "Page not found",
+		"description": "This page doesn't exist or has moved.",
+		"backHome": "Back to home"
 	}
 }

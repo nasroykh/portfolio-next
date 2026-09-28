@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getLocale } from "next-intl/server";
+import { setRequestLocale } from "next-intl/server";
 import type { BlogPosting, WithContext } from "schema-dts";
 import { CustomMDX } from "@/components/mdx";
 import JsonLd from "@/components/json-ld";
@@ -10,12 +10,19 @@ import {
 	getBlogPosts,
 	getExistingImage,
 	parsePublishedAt,
-} from "@/app/blog/utils";
+} from "@/lib/blog";
 import { Layout } from "@/components/layout/layout";
-import { AUTHOR_NAME, SITE_URL, absoluteUrl, ogImageUrl, BASE_OPEN_GRAPH } from "@/lib/site";
+import {
+	AUTHOR_NAME,
+	SITE_URL,
+	absoluteUrl,
+	localeAlternates,
+	ogImageUrl,
+	openGraphBase,
+} from "@/lib/site";
 
 type Props = {
-	params: Promise<{ slug: string }>;
+	params: Promise<{ locale: string; slug: string }>;
 };
 
 export const dynamicParams = false;
@@ -30,7 +37,7 @@ const getCoverImage = (title: string, image?: string) => {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-	const { slug } = await params;
+	const { locale, slug } = await params;
 	const post = getBlogPost(slug);
 	if (!post) return {};
 
@@ -43,9 +50,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 		title,
 		description,
 		keywords: tags,
-		alternates: { canonical: path },
+		// Posts are written in English only: every locale points at the English URL
+		alternates: localeAlternates(locale, path, false),
 		openGraph: {
-			...BASE_OPEN_GRAPH,
+			...openGraphBase("en"),
 			title,
 			description,
 			type: "article",
@@ -64,12 +72,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function Blog({ params }: Props) {
-	const { slug } = await params;
+	const { locale, slug } = await params;
+	setRequestLocale(locale);
 	const post = getBlogPost(slug);
 
 	if (!post) notFound();
 
-	const locale = await getLocale();
 	const publishedIso = parsePublishedAt(post.metadata.publishedAt).toISOString();
 
 	const jsonLd: WithContext<BlogPosting> = {

@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
 import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import {
 	Search,
 	Terminal,

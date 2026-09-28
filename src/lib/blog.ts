@@ -17,7 +17,7 @@ export type BlogPost = {
 	content: string;
 };
 
-const POSTS_DIR = path.join(process.cwd(), "src", "app", "blog", "posts");
+const POSTS_DIR = path.join(process.cwd(), "src", "content", "blog");
 const PUBLIC_DIR = path.join(process.cwd(), "public");
 
 // Front matter uses "YYYY-MM-DD HH:mm" without an offset; treat it as UTC so dates do not

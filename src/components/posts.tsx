@@ -1,6 +1,6 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { getLocale } from "next-intl/server";
-import { formatDate, getBlogPosts } from "@/app/blog/utils";
+import { formatDate, getBlogPosts } from "@/lib/blog";
 
 export async function BlogPosts({ limit }: { limit?: number }) {
 	const locale = await getLocale();

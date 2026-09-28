@@ -1,14 +1,23 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/site";
 import { Layout } from "@/components/layout/layout";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
-export const metadata: Metadata = pageMetadata({
-	title: "About",
-	description:
-		"AI/LLM Specialist and Software Engineer specializing in RAG systems, eCommerce platforms, and SEO optimization.",
-	path: "/about",
-});
+type Props = {
+	params: Promise<{ locale: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const { locale } = await params;
+	const t = await getTranslations({ locale, namespace: "meta" });
+
+	return pageMetadata({
+		title: t("aboutTitle"),
+		description: t("aboutDescription"),
+		path: "/about",
+		locale,
+	});
+}
 
 const skills = {
 	frontEnd: [
@@ -62,7 +71,9 @@ const skills = {
 	],
 };
 
-export default async function AboutPage() {
+export default async function AboutPage({ params }: Props) {
+	const { locale } = await params;
+	setRequestLocale(locale);
 	const t = await getTranslations("about");
 
 	return (

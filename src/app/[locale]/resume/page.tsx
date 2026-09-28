@@ -1,18 +1,27 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { SettingsDropdown } from "@/components/settings-dropdown";
 import { PrintButton } from "@/components/print-button";
 import { Button } from "@/components/ui/button";
 import { AUTHOR_NAME, SOCIAL_LINKS, pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = pageMetadata({
-	title: "Resume",
-	description:
-		"Resume of Nasr Eddine Yakhou (Nas), Software Engineer and AI/LLM Specialist: skills, work history and key achievements.",
-	path: "/resume",
-});
+type Props = {
+	params: Promise<{ locale: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const { locale } = await params;
+	const t = await getTranslations({ locale, namespace: "meta" });
+
+	return pageMetadata({
+		title: t("resumeTitle"),
+		description: t("resumeDescription"),
+		path: "/resume",
+		locale,
+	});
+}
 
 type ResumeExperience = {
 	translationKey: string;
@@ -50,7 +59,9 @@ const resumeExperiences: ResumeExperience[] = [
 	},
 ];
 
-export default async function ResumePage() {
+export default async function ResumePage({ params }: Props) {
+	const { locale } = await params;
+	setRequestLocale(locale);
 	const t = await getTranslations("resume");
 
 	return (
