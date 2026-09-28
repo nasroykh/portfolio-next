@@ -1,70 +1,49 @@
 import { promises as fs } from "fs";
 import path from "path";
+import { randomUUID } from "crypto";
+import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 import {
 	createQdrantCollection,
 	qdrant,
 	addQdrantVectors,
 	deleteQdrantCollection,
+	type QdrantPoint,
 } from "./qdrant";
 import { OPENROUTER_EMBEDDING_MODELS, OpenRouterEmbed } from "./openrouter";
-import { randomUUID } from "crypto";
-import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 import { getTokenCount } from ".";
 
 export const COLLECTION_NAME = "nas_portfolio";
-export const EMBEDDING_MODEL =
-	"openaiTextEmbedding3Small" as keyof typeof OPENROUTER_EMBEDDING_MODELS;
+export const EMBEDDING_MODEL: keyof typeof OPENROUTER_EMBEDDING_MODELS =
+	"openaiTextEmbedding3Small";
 export const VECTOR_SIZE = 1536;
 
 export const initDB = async () => {
-	try {
-		console.log("🚀 Initializing Qdrant database...");
+	const profile = await fs.readFile(
+		path.join(process.cwd(), "NAS.md"),
+		"utf8",
+	);
 
-		// Create collection with appropriate vector dimensions
-		await deleteQdrantCollection(qdrant, COLLECTION_NAME);
-		await createQdrantCollection(qdrant, COLLECTION_NAME, VECTOR_SIZE);
+	const textSplitter = new RecursiveCharacterTextSplitter({
+		chunkSize: 500,
+		chunkOverlap: 100,
+		lengthFunction: getTokenCount,
+	});
 
-		const points: {
-			id: string;
-			vector: number[];
-			payload: { text: string; timestamp: string };
-		}[] = [];
+	const chunks = await textSplitter.splitText(profile);
+	const timestamp = new Date().toISOString();
 
-		// Process static content
-		console.log("📝 Processing static content...");
+	// Embed before touching the collection so a failed embedding call does not leave it empty
+	const points: QdrantPoint[] = await Promise.all(
+		chunks.map(async (text) => ({
+			id: randomUUID(),
+			vector: await OpenRouterEmbed(EMBEDDING_MODEL, text),
+			payload: { text, timestamp },
+		})),
+	);
 
-		const NASDOTMD = await fs.readFile(
-			path.join(process.cwd(), "NAS.md"),
-			"utf8"
-		);
+	await deleteQdrantCollection(qdrant, COLLECTION_NAME);
+	await createQdrantCollection(qdrant, COLLECTION_NAME, VECTOR_SIZE);
+	await addQdrantVectors(qdrant, COLLECTION_NAME, points);
 
-		const textSplitter = new RecursiveCharacterTextSplitter({
-			chunkSize: 500,
-			chunkOverlap: 100,
-			lengthFunction: getTokenCount,
-		});
-
-		const chunks = await textSplitter.splitText(NASDOTMD);
-
-		for (let i = 0; i < chunks.length; i++) {
-			points.push({
-				id: randomUUID(),
-				vector: await OpenRouterEmbed(EMBEDDING_MODEL, chunks[i]),
-				payload: {
-					text: chunks[i],
-					timestamp: new Date().toISOString(),
-				},
-			});
-		}
-
-		// Add all points to Qdrant
-		console.log(`💾 Adding ${points.length} vectors to Qdrant...`);
-		await addQdrantVectors(qdrant, COLLECTION_NAME, points);
-
-		console.log("✅ Database initialization complete!");
-		console.log(`📊 Total vectors indexed: ${points.length}`);
-	} catch (error) {
-		console.error("❌ Database initialization failed:", error);
-		throw error;
-	}
+	return { vectors: points.length };
 };

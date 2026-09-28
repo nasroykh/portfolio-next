@@ -1,21 +1,27 @@
 import type { NextConfig } from "next";
-import path from "path";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
-	/* config options here */
-	turbopack: { root: path.join(__dirname, "..") },
-	images: {
-		remotePatterns: [
+	poweredByHeader: false,
+	// NAS.md is read at runtime by /api/init-db to (re)build the vector index
+	outputFileTracingIncludes: {
+		"/api/init-db": ["./NAS.md"],
+	},
+	async headers() {
+		return [
 			{
-				protocol: "https",
-				hostname: "images.unsplash.com",
+				source: "/:path*",
+				headers: [
+					{ key: "X-Content-Type-Options", value: "nosniff" },
+					{ key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+					{ key: "X-Frame-Options", value: "DENY" },
+					{
+						key: "Permissions-Policy",
+						value: "camera=(), microphone=(), geolocation=()",
+					},
+				],
 			},
-			{
-				protocol: "https",
-				hostname: "picsum.photos",
-			},
-		],
+		];
 	},
 };
 

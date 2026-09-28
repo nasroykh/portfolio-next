@@ -1,10 +1,24 @@
 import { QdrantClient } from "@qdrant/js-client-rest";
 
-export const qdrant = new QdrantClient({ host: "localhost", port: 6333 });
+export type QdrantPoint = {
+	id: string;
+	vector: number[];
+	payload: {
+		text: string;
+		timestamp: string;
+	};
+};
+
+export const qdrant = new QdrantClient({
+	url: process.env.QDRANT_URL || "http://localhost:6333",
+	apiKey: process.env.QDRANT_API_KEY || undefined,
+	// Skip the version round-trip at construction time (it also runs during `next build`)
+	checkCompatibility: false,
+});
 
 export const checkIfCollectionExists = async (
 	client: QdrantClient,
-	name: string
+	name: string,
 ) => {
 	const { exists } = await client.collectionExists(name);
 	return exists;
@@ -13,10 +27,9 @@ export const checkIfCollectionExists = async (
 export const createQdrantCollection = async (
 	client: QdrantClient,
 	name: string,
-	size: 1536 | 3072 = 1536
+	size: 1536 | 3072 = 1536,
 ) => {
-	const exists = await checkIfCollectionExists(client, name);
-	if (exists) return;
+	if (await checkIfCollectionExists(client, name)) return;
 
 	await client.createCollection(name, {
 		vectors: { size, distance: "Cosine" },
@@ -31,91 +44,53 @@ export const createQdrantCollection = async (
 		field_name: "timestamp",
 		field_schema: "datetime",
 	});
-
-	console.log("Collection created in Qdrant");
 };
 
 export const deleteQdrantCollection = async (
 	client: QdrantClient,
-	name: string
+	name: string,
 ) => {
-	const exists = await checkIfCollectionExists(client, name);
-	if (!exists) return;
+	if (!(await checkIfCollectionExists(client, name))) return;
 
+	// Payload indexes are dropped together with the collection
 	await client.deleteCollection(name);
-	await client.deletePayloadIndex(name, "text");
-	await client.deletePayloadIndex(name, "timestamp");
-	console.log("Collection deleted from Qdrant");
 };
 
 export const addQdrantVectors = async (
 	client: QdrantClient,
 	collection: string,
-	vectors: {
-		id: string;
-		vector: number[];
-		payload: {
-			text: string;
-			timestamp: string;
-		};
-	}[]
+	points: QdrantPoint[],
 ) => {
-	const exists = await checkIfCollectionExists(client, collection);
-	if (!exists) {
-		await createQdrantCollection(client, collection);
-	}
-
-	await client.upsert(collection, {
-		points: vectors,
-	});
-
-	console.log("Vectors added to Qdrant");
+	await client.upsert(collection, { wait: true, points });
 };
 
 export const semanticSearchQdrantVectors = async (
 	client: QdrantClient,
 	collection: string,
 	query: number[],
-	limit: number = 4,
-	score_threshold: number = 0.5
-) => {
-	const exists = await checkIfCollectionExists(client, collection);
-	if (!exists) {
-		await createQdrantCollection(client, collection);
-	}
-
-	const result = await client.query(collection, {
+	limit = 4,
+	score_threshold = 0.5,
+) =>
+	client.query(collection, {
 		query,
 		limit,
 		score_threshold,
 		with_payload: true,
 	});
-	return result;
-};
 
 export const keywordSearchQdrantVectors = async (
 	client: QdrantClient,
 	collection: string,
 	query: { field: string; value: string }[],
-	limit: number = 4
-) => {
-	const exists = await checkIfCollectionExists(client, collection);
-	if (!exists) {
-		await createQdrantCollection(client, collection);
-	}
-
-	const result = await client.scroll(collection, {
+	limit = 4,
+) =>
+	client.scroll(collection, {
 		filter: {
 			should: query.map((q) => ({
 				key: q.field,
-				match: {
-					text: q.value,
-				},
+				match: { text: q.value },
 			})),
 		},
 		limit,
 		with_payload: true,
 	});
-
-	return result;
-};
