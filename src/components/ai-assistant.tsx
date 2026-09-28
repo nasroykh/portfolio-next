@@ -255,7 +255,7 @@ export const AIAssistant = () => {
 				<Button
 					size="icon"
 					onClick={() => setIsOpen((open) => !open)}
-					className="print:hidden fixed bottom-4 right-4 md:bottom-10 md:right-20 z-40 size-14 rounded-lg shadow-lg hover:scale-105 transition-all duration-200 flex items-center justify-center"
+					className="print:hidden fixed bottom-4 end-4 md:bottom-10 md:end-20 z-40 size-14 rounded-lg shadow-lg hover:scale-105 transition-all duration-200 flex items-center justify-center"
 					aria-label={t("toggle")}
 					aria-expanded={isOpen}
 					aria-controls="otacon-panel"
@@ -299,7 +299,7 @@ export const AIAssistant = () => {
 						animate={{ opacity: 1, scale: 1, y: 0 }}
 						exit={{ opacity: 0, scale: 0.95, y: 20 }}
 						transition={{ duration: 0.2 }}
-						className="print:hidden fixed bottom-20 left-0 right-0 mx-auto md:bottom-28 md:left-auto md:right-20 z-50 w-[calc(100vw-1rem)] md:w-96 h-[calc(100dvh-8rem)] md:h-[min(40rem,calc(100dvh-10rem))] bg-card border border-border rounded-lg shadow-xl flex flex-col"
+						className="print:hidden fixed bottom-20 start-0 end-0 mx-auto md:bottom-28 md:start-auto md:end-20 z-50 w-[calc(100vw-1rem)] md:w-96 h-[calc(100dvh-8rem)] md:h-[min(40rem,calc(100dvh-10rem))] bg-card border border-border rounded-lg shadow-xl flex flex-col"
 					>
 						<div className="flex items-center justify-between p-4 border-b border-border">
 							<div className="flex items-center gap-2">
@@ -359,7 +359,7 @@ export const AIAssistant = () => {
 													"bg-muted": message.role === "user",
 												})}
 											>
-												<div className="chat-markdown text-sm wrap-break-word">
+												<div dir="auto" className="chat-markdown text-sm wrap-break-word">
 													<ChatMarkdown>{message.content}</ChatMarkdown>
 												</div>
 											</div>
@@ -398,6 +398,8 @@ export const AIAssistant = () => {
 							)}
 							<div className="flex gap-2">
 								<Textarea
+									// Follow the typed text, but keep the page direction for the placeholder
+									dir={inputValue ? "auto" : undefined}
 									value={inputValue}
 									onChange={(e) => setInputValue(e.target.value)}
 									onKeyDown={handleKeyDown}
@@ -423,7 +425,7 @@ export const AIAssistant = () => {
 									{isStreaming ? (
 										<IconPlayerStopFilled className="size-4" />
 									) : (
-										<IconSend className="size-4" />
+										<IconSend className="size-4 rtl:-scale-x-100" />
 									)}
 								</Button>
 							</div>

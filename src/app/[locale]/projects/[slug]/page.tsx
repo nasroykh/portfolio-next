@@ -119,7 +119,7 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
 						</BreadcrumbItem>
 						<BreadcrumbSeparator />
 						<BreadcrumbItem>
-							<BreadcrumbPage>{project.title}</BreadcrumbPage>
+							<BreadcrumbPage dir="auto">{project.title}</BreadcrumbPage>
 						</BreadcrumbItem>
 					</BreadcrumbList>
 				</Breadcrumb>
@@ -146,11 +146,13 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
 						</span>
 					</div>
 
-					<h1 className="font-semibold text-3xl md:text-4xl tracking-tighter">
+					{/* Case-study text is English only: dir="auto" keeps it left-to-right on Arabic pages,
+					    and short lines stay aligned with the Arabic labels (rtl:text-right) */}
+					<h1 dir="auto" className="rtl:text-right font-semibold text-3xl md:text-4xl tracking-tighter">
 						{project.title}
 					</h1>
 
-					<p className="text-lg text-muted-foreground leading-relaxed max-w-3xl">
+					<p dir="auto" className="rtl:text-right text-lg text-muted-foreground leading-relaxed max-w-3xl">
 						{cs.headline}
 					</p>
 
@@ -182,13 +184,13 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
 							<p className="text-xs text-muted-foreground font-medium">
 								{t("challenge")}
 							</p>
-							<p className="text-sm">{cs.snapshot.challenge}</p>
+							<p dir="auto" className="rtl:text-right text-sm">{cs.snapshot.challenge}</p>
 						</div>
 						<div className="space-y-1">
 							<p className="text-xs text-muted-foreground font-medium">
 								{t("result")}
 							</p>
-							<p className="text-sm">{cs.snapshot.result}</p>
+							<p dir="auto" className="rtl:text-right text-sm">{cs.snapshot.result}</p>
 						</div>
 						<div className="space-y-1">
 							<p className="text-xs text-muted-foreground font-medium">
@@ -235,8 +237,8 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
 							</CarouselContent>
 							{project.images.length > 1 && (
 								<>
-									<CarouselPrevious className="left-2 bg-background/80 backdrop-blur-sm size-8" />
-									<CarouselNext className="right-2 bg-background/80 backdrop-blur-sm size-8" />
+									<CarouselPrevious className="start-2 bg-background/80 backdrop-blur-sm size-8" />
+									<CarouselNext className="end-2 bg-background/80 backdrop-blur-sm size-8" />
 								</>
 							)}
 						</Carousel>
@@ -253,7 +255,7 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
 								{t("situation")}
 							</h2>
 						</div>
-						<p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+						<p dir="auto" className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
 							{cs.situation}
 						</p>
 					</section>
@@ -268,7 +270,7 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
 								{t("task")}
 							</h2>
 						</div>
-						<p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+						<p dir="auto" className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
 							{cs.task}
 						</p>
 					</section>
@@ -287,7 +289,7 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
 							{cs.action.map((step, i) => (
 								<li key={i} className="flex gap-3">
 									<CheckCircle2 className="size-4 text-primary shrink-0 mt-0.5" />
-									<p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+									<p dir="auto" className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
 										{step}
 									</p>
 								</li>
@@ -312,7 +314,7 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
 									key={i}
 									className="rounded-lg border border-neutral-200 dark:border-neutral-800 p-4 space-y-2 bg-card/40"
 								>
-									<p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
+									<p dir="auto" className="rtl:text-right text-xs text-muted-foreground font-medium uppercase tracking-wider">
 										{metric.label}
 									</p>
 									{metric.before && (
@@ -327,7 +329,7 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
 							))}
 						</div>
 
-						<p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed pt-2">
+						<p dir="auto" className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed pt-2">
 							{cs.resultSummary}
 						</p>
 					</section>
@@ -340,7 +342,7 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
 					<h3 className="text-sm font-semibold uppercase tracking-wider text-primary">
 						{t("keyAchievement")}
 					</h3>
-					<p className="text-sm leading-relaxed">
+					<p dir="auto" className="text-sm leading-relaxed">
 						{project.keyAchievement}
 					</p>
 				</section>
@@ -354,9 +356,11 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
 						<Accordion type="single" collapsible className="w-full">
 							{project.faqs.map((faq, i) => (
 								<AccordionItem key={i} value={`faq-${i}`}>
-									<AccordionTrigger>{faq.question}</AccordionTrigger>
+									<AccordionTrigger>
+										<span dir="auto">{faq.question}</span>
+									</AccordionTrigger>
 									<AccordionContent>
-										<p className="text-neutral-600 dark:text-neutral-400">
+										<p dir="auto" className="text-neutral-600 dark:text-neutral-400">
 											{faq.answer}
 										</p>
 									</AccordionContent>
@@ -373,8 +377,8 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
 					{prevProject ? (
 						<Button variant="ghost" size="sm" className="gap-2" asChild>
 							<Link href={`/projects/${prevProject.id}`}>
-								<ArrowLeft className="size-4" />
-								<span className="hidden sm:inline">{prevProject.title}</span>
+								<ArrowLeft className="size-4 rtl:-scale-x-100" />
+								<span dir="auto" className="hidden sm:inline">{prevProject.title}</span>
 								<span className="sm:hidden">{t("prev")}</span>
 							</Link>
 						</Button>
@@ -389,9 +393,9 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
 					{nextProject ? (
 						<Button variant="ghost" size="sm" className="gap-2" asChild>
 							<Link href={`/projects/${nextProject.id}`}>
-								<span className="hidden sm:inline">{nextProject.title}</span>
+								<span dir="auto" className="hidden sm:inline">{nextProject.title}</span>
 								<span className="sm:hidden">{t("next")}</span>
-								<ArrowRight className="size-4" />
+								<ArrowRight className="size-4 rtl:-scale-x-100" />
 							</Link>
 						</Button>
 					) : (

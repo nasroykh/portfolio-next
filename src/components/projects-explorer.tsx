@@ -129,14 +129,14 @@ export function ProjectsExplorer({ projects }: { projects: ProjectSummary[] }) {
 						type="search"
 						aria-label={t("searchPlaceholder")}
 						placeholder={t("searchPlaceholder")}
-						className="pl-10 h-11 bg-background/50 backdrop-blur-sm border-neutral-200 dark:border-neutral-800 focus-visible:ring-primary/20"
+						className="ps-10 h-11 bg-background/50 backdrop-blur-sm border-neutral-200 dark:border-neutral-800 focus-visible:ring-primary/20"
 						value={searchQuery}
 						onChange={handleSearch}
 					/>
 					{/* Rendered after the input: the input backdrop-blur would otherwise blur the icon */}
 					<Search
 						aria-hidden
-						className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground group-focus-within:text-primary transition-colors"
+						className="pointer-events-none absolute start-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground group-focus-within:text-primary transition-colors"
 					/>
 				</div>
 
@@ -160,7 +160,7 @@ export function ProjectsExplorer({ projects }: { projects: ProjectSummary[] }) {
 
 					<div
 						role="status"
-						className="ml-auto text-xs text-muted-foreground font-mono"
+						className="ms-auto text-xs text-muted-foreground font-mono"
 					>
 						{t("resultsCount", {
 							count: filteredProjects.length,
@@ -290,8 +290,8 @@ function ProjectCard({ project }: { project: ProjectSummary }) {
 						</CarouselContent>
 						{project.images.length > 1 && (
 							<>
-								<CarouselPrevious className="left-2 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity bg-background/80 backdrop-blur-sm size-8" />
-								<CarouselNext className="right-2 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity bg-background/80 backdrop-blur-sm size-8" />
+								<CarouselPrevious className="start-2 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity bg-background/80 backdrop-blur-sm size-8" />
+								<CarouselNext className="end-2 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity bg-background/80 backdrop-blur-sm size-8" />
 							</>
 						)}
 					</Carousel>
@@ -301,7 +301,7 @@ function ProjectCard({ project }: { project: ProjectSummary }) {
 			<CardHeader>
 				<div className="flex items-start justify-between pt-6">
 					<div className="space-y-1">
-						<CardTitle className="text-xl group-hover:text-primary transition-colors">
+						<CardTitle dir="auto" className="text-xl group-hover:text-primary transition-colors">
 							{project.title}
 						</CardTitle>
 						<CardDescription className="text-xs font-mono uppercase">
@@ -316,7 +316,7 @@ function ProjectCard({ project }: { project: ProjectSummary }) {
 							asChild
 						>
 							<Link href={`/projects/${project.id}`}>
-								<ChevronRight className="size-4" />
+								<ChevronRight className="size-4 rtl:-scale-x-100" />
 								<span className="sr-only">{t("projectDetails")}</span>
 							</Link>
 						</Button>
@@ -325,7 +325,7 @@ function ProjectCard({ project }: { project: ProjectSummary }) {
 			</CardHeader>
 
 			<CardContent className="flex-1 space-y-4">
-				<p className="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-3 leading-relaxed">
+				<p dir="auto" className="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-3 leading-relaxed">
 					{project.whatItSolves}
 				</p>
 
@@ -389,7 +389,7 @@ function ProjectCard({ project }: { project: ProjectSummary }) {
 							className="flex items-center gap-1.5"
 						>
 							<span className="text-xs">{t("caseStudy")}</span>
-							<ChevronRight className="size-3 group-hover/link:translate-x-0.5 transition-transform" />
+							<ChevronRight className="size-3 rtl:-scale-x-100 group-hover/link:translate-x-0.5 rtl:group-hover/link:-translate-x-0.5 transition-transform" />
 						</Link>
 					</Button>
 				</div>

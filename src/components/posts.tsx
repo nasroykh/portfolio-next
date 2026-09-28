@@ -21,7 +21,10 @@ export async function BlogPosts({ limit }: { limit?: number }) {
 							>
 								{formatDate(post.metadata.publishedAt, locale)}
 							</time>
-							<p className="text-neutral-900 dark:text-neutral-100 tracking-tight flex-1 group-hover:underline">
+							<p
+								dir="auto"
+								className="text-neutral-900 dark:text-neutral-100 tracking-tight flex-1 group-hover:underline rtl:text-right"
+							>
 								{post.metadata.title}
 							</p>
 						</div>

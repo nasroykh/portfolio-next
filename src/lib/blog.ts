@@ -66,5 +66,7 @@ export function formatDate(date: string, locale: string) {
 		month: "short",
 		day: "numeric",
 		timeZone: "UTC",
+		// Western digits in every locale (Arabic would otherwise default to Eastern Arabic numerals)
+		numberingSystem: "latn",
 	}).format(parsePublishedAt(date));
 }

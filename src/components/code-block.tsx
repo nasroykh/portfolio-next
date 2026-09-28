@@ -33,12 +33,12 @@ export function CodeBlock({ code, html, language, className }: CodeBlockProps) {
 				>
 					{copied ? (
 						<>
-							<Check className="mr-1 h-3 w-3" aria-hidden />
+							<Check className="me-1 h-3 w-3" aria-hidden />
 							{t("copied")}
 						</>
 					) : (
 						<>
-							<Copy className="mr-1 h-3 w-3" aria-hidden />
+							<Copy className="me-1 h-3 w-3" aria-hidden />
 							{t("copy")}
 						</>
 					)}

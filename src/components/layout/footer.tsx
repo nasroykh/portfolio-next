@@ -45,7 +45,7 @@ export const Footer = async () => {
 					);
 				})}
 			</ul>
-			<p className="text-center md:text-left text-neutral-600 dark:text-neutral-300">
+			<p className="text-center md:text-start text-neutral-600 dark:text-neutral-300">
 				{t("footer.copyright", { year: new Date().getFullYear() })}
 			</p>
 		</footer>

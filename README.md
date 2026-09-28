@@ -13,7 +13,7 @@ A Next.js 16 portfolio application featuring project case studies, a blog, profe
 - **Animations**: Motion, tw-animate-css
 - **Content Management**: MDX (next-mdx-remote), gray-matter
 - **AI Integration**: OpenRouter (openai SDK), LangChain text splitter, Qdrant vector search
-- **i18n**: next-intl (locale-prefixed routes: `/` English, `/fr` French)
+- **i18n**: next-intl (locale-prefixed routes: `/` English, `/fr` French, `/ar` Arabic (RTL), `/es` Spanish)
 - **Icons**: Lucide React, Tabler Icons
 - **Theming**: next-themes (dark mode default)
 
@@ -43,7 +43,7 @@ A Next.js 16 portfolio application featuring project case studies, a blog, profe
 - **Project Explorer**: Filterable by category (Templates, AI/ML, Dev Tools, SaaS, eCommerce) with search and pagination.
 - **MDX Blog**: Markdown content with custom React components, code highlighting.
 - **AI Assistant**: RAG-powered chat with streaming responses via OpenRouter + Qdrant vectors.
-- **i18n**: Full English/French support with `/fr` URLs, hreflang tags and static generation for every locale.
+- **i18n**: English, French, Arabic (right-to-left) and Spanish with prefixed URLs, hreflang tags and static generation for every locale. Blog posts and case studies are English only.
 - **Responsive Design**: Mobile-first approach with Tailwind CSS 4.
 - **Dark Mode**: Built-in theme support via `next-themes`.
 - **SEO**: Per-page canonical URLs, sitemap (static pages, posts, case studies), robots.txt, dynamic OG images (`/og`), JSON-LD, llms.txt.

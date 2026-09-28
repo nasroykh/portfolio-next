@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/site";
 import { Layout } from "@/components/layout/layout";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
@@ -161,9 +162,9 @@ export default async function ExperiencePage({ params }: Props) {
 									<p className="text-base font-medium text-neutral-700 dark:text-neutral-300 mb-2">
 										{t("keyAchievements")}
 									</p>
-									<ul className="list-disc list-outside ml-4 sm:ml-5 space-y-1.5 text-sm text-neutral-600 dark:text-neutral-400">
+									<ul className="list-disc list-outside ms-4 sm:ms-5 space-y-1.5 text-sm text-neutral-600 dark:text-neutral-400">
 										{achievementsRaw.map((achievement, idx) => (
-											<li key={idx} className="pl-1">
+											<li key={idx} className="ps-1">
 												{achievement}
 											</li>
 										))}
@@ -184,7 +185,8 @@ export default async function ExperiencePage({ params }: Props) {
 													target="_blank"
 													rel="noopener noreferrer"
 												>
-													{tCommon(website.titleKey)} →
+													{tCommon(website.titleKey)}
+													<ArrowRight className="rtl:-scale-x-100" aria-hidden />
 												</a>
 											</Button>
 										))}

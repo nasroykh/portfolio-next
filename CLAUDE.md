@@ -18,12 +18,13 @@ This is a **Next.js 16** portfolio site using the App Router, React 19, Tailwind
 
 ### Internationalization
 
-- Locale-prefixed routes via `next-intl` routing (`localePrefix: "as-needed"`): English at `/about`, French at `/fr/about`; `/en/...` redirects to the unprefixed URL
+- Locale-prefixed routes via `next-intl` routing (`localePrefix: "as-needed"`): English at `/about`, other locales prefixed (`/fr/about`, `/ar/about`, `/es/about`); `/en/...` redirects to the unprefixed URL. Locales: `en`, `fr`, `ar` (right-to-left), `es`
 - All pages live under `src/app/[locale]/` and are statically generated: every page and layout must call `setRequestLocale(locale)` before using next-intl
 - `src/proxy.ts` (Next 16 middleware) handles detection and redirects: `locale` cookie first, then `Accept-Language`; it skips `/api`, `/og` and files with an extension
 - Config: locales, native names, OG codes and `getDirection()` (RTL-ready) in `src/i18n/config.ts`; routing in `src/i18n/routing.ts`; request config in `src/i18n/request.ts`
 - ALWAYS import `Link`, `usePathname`, `useRouter`, `redirect` from `@/i18n/navigation`, not from `next/link` / `next/navigation`
-- Translation JSON files in `messages/{en,fr}.json` (page titles/descriptions in the `meta` namespace); keep both files at the same keys
+- Translation JSON files in `messages/{en,fr,ar,es}.json` (page titles/descriptions in the `meta` namespace); keep all files at the same keys and placeholders
+- Right-to-left (Arabic): `<html dir>` comes from `getDirection()`, Radix and the carousel get it through `DirectionProvider`. Use logical Tailwind classes only (`ms-`/`me-`/`ps-`/`pe-`/`start-`/`end-`/`border-s`/`text-start`), never `ml-`/`mr-`/`pl-`/`pr-`/`left-`/`right-` (except centering with `left-1/2 -translate-x-1/2`). Directional icons (arrows, chevrons) get `rtl:-scale-x-100`. English-only content (posts, case studies, project cards) gets `dir="auto"` / `dir="ltr"` so it stays left-to-right inside Arabic pages
 - Server components: `getTranslations()` / Client components: `useTranslations()`
 - Adding a locale: add it to `locales`, `LOCALE_NAMES` and `OG_LOCALES` in `src/i18n/config.ts` and create `messages/<locale>.json`
 
@@ -35,7 +36,7 @@ This is a **Next.js 16** portfolio site using the App Router, React 19, Tailwind
 - Each page builds its metadata with `pageMetadata()` / `localeAlternates()` from `src/lib/site.ts` (canonical + hreflang). Blog posts and case studies are English only, so they pass `translated: false` and every locale points its canonical at the English URL; `/og?title=` (`src/app/og/route.tsx`) renders fallback OG images
 - Nav items defined in `src/components/layout/header.tsx` (`NAV_ITEMS` array)
 - Unknown paths hit `src/app/[locale]/[...rest]/page.tsx` and render the localized `src/app/[locale]/not-found.tsx`
-- Pages (each also under `/fr`): `/`, `/about`, `/experience`, `/projects`, `/projects/[slug]`, `/blog`, `/blog/[slug]`, `/contact`, `/resume`
+- Pages (each also under `/fr`, `/ar`, `/es`): `/`, `/about`, `/experience`, `/projects`, `/projects/[slug]`, `/blog`, `/blog/[slug]`, `/contact`, `/resume`
 
 ### Projects & Case Studies
 
@@ -67,7 +68,7 @@ This is a **Next.js 16** portfolio site using the App Router, React 19, Tailwind
 
 - shadcn/ui components in `src/components/ui/` (Radix primitives + CVA + tailwind-merge)
 - Utility: `cn()` from `src/lib/utils.ts`
-- Fonts: Nova Square (`--font-nova`, headings) and League Spartan (`--font-league`, body / `font-sans`); `font-mono` is the system monospace stack
+- Fonts: Nova Square (headings) and League Spartan (body / `font-sans`), with Noto Kufi Arabic / IBM Plex Sans Arabic for Arabic glyphs. The stacks are built in `src/app/[locale]/layout.tsx` (`--font-display-stack`, `--font-sans-stack`) as "Latin face, Arabic face, fallbacks" because next/font puts an Arial fallback (which has Arabic glyphs) right after each font; `font-mono` is the system monospace stack
 - `@tailwindcss/typography` is NOT installed: `.prose` is styled by hand in `globals.css`, so `prose-*` modifier classes do nothing
 - Animations use `motion` (`import { motion } from "motion/react"`)
 - Dark theme by default via `next-themes`

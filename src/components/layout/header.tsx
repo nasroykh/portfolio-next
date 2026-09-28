@@ -3,13 +3,14 @@
 import { Link } from "@/i18n/navigation";
 import { usePathname } from "@/i18n/navigation";
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { IconMenu2 } from "@tabler/icons-react";
 import { SettingsDropdown } from "../settings-dropdown";
 import { Logo } from "../logo";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
+import { getDirection } from "@/i18n/config";
 
 export const NAV_ITEMS = [
 	{ name: "home", path: "/" },
@@ -29,6 +30,7 @@ export function Header() {
 	const pathname = usePathname();
 	const t = useTranslations("nav");
 	const tCommon = useTranslations("common");
+	const isRtl = getDirection(useLocale()) === "rtl";
 
 	return (
 		<header className="py-4 sticky top-0 bg-background z-50">
@@ -78,7 +80,7 @@ export function Header() {
 								</Button>
 							</SheetTrigger>
 							<SheetContent
-								side="right"
+								side={isRtl ? "left" : "right"}
 								className="w-[280px] sm:w-[320px] px-4 py-16"
 								aria-describedby={undefined}
 							>

@@ -70,7 +70,7 @@ export default async function ResumePage({ params }: Props) {
 				<div className="flex items-center gap-2">
 					<Button asChild size="icon">
 						<Link href="/" aria-label={t("backHome")}>
-							<IconArrowLeft className="size-4" aria-hidden />
+							<IconArrowLeft className="size-4 rtl:-scale-x-100" aria-hidden />
 						</Link>
 					</Button>
 					<PrintButton label={t("exportPDF")} />
@@ -168,7 +168,7 @@ export default async function ResumePage({ params }: Props) {
 											{dateRange}
 										</span>
 									</div>
-									<ul className="text-sm text-muted-foreground space-y-1 ml-4 list-disc list-outside">
+									<ul className="text-sm text-muted-foreground space-y-1 ms-4 list-disc list-outside">
 										{achievements.map((achievement, idx) => (
 											<li key={idx}>{achievement}</li>
 										))}

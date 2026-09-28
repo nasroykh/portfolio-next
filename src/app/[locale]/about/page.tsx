@@ -134,7 +134,7 @@ export default async function AboutPage({ params }: Props) {
 					<li>{t("philosophyFast")}</li>
 					<li>{t("philosophyRobust")}</li>
 				</ul>
-				<p className="font-semibold border-l-4 border-foreground pl-2 py-1 bg-muted/50">
+				<p className="font-semibold border-s-4 border-foreground ps-2 py-1 bg-muted/50">
 					{t("philosophyConclusion")}
 				</p>
 				<h2 className="text-2xl! mb-4 sm:mb-6 tracking-tighter">

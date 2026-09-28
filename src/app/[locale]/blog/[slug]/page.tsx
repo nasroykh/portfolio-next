@@ -101,7 +101,7 @@ export default async function Blog({ params }: Props) {
 		<Layout>
 			<section>
 				<JsonLd content={jsonLd} />
-				<h1 className="title font-semibold text-2xl tracking-tighter">
+				<h1 dir="auto" className="title font-semibold text-2xl tracking-tighter">
 					{post.metadata.title}
 				</h1>
 				<div className="flex justify-between items-center mt-2 mb-8 text-sm">
@@ -112,7 +112,8 @@ export default async function Blog({ params }: Props) {
 						{formatDate(post.metadata.publishedAt, locale)}
 					</time>
 				</div>
-				<article className="prose" lang="en">
+				{/* Posts are written in English: keep them left-to-right inside Arabic pages */}
+				<article className="prose" lang="en" dir="ltr">
 					<CustomMDX source={post.content} />
 				</article>
 			</section>

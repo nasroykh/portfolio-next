@@ -90,7 +90,7 @@ export function SettingsDropdown() {
 							<Icon className="size-4" />
 							{t(labelKey)}
 							{mounted && theme === value && (
-								<IconCheck className="size-4 ml-auto" />
+								<IconCheck className="size-4 ms-auto" />
 							)}
 						</DropdownMenuItem>
 					))}
@@ -110,7 +110,7 @@ export function SettingsDropdown() {
 							onClick={() => handleLocaleChange(value)}
 						>
 							{LOCALE_NAMES[value]}
-							{locale === value && <IconCheck className="size-4 ml-auto" />}
+							{locale === value && <IconCheck className="size-4 ms-auto" />}
 						</DropdownMenuItem>
 					))}
 				</DropdownMenuGroup>
