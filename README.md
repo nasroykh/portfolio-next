@@ -6,13 +6,13 @@ A Next.js 16 portfolio application featuring project case studies, a blog, profe
 
 ## Tech Stack
 
-- **Framework**: Next.js 16.1.1
-- **Language**: TypeScript 5.9
+- **Framework**: Next.js 16.3 / React 19.3
+- **Language**: TypeScript 6.0
 - **Styling**: Tailwind CSS 4
 - **UI Library**: Radix UI primitives (via shadcn/ui) + CVA + tailwind-merge
-- **Animations**: Framer Motion, tw-animate-css
+- **Animations**: Motion, tw-animate-css
 - **Content Management**: MDX (next-mdx-remote), gray-matter
-- **AI Integration**: OpenRouter, LangChain, Qdrant vector search
+- **AI Integration**: OpenRouter (openai SDK), LangChain text splitter, Qdrant vector search
 - **i18n**: next-intl (cookie-based, `en`/`fr`)
 - **Icons**: Lucide React, Tabler Icons
 - **Theming**: next-themes (dark mode default)
@@ -27,12 +27,12 @@ A Next.js 16 portfolio application featuring project case studies, a blog, profe
   - `/api`: AI chat API and vector DB initialization.
 - **`src/data`**: Typed project data with case study content (`projects.ts`).
 - **`src/components`**: React components.
-  - `ui/`: shadcn/ui base components (55+ components).
+  - `ui/`: shadcn/ui base components (only the ones in use; add more with `pnpm dlx shadcn@latest add <name>`).
   - `projects-explorer.tsx`: Client-side project filtering, search, and pagination.
   - `ai-assistant.tsx`: AI chat interface component.
   - `mdx.tsx`: MDX component mapping.
   - `layout/`: Shared layout (Header, Footer).
-- **`src/lib`**: Utility functions (`cn` for class merging).
+- **`src/lib`**: `cn` class merging, site constants (`site.ts`), shared chat limits (`chat.ts`).
 - **`src/hooks`**: Custom React hooks (`use-copy-to-clipboard`).
 - **`src/i18n`**: Internationalization config.
 - **`messages/`**: Translation files (`en.json`, `fr.json`).
@@ -46,7 +46,7 @@ A Next.js 16 portfolio application featuring project case studies, a blog, profe
 - **i18n**: Full English/French support via cookie-based locale detection.
 - **Responsive Design**: Mobile-first approach with Tailwind CSS 4.
 - **Dark Mode**: Built-in theme support via `next-themes`.
-- **SEO**: Dynamic sitemap, robots.txt, JSON-LD structured data, llms.txt.
+- **SEO**: Per-page canonical URLs, sitemap (static pages, posts, case studies), robots.txt, dynamic OG images (`/og`), JSON-LD, llms.txt.
 
 ## Scripts
 
@@ -55,4 +55,12 @@ pnpm dev          # Start dev server (Turbopack)
 pnpm build        # Production build
 pnpm start        # Start production server
 pnpm lint         # Run ESLint
+```
+
+## Environment
+
+Copy `.env.example` to `.env.local` and fill in the values. To (re)build the assistant's vector index from `NAS.md`:
+
+```bash
+curl -X POST -H "Authorization: Bearer $INIT_DB_SECRET" https://<domain>/api/init-db
 ```
