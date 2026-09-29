@@ -8,9 +8,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 pnpm dev          # Start dev server (Next.js with Turbopack)
 pnpm build        # Production build
 pnpm lint         # ESLint (next/core-web-vitals + typescript)
+pnpm test         # Unit tests (vitest, tests/unit): rate limit, dates, SEO helpers, translation key parity
+pnpm test:e2e     # Smoke tests (Playwright, tests/e2e) against a production build: run `pnpm build` first
 ```
 
-No test framework is configured. Lint/type-check before shipping: `pnpm lint && npx tsc --noEmit`.
+Before shipping: `pnpm lint && npx tsc --noEmit && pnpm test && pnpm build && pnpm test:e2e`. The e2e tests use the locally installed Chrome (`channel: "chrome"`), no Playwright browser download needed; the chat test mocks `/api`, so no OpenRouter key is required.
 
 ## Architecture
 
