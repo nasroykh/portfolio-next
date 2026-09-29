@@ -1,0 +1,5 @@
+# LF everywhere: CRLF checkouts made MDX code blocks render double-spaced
+* text=auto eol=lf
+
+# Vendored agent skills: leave line endings exactly as upstream ships them
+.agents/** !text !eol
