@@ -60,7 +60,7 @@ This is a **Next.js 16** portfolio site using the App Router, React 19, Tailwind
 ### AI Assistant (RAG)
 
 - Chat API at `src/app/api/route.ts` — zod-validated body (only `user`/`assistant` roles), in-memory rate limit, NDJSON streaming via OpenRouter (Gemini Flash Lite); limits shared with the UI in `src/lib/chat.ts`
-- RAG pipeline: prompt enhancement -> keyword search against Qdrant vectors -> augmented system prompt
+- RAG pipeline: prompt enhancement -> context retrieval (`src/app/api/utils/retrieval.ts`: keyword filter by default, embedding similarity with keyword fallback when `RAG_SEARCH=semantic`) -> augmented system prompt
 - DB initialization endpoint at `src/app/api/init-db/route.ts` — `POST` only, requires `Authorization: Bearer $INIT_DB_SECRET`; re-embeds `NAS.md`
 - Vector store: Qdrant (`@qdrant/js-client-rest`, `QDRANT_URL`/`QDRANT_API_KEY`), embeddings via OpenRouter
 - Env vars: see `.env.example`

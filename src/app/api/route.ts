@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { OpenRouterQuery, OpenRouterStream } from "@/app/api/utils/openrouter";
-import { keywordSearchQdrantVectors, qdrant } from "@/app/api/utils/qdrant";
-import { COLLECTION_NAME } from "@/app/api/utils/init_db";
+import { retrieveContext } from "@/app/api/utils/retrieval";
 import {
 	BASE_SYSTEM_PROMPT,
 	PROMPT_ENHANCEMENT_SYSTEM_PROMPT,
@@ -15,9 +14,6 @@ import {
 import { isRateLimited } from "@/app/api/utils/rate-limit";
 
 export const dynamic = "force-dynamic";
-
-const CONTEXT_LIMIT = 3;
-const MIN_KEYWORD_LENGTH = 3;
 
 // Roles are restricted so a client cannot inject its own "system" instructions
 const chatRequestSchema = z.object({
@@ -52,15 +48,6 @@ const getClientIp = (request: Request) =>
 	request.headers.get("x-forwarded-for")?.split(",").at(-1)?.trim() ||
 	"unknown";
 
-const toKeywords = (text: string) => [
-	...new Set(
-		text
-			.toLowerCase()
-			.split(/[^\p{L}\p{N}+#.-]+/u)
-			.filter((word) => word.length >= MIN_KEYWORD_LENGTH),
-	),
-];
-
 const prepareSystemPrompt = async (messages: ChatMessage[], prompt: string) => {
 	const conversation =
 		messages
@@ -85,22 +72,7 @@ const prepareSystemPrompt = async (messages: ChatMessage[], prompt: string) => {
 			return BASE_SYSTEM_PROMPT;
 		}
 
-		const keywords = toKeywords(enhancedPrompt);
-		if (keywords.length === 0) {
-			return BASE_SYSTEM_PROMPT;
-		}
-
-		const searchResult = await keywordSearchQdrantVectors(
-			qdrant,
-			COLLECTION_NAME,
-			keywords.map((value) => ({ field: "text", value })),
-			CONTEXT_LIMIT,
-		);
-
-		const context = searchResult.points
-			.map((point) => point.payload?.text)
-			.filter((text): text is string => typeof text === "string" && !!text)
-			.join("\n\n");
+		const context = (await retrieveContext(enhancedPrompt)).join("\n\n");
 
 		if (!context.trim()) {
 			return BASE_SYSTEM_PROMPT;
