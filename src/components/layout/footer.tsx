@@ -5,7 +5,7 @@ import {
 	IconBrandMedium,
 	IconBrandX,
 } from "@tabler/icons-react";
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 import { TooltipWrapper } from "../ui/tooltip-wrapper";
 import { SOCIAL_LINKS } from "@/lib/site";
 
@@ -17,8 +17,9 @@ const ICONS = {
 	"X (Twitter)": IconBrandX,
 } as const;
 
-export const Footer = async () => {
-	const t = await getTranslations();
+// Not async: it also renders inside the client error boundary (src/app/[locale]/error.tsx)
+export const Footer = () => {
+	const t = useTranslations();
 
 	return (
 		<footer className="mt-auto pt-2 pb-10 flex flex-col space-y-6 md:flex-row md:space-y-0 items-center justify-between">

@@ -337,5 +337,11 @@
 		"title": "Page introuvable",
 		"description": "Cette page n'existe pas ou a été déplacée.",
 		"backHome": "Retour à l'accueil"
+	},
+	"error": {
+		"title": "Une erreur est survenue",
+		"description": "Une erreur inattendue s'est produite. Veuillez réessayer.",
+		"retry": "Réessayer",
+		"backHome": "Retour à l'accueil"
 	}
 }

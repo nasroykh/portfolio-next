@@ -1,12 +1,24 @@
 import { ImageResponse } from "next/og";
+import { getBlogPosts } from "@/lib/blog";
+import { projects } from "@/data/projects";
 import { AUTHOR_NAME, SITE_URL } from "@/lib/site";
 
 const MAX_TITLE_LENGTH = 120;
+const DEFAULT_TITLE = "Nas";
+
+// Only titles of real posts and case studies are rendered, so the route cannot be used to put
+// arbitrary text on an image served (and cached for a year) from this domain
+const knownTitles = () =>
+	new Set([
+		...getBlogPosts().map((post) => post.metadata.title),
+		...projects.map((project) => project.title),
+	]);
 
 // Dynamic Open Graph card used by blog posts and case studies without a cover image
 export function GET(request: Request) {
 	const { searchParams } = new URL(request.url);
-	const rawTitle = searchParams.get("title")?.trim() || "Nas";
+	const requested = searchParams.get("title")?.trim() ?? "";
+	const rawTitle = knownTitles().has(requested) ? requested : DEFAULT_TITLE;
 	const title =
 		rawTitle.length > MAX_TITLE_LENGTH
 			? `${rawTitle.slice(0, MAX_TITLE_LENGTH - 1)}…`

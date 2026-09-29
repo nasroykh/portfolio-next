@@ -337,5 +337,11 @@
 		"title": "Página no encontrada",
 		"description": "Esta página no existe o ha sido movida.",
 		"backHome": "Volver al inicio"
+	},
+	"error": {
+		"title": "Algo salió mal",
+		"description": "Se produjo un error inesperado. Inténtalo de nuevo.",
+		"retry": "Reintentar",
+		"backHome": "Volver al inicio"
 	}
 }

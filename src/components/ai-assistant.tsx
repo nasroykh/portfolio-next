@@ -50,6 +50,10 @@ const isStoredMessage = (value: unknown): value is Message =>
 	// Empty assistant placeholders are never valid history
 	(value as Message).content.length > 0;
 
+// Abort reasons: a user "Stop" keeps or restores the exchange, a discard (new chat, unmount) does not
+const ABORT_STOP = "stop";
+const ABORT_DISCARD = "discard";
+
 function useChatHistory() {
 	const [messages, setMessages] = useState<Message[]>([]);
 	const hydratedRef = useRef(false);
@@ -141,6 +145,7 @@ export const AIAssistant = () => {
 		clearMessages,
 	} = useChatHistory();
 	const scrollViewportRef = useRef<HTMLDivElement>(null);
+	const toggleButtonRef = useRef<HTMLButtonElement>(null);
 	const abortControllerRef = useRef<AbortController | null>(null);
 
 	useEffect(() => {
@@ -148,9 +153,16 @@ export const AIAssistant = () => {
 		if (viewport) viewport.scrollTop = viewport.scrollHeight;
 	}, [messages, isStreaming]);
 
-	useEffect(() => () => abortControllerRef.current?.abort(), []);
+	useEffect(() => () => abortControllerRef.current?.abort(ABORT_DISCARD), []);
 
-	const isAtMessageLimit = messages.length >= CHAT_MAX_MESSAGES;
+	// A send adds two messages (prompt + reply), so the limit is reached once another pair no longer fits
+	const isAtMessageLimit = messages.length + 2 > CHAT_MAX_MESSAGES;
+
+	const closePanel = () => {
+		setIsOpen(false);
+		// Return focus to the toggle so keyboard users are not dropped at the top of the page
+		requestAnimationFrame(() => toggleButtonRef.current?.focus());
+	};
 
 	const handleSendMessage = async () => {
 		const userPrompt = inputValue.trim();
@@ -219,9 +231,17 @@ export const AIAssistant = () => {
 
 			if (!accumulated) throw new Error("Empty response");
 		} catch (error) {
-			if (error instanceof Error && error.name === "AbortError") {
-				// Stopped by the user: keep whatever was streamed so far
-				removeEmptyAssistantMessage();
+			if (controller.signal.aborted) {
+				// "New chat" or unmount: the history is being discarded, nothing to restore
+				if (controller.signal.reason === ABORT_DISCARD) return;
+				if (accumulated) {
+					// Stopped by the user mid-answer: keep whatever was streamed so far
+					removeEmptyAssistantMessage();
+				} else {
+					// Stopped before any text: drop the unanswered prompt so history stays in pairs
+					rollbackLastExchange();
+					setInputValue(userPrompt);
+				}
 			} else if (accumulated) {
 				// Stream broke mid-answer: keep the partial reply
 				toast.error(t("error"));
@@ -245,7 +265,7 @@ export const AIAssistant = () => {
 
 		if (e.key === "Escape") {
 			e.preventDefault();
-			setIsOpen(false);
+			closePanel();
 		}
 	};
 
@@ -253,6 +273,7 @@ export const AIAssistant = () => {
 		<>
 			<TooltipWrapper content={t("toggle")}>
 				<Button
+					ref={toggleButtonRef}
 					size="icon"
 					onClick={() => setIsOpen((open) => !open)}
 					className="print:hidden fixed bottom-4 end-4 md:bottom-10 md:end-20 z-40 size-14 rounded-lg shadow-lg hover:scale-105 transition-all duration-200 flex items-center justify-center"
@@ -279,7 +300,7 @@ export const AIAssistant = () => {
 						<AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
 						<AlertDialogAction
 							onClick={() => {
-								abortControllerRef.current?.abort();
+								abortControllerRef.current?.abort(ABORT_DISCARD);
 								clearMessages();
 							}}
 						>
@@ -325,7 +346,7 @@ export const AIAssistant = () => {
 								<Button
 									variant="ghost"
 									size="icon-sm"
-									onClick={() => setIsOpen(false)}
+									onClick={closePanel}
 									aria-label={t("close")}
 								>
 									<IconX className="size-5" />
@@ -413,7 +434,7 @@ export const AIAssistant = () => {
 								<Button
 									onClick={
 										isStreaming
-											? () => abortControllerRef.current?.abort()
+											? () => abortControllerRef.current?.abort(ABORT_STOP)
 											: handleSendMessage
 									}
 									disabled={

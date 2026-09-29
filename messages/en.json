@@ -337,5 +337,11 @@
 		"title": "Page not found",
 		"description": "This page doesn't exist or has moved.",
 		"backHome": "Back to home"
+	},
+	"error": {
+		"title": "Something went wrong",
+		"description": "An unexpected error occurred. Please try again.",
+		"retry": "Try again",
+		"backHome": "Back to home"
 	}
 }
