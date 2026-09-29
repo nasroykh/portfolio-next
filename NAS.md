@@ -88,6 +88,7 @@ I ask one question first: **"What does the business need right now?"**
 
 - Next.js
 - React
+- TypeScript
 - Svelte
 - Tailwind CSS
 - Tanstack Query

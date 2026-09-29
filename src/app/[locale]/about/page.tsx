@@ -23,6 +23,7 @@ const skills = {
 	frontEnd: [
 		"Next.js",
 		"React",
+		"TypeScript",
 		"Svelte",
 		"Tailwind CSS",
 		"Tanstack Query",
