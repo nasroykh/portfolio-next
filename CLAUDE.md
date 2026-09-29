@@ -33,9 +33,9 @@ This is a **Next.js 16** portfolio site using the App Router, React 19, Tailwind
 - Shared layout wrapper: `src/components/layout/layout.tsx` (Header + Footer); the Header derives the active nav item from `usePathname()`
 - `src/app/[locale]/layout.tsx` is the root layout (`<html lang dir>`, fonts, providers); `AIAssistant` is mounted once there so the chat survives client-side navigation
 - Site-wide constants (URL, author, social links, OG helper) live in `src/lib/site.ts` — never hardcode the domain
-- Each page builds its metadata with `pageMetadata()` / `localeAlternates()` from `src/lib/site.ts` (canonical + hreflang). Blog posts and case studies are English only, so they pass `translated: false` and every locale points its canonical at the English URL; `/og?title=` (`src/app/og/route.tsx`) renders fallback OG images
+- Each page builds its metadata with `pageMetadata()` / `localeAlternates()` from `src/lib/site.ts` (canonical + hreflang). Blog posts and case studies are English only, so they pass `translated: false` and every locale points its canonical at the English URL; `/og?title=` (`src/app/og/route.tsx`) renders fallback OG images, only for titles of real posts and case studies (anything else gets the default card)
 - Nav items defined in `src/components/layout/header.tsx` (`NAV_ITEMS` array)
-- Unknown paths hit `src/app/[locale]/[...rest]/page.tsx` and render the localized `src/app/[locale]/not-found.tsx`
+- Unknown paths hit `src/app/[locale]/[...rest]/page.tsx` and render the localized `src/app/[locale]/not-found.tsx`; runtime errors render the localized `src/app/[locale]/error.tsx` (client component, so everything in `Layout` must stay non-async — `Footer` uses `useTranslations`), and `src/app/global-error.tsx` covers failures of the root layout itself
 - Pages (each also under `/fr`, `/ar`, `/es`): `/`, `/about`, `/experience`, `/projects`, `/projects/[slug]`, `/blog`, `/blog/[slug]`, `/contact`, `/resume`
 
 ### Projects & Case Studies
