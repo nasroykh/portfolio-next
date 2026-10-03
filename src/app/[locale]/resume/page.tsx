@@ -26,8 +26,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 type ResumeExperience = {
 	translationKey: string;
 	company: string;
-	breakAfter?: boolean;
-	printClass?: string;
 };
 
 const resumeExperiences: ResumeExperience[] = [
@@ -42,12 +40,10 @@ const resumeExperiences: ResumeExperience[] = [
 	{
 		translationKey: "tech4fab",
 		company: "Tech4Fab · tech4fab.com",
-		breakAfter: true,
 	},
 	{
 		translationKey: "techivation",
 		company: "Techivation Ltd · techivation.com",
-		printClass: "print:pt-12 print:max-w-4xl print:mx-auto",
 	},
 	{
 		translationKey: "solidersound",
@@ -65,7 +61,7 @@ export default async function ResumePage({ params }: Props) {
 	const t = await getTranslations("resume");
 
 	return (
-		<main className="max-w-4xl mx-auto space-y-8 py-8 px-4 print:px-0 print:py-0 print:space-y-0">
+		<main className="max-w-4xl mx-auto space-y-8 py-8 px-4 print:max-w-none print:p-0 print:space-y-0">
 			<div className="flex justify-between items-center gap-4 print:hidden">
 				<div className="flex items-center gap-2">
 					<Button asChild size="icon">
@@ -80,7 +76,7 @@ export default async function ResumePage({ params }: Props) {
 				</div>
 			</div>
 
-			<div className="bg-card rounded-lg shadow-sm border p-8 md:p-12 print:shadow-none print:border-0">
+			<div className="bg-card rounded-lg shadow-sm border p-8 md:p-12 print:p-0 print:rounded-none print:shadow-none print:border-0">
 				<div className="mb-8 pb-6 border-b">
 					<h1 className="text-4xl font-bold mb-2">{AUTHOR_NAME} (Nas)</h1>
 					<p className="text-xl text-muted-foreground mb-4">{t("title")}</p>
@@ -100,7 +96,7 @@ export default async function ResumePage({ params }: Props) {
 				</div>
 
 				<section className="mb-8">
-					<h2 className="text-2xl font-bold mb-3">
+					<h2 className="text-2xl font-bold mb-3 break-after-avoid">
 						{t("professionalSummary")}
 					</h2>
 					<p className="text-muted-foreground leading-relaxed">
@@ -109,8 +105,10 @@ export default async function ResumePage({ params }: Props) {
 				</section>
 
 				<section className="mb-8">
-					<h2 className="text-2xl font-bold mb-3">{t("technicalSkills")}</h2>
-					<div className="grid md:grid-cols-2 gap-4 text-sm">
+					<h2 className="text-2xl font-bold mb-3 break-after-avoid">
+						{t("technicalSkills")}
+					</h2>
+					<div className="grid md:grid-cols-2 print:grid-cols-2 gap-4 text-sm">
 						<div>
 							<h3 className="font-semibold mb-2">{t("frontend")}</h3>
 							<p className="text-muted-foreground">
@@ -142,7 +140,9 @@ export default async function ResumePage({ params }: Props) {
 				</section>
 
 				<section className="mb-8">
-					<h2 className="text-2xl font-bold mb-4">{t("workExperience")}</h2>
+					<h2 className="text-2xl font-bold mb-4 break-after-avoid">
+						{t("workExperience")}
+					</h2>
 
 					<div className="space-y-6">
 						{resumeExperiences.map((exp) => {
@@ -153,12 +153,7 @@ export default async function ResumePage({ params }: Props) {
 							) as string[];
 
 							return (
-								<div
-									key={exp.translationKey}
-									className={`${exp.breakAfter ? "break-after-page" : ""} ${
-										exp.printClass || ""
-									}`}
-								>
+								<div key={exp.translationKey} className="break-inside-avoid">
 									<div className="flex justify-between items-start mb-2">
 										<div>
 											<h3 className="text-lg font-semibold">{role}</h3>

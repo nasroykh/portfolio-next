@@ -337,6 +337,12 @@ table {
 	text-wrap: balance;
 }
 
+/* Page margins live here, not in the layout, so every printed page (not just the first) gets them
+   and the content can flow freely across A4 and Letter in every locale. */
+@page {
+	margin: 14mm 12mm;
+}
+
 @media print {
 	header,
 	footer {
